@@ -9,6 +9,7 @@ Place your ERA5 file in the data/ directory:
 data/e5.oper.an.sfc.128_167_2t.ll025sc.2015050100_2015053123.nc
 
 3. Build and run the app
+   
 docker compose up --build
 
 Start both services.
