@@ -12,12 +12,9 @@ data/e5.oper.an.sfc.128_167_2t.ll025sc.2015050100_2015053123.nc
    
 docker compose up --build
 
-Start both services.
-
 4. Open in browser
 
 Go to http://localhost:5173
-.
 
 Enter a time index (0–743, since this file has 744 hours = May 2015).
 
