@@ -1,0 +1,137 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.webapp.name }}-{{ randAlphaNum 5 | lower }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Values.webapp.name }}
+    group: {{ .Values.webapp.group }}
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.webapp.name }}
+    spec:
+      restartPolicy: Never
+      volumes:
+        - name: {{ .Values.webapp.volume1.name }}
+          nfs:
+            server: {{ .Values.webapp.volume1.server }}
+            path: {{ .Values.webapp.volume1.path }}
+            readOnly: {{ .Values.webapp.volume1.readOnly }}
+        - name: {{ .Values.webapp.volume2.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.webapp.volume2.name }}
+      runtimeClassName: nvidia
+      securityContext:
+        fsGroup: 1000
+      containers:
+      - name: {{ .Values.webapp.name }}
+        image: {{ .Values.webapp.container.image }}
+        imagePullPolicy: {{ .Values.webapp.imagePullPolicy }}
+        command: ["/bin/bash", "-c"]
+        args:
+          - |
+            rm -rf /output/*
+            #pip install zarr==2.17.2
+            #conda run -n credit python -c "import zarr; print(zarr.__version__)"
+            conda run -n credit conda list zarr
+            git clone https://github.com/NCAR/CIRRUS-MILES-CREDIT.git
+            mv CIRRUS-MILES-CREDIT/model_predict_gfs.yml config
+            pwd
+            #cat model_predict_gfs.yml
+            #mv model_predict_gfs.yml config
+            #
+            conda run -n credit python -m pip install -e .
+            cd applications
+            sed -i "21a\    print(base_path)" gfs_init.py
+            sed -i 's|\.\./metadata/|../credit/metadata/|' gfs_init.py
+            #sed -i "50a\            consolidated=True," gfs_init.py
+            #sed -i 's/to_zarr/to_netcdf/g' gfs_init.py
+            #cat gfs_init.py
+            #conda run -n credit conda install zarr==2.17.2
+            echo "GFS INIT"
+            ls -lrth /output
+            LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
+            conda run -n credit python gfs_init.py -c ../config/model_predict_gfs.yml
+            echo "output"
+            ls -a /output
+            #sed -i "81a\    print(fn)" miles-credit/credit/datasets/realtime_predict.py
+            #conda run -n credit python -c "import xarray as xr; ds=xr.open_zarr('/output/gfs_init_20250702_0000.zarr', consolidated=False); ds.to_zarr('/output/gfs_init_20250702_0000.zarr', consolidated=True, mode='a')"
+            conda run -n credit python -c "
+            import sys, xarray as xr
+            
+            try:
+                store = '/output/gfs_init_20250702_0000.zarr'
+                ds = xr.open_zarr(store, consolidated=False)
+                ds.to_zarr(store, consolidated=True, mode='a')
+                xr.open_zarr(store, consolidated=True)  # Validation
+                print('✅ .zmetadata written and valid')
+            except Exception as e:
+                print('❌ Failed to consolidate metadata:', e)
+                sys.exit(1)
+            "
+            conda install -n credit cftime
+            echo "output2"
+            ls -a /output
+            echo "output3"
+            ls -a /output/gfs_init_20250702_0000.zarr
+            ls -a /output
+            find /output -name *zmetadata*
+            cp /output/gfs_init_20250702_0000.zarr/.zmetadata /output
+            mkdir -p /output/wxformer_1h_gfs
+            echo "ROLLOUT REALTIME"
+            conda run -n credit conda list zarr
+            #
+            #sed -i '154s/.*/        dataset = xr.open_zarr(filename, consolidated=False)/' ../credit/data.py
+            #sed -i '264a\    print(varnames_keep)\n    data_variable_names = list(xarray_dataset.data_vars.keys())\n    print(f"Data variable names: {data_variable_names}")' ../credit/data.py
+            #sed -i '264a\    print(varnames_keep)' ../credit/data.py
+            #sed -i '265a\    data_variable_names = list(xarray_dataset.data_vars.keys())' ../credit/data.py
+            #sed -i '266a\    print(f"Data variable names: {data_variable_names}")' ../credit/data.py
+            #cat ../credit/data.py
+            #
+            #
+            #conda activate credit
+            LD_LIBRARY_PATH=/opt/conda/envs/credit/lib:$LD_LIBRARY_PATH \
+            conda run -n credit python rollout_realtime.py -c ../config/model_predict_gfs.yml
+            ls -a /output/wxformer_1h_gfs
+            #printf '{\n    "zarr_format": 2\n}\n' > /output/.zgroup
+            #
+            #python applications/gfs_init.py
+            #conda run -n credit python -c "import torch; print(\"CUDA available?\", torch.cuda.is_available())"
+            #bash /usr/local/bin/gpu-test &&
+            #ls /usr/local/bin/gpu-test &&
+            
+        #command: ["/bin/bash", "-c"]
+        #args:
+        #  - |
+        #    echo foo;
+#        command: ["/bin/bash", "-c"]
+#        args:
+#          - |
+#            echo "Starting job...";
+#            export TZ=MST;
+#            RESULT=$(date);
+#            echo "The current date is: $RESULT";
+        #command: ["/bin/bash", "-c"]
+        #args:
+        #  - |
+        #    ls;
+        #    ls /usr/local/bin/gpu-test;
+        #    /usr/local/bin/gpu-test;
+        #args: ["-c", "/usr/local/bin/gpu-test"]
+        tty: true
+        resources:
+          limits:
+            memory: {{ .Values.webapp.container.limits.memory }}
+            cpu: {{ .Values.webapp.container.limits.cpu }}
+            nvidia.com/gpu: "1"
+          requests:
+            memory: {{ .Values.webapp.container.requests.memory }}
+            cpu: {{ .Values.webapp.container.requests.cpu }}
+            nvidia.com/gpu: "1"
+        volumeMounts:
+        - mountPath: /glade/campaign
+          name: {{ .Values.webapp.volume1.name }}
+        - mountPath: /output
+          name: {{ .Values.webapp.volume2.name }}
