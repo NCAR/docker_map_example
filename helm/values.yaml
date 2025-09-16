@@ -1,19 +1,55 @@
 replicaCount: 1
 
-webapp:
-  name: docker_map_example
-  group: docker_map_example
-  imagePullPolicy: Always
-  path: /
-  tls:
-    fqdn: docker_map_example.k8s.ucar.edu
-    secretName: incommon-cert-docker_map_example
-  container: 
-    image: docker.io/sgpearse/miles-credit:1.4
-    port: 8080
-    requests: 
-      memory: 24Gi
-      cpu: 2
-    limits: 
-      memory: 24Gi
-      cpu: 2
+backend:
+  image:
+    repository: my-backend
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 8000
+  env:
+    NETCDF_FILE: /data/e5.oper.an.sfc.128_167_2t.ll025sc.2015050100_2015053123.nc
+    CARTOPY_DATA_DIR: /tmp/cartopy
+  volume:
+    dataPath: /data   # path inside container
+    hostPath: ./data  # path on host or a PersistentVolume
+
+frontend:
+  image:
+    repository: my-frontend
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 80
+  env:
+    API_URL: http://backend:8000
+
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: myapp.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+#backend:
+#  name: docker_map_example
+#  group: docker_map_example
+#  imagePullPolicy: Always
+#  path: /
+#  tls:
+#    fqdn: docker_map_example.k8s.ucar.edu
+#    secretName: incommon-cert-docker_map_example
+#  container: 
+#    image: docker.io/sgpearse/miles-credit:1.4
+#    port: 8080
+#    requests: 
+#      memory: 2Gi
+#      cpu: 2
+#    limits: 
+#      memory: 24Gi
+#      cpu: 2
