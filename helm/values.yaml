@@ -1,0 +1,10 @@
+replicaCount: 1
+
+webapp:
+  name: flask-demo
+  group: flask-demo
+  path: /
+  welcomeMessage: "Welcome to the Flask Demo!"
+  container: 
+    image: docker.io/ncging/argo-flask-demo:2025-08-08.11.09
+    port: 5000

@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: flask-demo
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: REPLACE_REPO_URL
+    targetRevision: HEAD
+    path: flask-helm
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
