@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: flask-demo
   namespace: visr
+  annotations:
+    cert-manager.io/cluster-issuer: incommon
 spec:
   ingressClassName: nginx-internal
   rules:
