@@ -16,7 +16,7 @@ spec:
       labels:
         app: {{ .Values.webapp.name }}
       annotations:
-        rollout-trigger: "1"
+        checksum/ingress: {{ .Values.ingress | toYaml | sha256sum }}
     spec:
       containers:
       - name: {{ .Values.webapp.name }}
