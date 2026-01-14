@@ -1,12 +1,20 @@
 FROM python:3.10-slim
 
+# Prevent Python from buffering stdout/stderr
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
-COPY flask-app /app/flask-app
+#COPY flask-app /app/flask-app
+COPY flask-app/ .
 COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-CMD ["python", "flask-app/wsgi.py"]
+# Expose Flask port
+EXPOSE 5000
+
+#CMD ["python", "flask-app/wsgi.py"]
+CMD ["python", "wsgi.py"]
 
 
 
