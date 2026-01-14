@@ -11,13 +11,30 @@ spec:
   - host: visr-flask-demo.k8s.ucar.edu
     http:
       paths:
-      - backend:
+      # NEW map path (must be before "/")
+      - path: /map
+        pathType: Prefix
+        backend:
           service:
             name: flask-demo
             port:
               number: 5000
-        path: /
+
+      # existing root path
+      - path: /
         pathType: Prefix
+        backend:
+          service:
+            name: flask-demo
+            port:
+              number: 5000
+#      - backend:
+#          service:
+#            name: flask-demo
+#            port:
+#              number: 5000
+#        path: /
+#        pathType: Prefix
   tls:
   - hosts:
     - visr-flask-demo.k8s.ucar.edu

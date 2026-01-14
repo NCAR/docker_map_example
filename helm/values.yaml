@@ -1,6 +1,8 @@
 replicaCount: 1
 
 webapp:
+  enabled: true
+  dataDir: /app/flask-app/data
   name: flask-demo
   group: flask-demo
   path: /
