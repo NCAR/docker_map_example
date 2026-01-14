@@ -27,5 +27,5 @@ spec:
         - name: WELCOME_MESSAGE
           value: {{ .Values.webapp.welcomeMessage | quote }}
         - name: MAP_DATA_DIR
-          value: {{ .Values.map.dataDir | quote }}
+          value: {{ .Values.webapp.dataDir | quote }}
 
