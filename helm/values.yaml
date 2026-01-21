@@ -7,7 +7,12 @@ webapp:
   group: flask-demo
   path: /
   welcomeMessage: "Welcome to the Flask Demo!"
+
   container: 
     #image: docker.io/ncging/argo-flask-demo:2025-08-08.11.09
     image: docker.io/sgpearse/flask-map-demo:0.0.1
     port: 5000
+
+  volume3:
+    name: output
+    size: 160Gi

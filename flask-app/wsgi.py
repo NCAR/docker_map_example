@@ -8,6 +8,7 @@ app = Flask(
     static_folder=os.path.join(os.path.dirname(__file__), "app/static"),
     template_folder=os.path.join(os.path.dirname(__file__), "app/templates")
 )
+print(app.url_map)
 
 # Home route (optional)
 @app.route("/")
