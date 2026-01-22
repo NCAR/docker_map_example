@@ -27,7 +27,7 @@ def list_files():
 
     #files = os.listdir(data_dir)
     #files.sort()
-    files="foo"
+    files=["foo", "bar"]
 
     html = """
     <h1>PVC Contents</h1>
