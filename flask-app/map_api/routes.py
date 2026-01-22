@@ -29,14 +29,15 @@ def map_data():
 @map_blueprint.route("/files")
 def list_files():
     #data_dir = os.environ.get("MAP_DATA_DIR", "/app/flask-app/data")
-    local_dir = "/Users/vapor/docker_map_example/flask-app/data"
-    if os.path.isdir(local_dir):
-        data_dir = os.environ.get("MAP_DATA_DIR", local_dir)
-    else:
-        data_dir = os.environ.get("MAP_DATA_DIR", "/output")
+    #local_dir = "/Users/vapor/docker_map_example/flask-app/data"
+    #if os.path.isdir(local_dir):
+    #    data_dir = os.environ.get("MAP_DATA_DIR", local_dir)
+    #else:
+    #    data_dir = os.environ.get("MAP_DATA_DIR", "/output")
 
-    files = os.listdir(data_dir)
-    files.sort()
+    #files = os.listdir(data_dir)
+    #files.sort()
+    files="foo"
 
     html = """
     <h1>PVC Contents</h1>
