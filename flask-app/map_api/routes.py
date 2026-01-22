@@ -58,7 +58,6 @@ def era5_info():
     finally:
         ds.close()
 
-
 @map_blueprint.route("/era5/plot")
 def era5_plot():
     t = request.args.get("t", default=0, type=int)
@@ -68,7 +67,11 @@ def era5_plot():
 @map_blueprint.route("/files")
 def list_files():
     #data_dir = os.environ.get("MAP_DATA_DIR", "/app/flask-app/data")
-    data_dir = os.environ.get("MAP_DATA_DIR", "/Users/vapor/docker_map_example/flask-app/data")
+    local_dir = "/Users/vapor/docker_map_example/flask-app/data"
+    if os.path.isdir(local_dir):
+        data_dir = os.environ.get("MAP_DATA_DIR", local_dir)
+    else:
+        data_dir = os.environ.get("MAP_DATA_DIR", "/output")
 
     files = os.listdir(data_dir)
     files.sort()

@@ -14,5 +14,5 @@ webapp:
     port: 5000
 
   volume1:
-    name: credit-output
+    name: output
     size: 160Gi
