@@ -7,6 +7,7 @@ WORKDIR /app
 #COPY flask-app /app/flask-app
 COPY flask-app/ .
 COPY requirements.txt .
+COPY startup.sh .
 
 RUN pip install -r requirements.txt
 
@@ -15,7 +16,7 @@ EXPOSE 5000
 
 #CMD ["python", "flask-app/wsgi.py"]
 #CMD ["python", "wsgi.py"]
-CMD ["bash", "startup.sh"]
+CMD ["bash", "/app/startup.sh"]
 
 
 

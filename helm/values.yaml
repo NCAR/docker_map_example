@@ -10,7 +10,7 @@ webapp:
 
   container: 
     #image: docker.io/ncging/argo-flask-demo:2025-08-08.11.09
-    image: docker.io/sgpearse/flask-map-demo:0.0.4
+    image: docker.io/sgpearse/flask-map-demo:0.0.5
     port: 5000
 
   volume1:
