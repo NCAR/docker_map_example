@@ -14,7 +14,8 @@ RUN pip install -r requirements.txt
 EXPOSE 5000
 
 #CMD ["python", "flask-app/wsgi.py"]
-CMD ["python", "wsgi.py"]
+#CMD ["python", "wsgi.py"]
+CMD ["bash", "startup.sh"]
 
 
 
