@@ -1,1 +1,14 @@
 flask
+xarray
+cartopy
+matplotlib
+numpy
+fastapi
+uvicorn
+pillow
+shapely
+proj
+geos
+cftime
+netcdf4
+pip
