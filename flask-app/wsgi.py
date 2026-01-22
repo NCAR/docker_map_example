@@ -16,7 +16,8 @@ def home():
     return "Hello, World!"
 
 # Register blueprint
-app.register_blueprint(map_blueprint, url_prefix="/map")
+#app.register_blueprint(map_blueprint, url_prefix="/map")
+app.register_blueprint(map_blueprint)
 
 # Run locally
 if __name__ == "__main__":
