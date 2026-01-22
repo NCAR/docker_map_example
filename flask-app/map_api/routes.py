@@ -1,5 +1,6 @@
-from flask import Blueprint, jsonify, render_template, request, send_file
+from flask import Blueprint, jsonify, render_template, render_template_string, request, send_file
 from .era5_plot import plot_png, NETCDF_FILE, VAR_NAME, TIME_NAME, LAT_NAME, LON_NAME
+from pathlib import Path
 import xarray as xr
 import json
 import os
@@ -66,7 +67,8 @@ def era5_plot():
 
 @map_blueprint.route("/files")
 def list_files():
-    data_dir = os.environ.get("MAP_DATA_DIR", "/app/flask-app/data")
+    #data_dir = os.environ.get("MAP_DATA_DIR", "/app/flask-app/data")
+    data_dir = os.environ.get("MAP_DATA_DIR", "/Users/vapor/docker_map_example/flask-app/data")
 
     files = os.listdir(data_dir)
     files.sort()

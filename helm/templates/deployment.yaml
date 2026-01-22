@@ -29,10 +29,10 @@ spec:
         - name: MAP_DATA_DIR
           value: {{ .Values.webapp.dataDir | quote }}
         volumeMounts:
-          - name: {{ .Values.webapp.volume3.name }}
+          - name: {{ .Values.webapp.volume1.name }}
             mountPath: {{ .Values.webapp.dataDir }}
       volumes:
-        - name: {{ .Values.webapp.volume3.name }}
+        - name: {{ .Values.webapp.volume1.name }}
           persistentVolumeClaim:
-            claimName: {{ .Values.webapp.volume3.name }}
+            claimName: {{ .Values.webapp.volume1.name }}
 

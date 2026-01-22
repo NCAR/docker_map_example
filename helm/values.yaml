@@ -13,6 +13,6 @@ webapp:
     image: docker.io/sgpearse/flask-map-demo:0.0.1
     port: 5000
 
-  volume3:
-    name: output
+  volume1:
+    name: credit-output
     size: 160Gi
