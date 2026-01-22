@@ -26,6 +26,29 @@ def map_data():
     with open(data_file) as f:
         return jsonify(json.load(f))
 
+@map_blueprint.route("/files")
+def list_files():
+    #data_dir = os.environ.get("MAP_DATA_DIR", "/app/flask-app/data")
+    local_dir = "/Users/vapor/docker_map_example/flask-app/data"
+    if os.path.isdir(local_dir):
+        data_dir = os.environ.get("MAP_DATA_DIR", local_dir)
+    else:
+        data_dir = os.environ.get("MAP_DATA_DIR", "/output")
+
+    files = os.listdir(data_dir)
+    files.sort()
+
+    html = """
+    <h1>PVC Contents</h1>
+    <ul>
+    {% for f in files %}
+      <li>{{ f }}</li>
+    {% endfor %}
+    </ul>
+    """
+
+    return render_template_string(html, files=files)
+
 @map_blueprint.route("/era5")
 def era5_root():
     return jsonify(
@@ -64,25 +87,3 @@ def era5_plot():
     buf = plot_png(t)
     return send_file(buf, mimetype="image/png")
 
-@map_blueprint.route("/files")
-def list_files():
-    #data_dir = os.environ.get("MAP_DATA_DIR", "/app/flask-app/data")
-    local_dir = "/Users/vapor/docker_map_example/flask-app/data"
-    if os.path.isdir(local_dir):
-        data_dir = os.environ.get("MAP_DATA_DIR", local_dir)
-    else:
-        data_dir = os.environ.get("MAP_DATA_DIR", "/output")
-
-    files = os.listdir(data_dir)
-    files.sort()
-
-    html = """
-    <h1>PVC Contents</h1>
-    <ul>
-    {% for f in files %}
-      <li>{{ f }}</li>
-    {% endfor %}
-    </ul>
-    """
-
-    return render_template_string(html, files=files)

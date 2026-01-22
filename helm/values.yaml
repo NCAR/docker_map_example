@@ -15,4 +15,5 @@ webapp:
 
   volume1:
     name: output
+    mountPath: /output
     size: 160Gi

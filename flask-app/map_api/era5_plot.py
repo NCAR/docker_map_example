@@ -7,7 +7,8 @@ import cartopy.crs as ccrs
 import io
 import os
 
-NETCDF_FILE = os.environ.get("NETCDF_FILE", "/data/file.nc")
+#NETCDF_FILE = os.environ.get("NETCDF_FILE", "/data/file.nc")
+NETCDF_FILE = os.environ.get("NETCDF_FILE", "/output/*.nc")
 VAR_NAME = "VAR_2T"
 TIME_NAME = "time"
 LAT_NAME = "latitude"
