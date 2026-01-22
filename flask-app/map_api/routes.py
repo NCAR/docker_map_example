@@ -12,7 +12,7 @@ map_blueprint = Blueprint(
     static_folder="../app/static"
 )
 
-@map_blueprint.route("/")
+@map_blueprint.route("/map")
 def map_view():
     return render_template("map.html")
 

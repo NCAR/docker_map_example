@@ -15,6 +15,10 @@ print(app.url_map)
 def home():
     return "Hello, World!"
 
+@app.route("/__routes")
+def routes():
+    return "<br>".join(r.rule for r in app.url_map.iter_rules())
+
 # Register blueprint
 #app.register_blueprint(map_blueprint, url_prefix="/map")
 app.register_blueprint(map_blueprint)

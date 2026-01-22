@@ -12,13 +12,13 @@ spec:
     http:
       paths:
       # NEW map path (must be before "/")
-      - path: /map
-        pathType: Prefix
-        backend:
-          service:
-            name: flask-demo
-            port:
-              number: 5000
+      #- path: /map
+      #  pathType: Prefix
+      #  backend:
+      #    service:
+      #      name: flask-demo
+      #      port:
+      #        number: 5000
 
       # existing root path
       - path: /
@@ -28,13 +28,6 @@ spec:
             name: flask-demo
             port:
               number: 5000
-#      - backend:
-#          service:
-#            name: flask-demo
-#            port:
-#              number: 5000
-#        path: /
-#        pathType: Prefix
   tls:
   - hosts:
     - visr-flask-demo.k8s.ucar.edu
