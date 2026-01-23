@@ -3,6 +3,10 @@ FROM python:3.10-slim
 # Prevent Python from buffering stdout/stderr
 ENV PYTHONUNBUFFERED=1
 
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends git \
+ && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 #COPY flask-app /app/flask-app
 COPY flask-app/ .
