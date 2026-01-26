@@ -24,6 +24,7 @@ def list_files():
         data_dir = os.environ.get("MAP_DATA_DIR", local_dir)
     else:
         data_dir = os.environ.get("MAP_DATA_DIR", "/output")
+    data_dir = os.environ.get("/output")
 
     files = os.listdir(data_dir)
     files.sort()
