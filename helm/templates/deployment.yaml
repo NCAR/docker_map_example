@@ -30,7 +30,8 @@ spec:
           value: {{ .Values.webapp.dataDir | quote }}
         volumeMounts:
           - name: {{ .Values.webapp.volume1.name }}
-            mountPath: {{ .Values.webapp.dataDir }}
+            mountPath: {{ .Values.webapp.volume1.mountPath }}
+            #mountPath: {{ .Values.webapp.dataDir }}
       volumes:
         - name: {{ .Values.webapp.volume1.name }}
           persistentVolumeClaim:
