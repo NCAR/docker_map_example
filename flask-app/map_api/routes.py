@@ -42,7 +42,7 @@ def list_files():
 
 @map_blueprint.route("/model_predict")
 def list_model_predict():
-    data_dir = os.environ.get("MAP_DATA_DIR", "/output/model_predict")
+    data_dir = os.environ.get("/output/model_predict")
 
     files = os.listdir(data_dir)
     files.sort()
