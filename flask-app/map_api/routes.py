@@ -41,7 +41,7 @@ def list_files():
     return render_template_string(html, files=files)
 
 @map_blueprint.route("/model_predict")
-def list_files():
+def list_model_predict():
     data_dir = os.environ.get("MAP_DATA_DIR", "/model_predict")
 
     files = os.listdir(data_dir)
