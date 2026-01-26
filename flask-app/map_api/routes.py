@@ -21,9 +21,9 @@ def list_files():
     data_dir = os.environ.get("MAP_DATA_DIR", "/app/flask-app/data")
     local_dir = "/Users/vapor/docker_map_example/flask-app/data"
     if os.path.isdir(local_dir):
-        data_dir = os.environ.get("fooMAP_DATA_DIR", local_dir)
+        data_dir = os.environ.get("MAP_DATA_DIR", local_dir)
     else:
-        data_dir = os.environ.get("fooMAP_DATA_DIR", "/output")
+        data_dir = os.environ.get("MAP_DATA_DIR", "/output")
     #data_dir = os.environ.get("/output")
 
     files = os.listdir(data_dir)
