@@ -1,3 +1,4 @@
+ls /output
 cat startup.sh
 pwd
 ls -lrth
