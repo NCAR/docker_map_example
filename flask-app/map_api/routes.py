@@ -28,6 +28,7 @@ def list_files():
 
     files = os.listdir(data_dir)
     files.sort()
+    files.append(data_dir)
     #files=["foo", "bar", "baz", "boo"]
 
     html = """
