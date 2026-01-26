@@ -9,7 +9,7 @@ webapp:
   welcomeMessage: "Welcome to the Flask Demo!"
 
   container: 
-    image: docker.io/sgpearse/flask-map-demo:0.0.6
+    image: docker.io/sgpearse/flask-map-demo:0.0.7
     port: 5000
 
   volume1:
