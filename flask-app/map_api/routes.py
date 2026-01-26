@@ -40,6 +40,25 @@ def list_files():
 
     return render_template_string(html, files=files)
 
+@map_blueprint.route("/model_predict")
+def list_files():
+    data_dir = os.environ.get("MAP_DATA_DIR", "/model_predict")
+
+    files = os.listdir(data_dir)
+    files.sort()
+    #files=["foo", "bar", "baz", "boo"]
+
+    html = """
+    <h1>PVC Contents</h1>
+    <ul>
+    {% for f in files %}
+      <li>{{ f }}</li>
+    {% endfor %}
+    </ul>
+    """
+
+    return render_template_string(html, files=files)
+
 @map_blueprint.route("/data")
 def map_data():
     #data_dir = os.environ.get("MAP_DATA_DIR", "/app/flask-app/data")
