@@ -18,6 +18,8 @@ RUN pip install -r requirements.txt
 # Expose Flask port
 EXPOSE 5000
 
+RUN mkdir -p /output
+
 #CMD ["python", "flask-app/wsgi.py"]
 #CMD ["python", "wsgi.py"]
 CMD ["bash", "/app/startup.sh"]
