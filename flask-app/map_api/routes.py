@@ -49,7 +49,7 @@ def list_model_predict():
     #files=["foo", "bar", "baz", "boo"]
 
     html = """
-    <h1>PVC Contents</h1>
+    <h1>model_predict Contents</h1>
     <ul>
     {% for f in files %}
       <li>{{ f }}</li>
