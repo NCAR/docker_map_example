@@ -34,6 +34,9 @@ def list_files():
     files.append(data_dir)
     #files=["foo", "bar", "baz", "boo"]
 
+    outputFiles = os.listdir(data_dir + "/model_predict")
+    files.append(outputFiles)
+
     html = """
     <h1>PVC Contents</h1>
     <ul>
