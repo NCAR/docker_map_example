@@ -58,6 +58,9 @@ def list_model_predict():
     files.sort()
     #files=["foo", "bar", "baz", "boo"]
 
+    predictFiles = os.listdir("/app/flask-app/data/model_predict")
+    files.append(predictFiles)
+
     html = """
     <h1>model_predict Contents</h1>
     <ul>
