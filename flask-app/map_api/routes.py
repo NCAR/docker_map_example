@@ -34,7 +34,9 @@ def list_files():
     files.append(data_dir)
     #files=["foo", "bar", "baz", "boo"]
 
-    outputFiles = os.listdir(data_dir + "/model_predict")
+    outputFileDir = os.listdir(data_dir + "/model_predict")
+    files.append(outputFileDir)
+    outputFiles = os.listdir(data_dir + "/model_predict/2025-12-03T12Z")
     files.append(outputFiles)
 
     html = """
