@@ -21,13 +21,16 @@ def list_files():
     data_dir = os.environ.get("MAP_DATA_DIR", "/app/flask-app/data")
     local_dir = "/Users/vapor/docker_map_example/flask-app/data"
     if os.path.isdir(local_dir):
+        append="local"
         data_dir = os.environ.get("MAP_DATA_DIR", local_dir)
     else:
+        append="remote"
         data_dir = os.environ.get("MAP_DATA_DIR", "/output")
     #data_dir = os.environ.get("/output")
 
     files = os.listdir(data_dir)
     files.sort()
+    files.append(append)
     files.append(data_dir)
     #files=["foo", "bar", "baz", "boo"]
 
@@ -44,7 +47,7 @@ def list_files():
 
 @map_blueprint.route("/model_predict")
 def list_model_predict():
-    data_dir = os.environ.get("fooMAP_DATA_DIR", "/app/flask-all/data/model_predict")
+    data_dir = os.environ.get("fooMAP_DATA_DIR", "/app/flask-app/data/model_predict")
 
     files = os.listdir(data_dir)
     files.sort()
