@@ -36,8 +36,8 @@ def list_files():
 
     outputFileDir = os.listdir(data_dir + "/model_predict")
     files.append(outputFileDir)
-    outputFiles = os.listdir(data_dir + "/model_predict/2025-12-03T12Z")
-    files.append(outputFiles)
+    #outputFiles = os.listdir(data_dir + "/model_predict/2025-12-03T12Z")
+    #files.append(outputFiles)
 
     html = """
     <h1>PVC Contents</h1>
