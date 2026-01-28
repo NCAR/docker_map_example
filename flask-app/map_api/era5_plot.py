@@ -77,6 +77,7 @@ def plot_png(t: int):
         #    vmin=vmin,
         #    vmax=vmax
         #)
+        time_val = da[TIME_NAME].isel({TIME_NAME: t}).values
         time_str = pd.Timestamp(time_val).strftime("%Y-%m-%d %H:%M UTC")
         plt.title(f"{VAR_NAME} (2 m temperature) - t={t} - {time_str}")
         plt.colorbar(mesh, ax=ax, orientation="horizontal",
