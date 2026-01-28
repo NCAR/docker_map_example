@@ -67,7 +67,7 @@ def plot_png(t: int):
             pass
 
         vmin, vmax = da.min().values.item(), da.max().values.item()
-        ax.imshow(arr_sorted, origin='lower', 
+        im = ax.imshow(arr_sorted, origin='lower', 
             extent=[lon_sorted.min(), lon_sorted.max(), lat.min(), lat.max()],
             transform=ccrs.PlateCarree(), 
             vmin=vmin, vmax=vmax)
@@ -80,8 +80,7 @@ def plot_png(t: int):
         time_val = da[TIME_NAME].isel({TIME_NAME: t}).values
         time_str = pd.Timestamp(time_val).strftime("%Y-%m-%d %H:%M UTC")
         plt.title(f"{VAR_NAME} (2 m temperature) - t={t} - {time_str}")
-        plt.colorbar(mesh, ax=ax, orientation="horizontal",
-                     pad=0.05, label="K")
+        plt.colorbar(im, ax=ax, orientation="horizontal", pad=0.05, label="K")
         fig.subplots_adjust(left=0.05, right=0.95, top=0.90, bottom=0.10)
         #plt.tight_layout()
 
