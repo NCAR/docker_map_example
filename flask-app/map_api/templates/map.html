@@ -60,15 +60,13 @@
       const t = slider.value;
       const varName = variableSelect.value;
       timeValue.textContent = t;
+      // Force reload by adding timestamp to bypass browser caching
       plotImage.src = `/era5/plot?t=${t}&var=${varName}&_=${new Date().getTime()}`;
     }
 
     slider.addEventListener("input", updatePlot);
     variableSelect.addEventListener("change", updatePlot);
-
-    // Force reload by adding timestamp to bypass browser caching
-    // plotImage.src = "/era5/plot?t=" + t + "&_=" + new Date().getTime();
-    });
+    updatePlot();
   </script>
 
 </body>
