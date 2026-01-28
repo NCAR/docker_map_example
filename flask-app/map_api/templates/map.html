@@ -24,6 +24,16 @@
 
 <body>
 
+  <!-- Variable selector -->
+  <div class="variable-container">
+    <label for="variableSelect">Variable:</label>
+    <select id="variableSelect">
+      {% for var in variables %}
+        <option value="{{ var }}" {% if var == default_var %}selected{% endif %}>{{ var }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
   <!-- Plot image -->
   <img id="plotImage" src="/era5/plot?t=0" />
 
@@ -44,13 +54,20 @@
     const slider = document.getElementById("timeSlider");
     const plotImage = document.getElementById("plotImage");
     const timeValue = document.getElementById("timeValue");
+    const variableSelect = document.getElementById("variableSelect");
 
-    slider.addEventListener("input", function () {
-      let t = slider.value;
+    function updatePlot() {
+      const t = slider.value;
+      const varName = variableSelect.value;
       timeValue.textContent = t;
+      plotImage.src = `/era5/plot?t=${t}&var=${varName}&_=${new Date().getTime()}`;
+    }
 
-      // Force reload by adding timestamp to bypass browser caching
-      plotImage.src = "/era5/plot?t=" + t + "&_=" + new Date().getTime();
+    slider.addEventListener("input", updatePlot);
+    variableSelect.addEventListener("change", updatePlot);
+
+    // Force reload by adding timestamp to bypass browser caching
+    // plotImage.src = "/era5/plot?t=" + t + "&_=" + new Date().getTime();
     });
   </script>
 
