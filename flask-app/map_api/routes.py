@@ -8,8 +8,10 @@ import os
 map_blueprint = Blueprint(
     "map",
     __name__,
-    template_folder="../app/templates",
-    static_folder="../app/static"
+    template_folder=os.path.join(os.path.dirname(__file__), "templates"),
+    static_folder=os.path.join(os.path.dirname(__file__), "static")
+    #template_folder="../templates",
+    #static_folder="../static"
 )
 
 @map_blueprint.route("/files")
