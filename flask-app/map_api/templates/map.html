@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ERA5 Map Slider</title>
+  <title>miles-credit</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
   <style>
     body {
       font-family: sans-serif;
@@ -24,30 +25,31 @@
 
 <body>
 
-<div class="controls-container" style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 20px;">
-  <!-- Variable selector -->
-  <div class="variable-container">
-    <label for="variableSelect">Variable:</label>
-    <select id="variableSelect">
-      {% for var in variables %}
-        <option value="{{ var }}" {% if var == default_var %}selected{% endif %}>{{ var }}</option>
-      {% endfor %}
-    </select>
+  <div class="controls-container">
+    <!-- Variable selector -->
+    <div class="variable-container">
+      <label for="variableSelect">Variable:</label>
+      <select id="variableSelect">
+        {% for var in variables %}
+          <option value="{{ var }}" {% if var == default_var %}selected{% endif %}>{{ var }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  
+    <!-- Slider with label to its left -->
+    <div class="slider-container">
+      <label for="timeSlider">Time index:</label>
+      <input
+        type="range"
+        id="timeSlider"
+        min="0"
+        max="{{ ntime -1 }}"
+        value="0"
+        step="1"
+      />
+      <span id="timeValue">0</span>
+    </div>
   </div>
-
-  <!-- Slider -->
-  <div class="slider-container">
-    <input
-      type="range"
-      id="timeSlider"
-      min="0"
-      max="{{ ntime -1 }}"
-      value="0"
-      step="1"
-    />
-    <p>Time index: <span id="timeValue">0</span></p>
-  </div>
-</div>
 
   <!-- Plot image -->
   <img id="plotImage" src="/era5/plot?t=0" />

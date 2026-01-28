@@ -1,0 +1,14 @@
+.controls-container {
+  display: flex;
+  justify-content: center; /* center horizontally */
+  align-items: center;     /* center vertically */
+  gap: 40px;               /* space between selector and slider */
+  margin-bottom: 20px;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;               /* space between label, slider, and value */
+}
+
