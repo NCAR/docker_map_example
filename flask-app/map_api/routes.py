@@ -121,9 +121,10 @@ def era5_plot():
 
 @map_blueprint.route("/credit-map")
 def map_view():
-    ds = xr.open_mfdataset(NETCDF_FILE)
-    try:
-        ntime = int(ds.dims[TIME_NAME])
+    #ds = xr.open_mfdataset(NETCDF_FILE)
+    #try:
+    with xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True) as ds:
+        ntime = int(ds.sizes[TIME_NAME])
         # Filter variables to only 2D spatial (lat/lon) variables
         spatial_vars = []
         for var_name, da in ds.data_vars.items():
@@ -132,8 +133,8 @@ def map_view():
             spatial_dims = [d for d in dims if d != TIME_NAME]
             if len(spatial_dims) == 2 and LAT_NAME in spatial_dims and LON_NAME in spatial_dims:
                 spatial_vars.append(var_name)
-    finally:
-        ds.close()
+    #finally:
+    #    ds.close()
 
     return render_template(
         "map.html", 
