@@ -90,33 +90,33 @@ def era5_root():
     )
 
 
-#@map_blueprint.route("/era5/info")
-#def era5_info():
-#    ds = xr.open_dataset(NETCDF_FILE)
-#    try:
-#        return jsonify({
-#            "path": NETCDF_FILE,
-#            "variable": VAR_NAME,
-#            "time_len": int(ds.dims[TIME_NAME]),
-#            "shape": [
-#                int(ds.dims[LAT_NAME]),
-#                int(ds.dims[LON_NAME])
-#            ],
-#            "lat_range": [
-#                float(ds[LAT_NAME].values.min()),
-#                float(ds[LAT_NAME].values.max())
-#            ],
-#            "lon_range": [
-#                float(ds[LON_NAME].values.min()),
-#                float(ds[LON_NAME].values.max())
-#            ]
-#        })
-#    finally:
-#        ds.close()
-#
-#@map_blueprint.route("/era5/plot")
-#def era5_plot():
-#    t = request.args.get("t", default=0, type=int)
-#    buf = plot_png(t)
-#    return send_file(buf, mimetype="image/png")
-#
+@map_blueprint.route("/era5/info")
+def era5_info():
+    ds = xr.open_dataset(NETCDF_FILE)
+    try:
+        return jsonify({
+            "path": NETCDF_FILE,
+            "variable": VAR_NAME,
+            "time_len": int(ds.dims[TIME_NAME]),
+            "shape": [
+                int(ds.dims[LAT_NAME]),
+                int(ds.dims[LON_NAME])
+            ],
+            "lat_range": [
+                float(ds[LAT_NAME].values.min()),
+                float(ds[LAT_NAME].values.max())
+            ],
+            "lon_range": [
+                float(ds[LON_NAME].values.min()),
+                float(ds[LON_NAME].values.max())
+            ]
+        })
+    finally:
+        ds.close()
+
+@map_blueprint.route("/era5/plot")
+def era5_plot():
+    t = request.args.get("t", default=0, type=int)
+    buf = plot_png(t)
+    return send_file(buf, mimetype="image/png")
+
