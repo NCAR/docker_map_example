@@ -1,5 +1,6 @@
 import xarray as xr
 import numpy as np
+import pandas as pd
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -55,6 +56,8 @@ def plot_png(t: int):
 
         fig = plt.figure(figsize=(9, 4.5))
         ax = plt.axes(projection=ccrs.PlateCarree())
+        ax.set_extent([-180, 180, -90, 90], crs=ccrs.PlateCarree())
+
         #ax.coastlines()
         # skip coastlines if cartopy data isn't available
         try:
@@ -63,15 +66,23 @@ def plot_png(t: int):
         except Exception:
             pass
 
-        mesh = ax.pcolormesh(
-            lon_sorted, lat, arr_sorted,
-            transform=ccrs.PlateCarree()
-        )
-
-        plt.title(f"{VAR_NAME} (2 m temperature) — t={t}")
+        vmin, vmax = da.min().item(), da.max().item()
+        ax.imshow(arr_sorted, origin='lower', 
+            extent=[lon_sorted.min(), lon_sorted.max(), lat.min(), lat.max()],
+            transform=ccrs.PlateCarree(), 
+            vmin=vmin, vmax=vmax)
+        #mesh = ax.pcolormesh(
+        #    lon_sorted, lat, arr_sorted,
+        #    transform=ccrs.PlateCarree(),
+        #    vmin=vmin,
+        #    vmax=vmax
+        #)
+        time_str = pd.Timestamp(time_val).strftime("%Y-%m-%d %H:%M UTC")
+        plt.title(f"{VAR_NAME} (2 m temperature) - t={t} - {time_str}")
         plt.colorbar(mesh, ax=ax, orientation="horizontal",
                      pad=0.05, label="K")
-        plt.tight_layout()
+        fig.subplots_adjust(left=0.05, right=0.95, top=0.90, bottom=0.10)
+        #plt.tight_layout()
 
         buf = io.BytesIO()
         fig.savefig(buf, format="png", bbox_inches="tight")
