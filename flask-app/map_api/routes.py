@@ -115,7 +115,8 @@ def era5_info():
 @map_blueprint.route("/era5/plot")
 def era5_plot():
     t = request.args.get("t", default=0, type=int)
-    buf = plot_png(t)
+    var_name = request.args.get("var", default="t2m")
+    buf = plot_png(t, var_name)
     return send_file(buf, mimetype="image/png")
 
 @map_blueprint.route("/credit-map")
