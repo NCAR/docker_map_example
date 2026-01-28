@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ERA5 Map Slider</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+    }
+
+    img {
+      width: 90%;
+      max-width: 900px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+
+    .slider-container {
+      width: 80%;
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>2m Temperature Forecast</h2>
+
+  <!-- Plot image -->
+  <img id="plotImage" src="/era5/plot?t=0" />
+
+  <!-- Slider -->
+  <div class="slider-container">
+    <input
+      type="range"
+      id="timeSlider"
+      min="0"
+      max="{{ ntime -1 }}"
+      value="0"
+      step="1"
+    />
+    <p>Time index: <span id="timeValue">0</span></p>
+  </div>
+
+  <script>
+    const slider = document.getElementById("timeSlider");
+    const plotImage = document.getElementById("plotImage");
+    const timeValue = document.getElementById("timeValue");
+
+    slider.addEventListener("input", function () {
+      let t = slider.value;
+      timeValue.textContent = t;
+
+      // Force reload by adding timestamp to bypass browser caching
+      plotImage.src = "/era5/plot?t=" + t + "&_=" + new Date().getTime();
+    });
+  </script>
+
+</body>
+</html>

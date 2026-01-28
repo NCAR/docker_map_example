@@ -120,3 +120,13 @@ def era5_plot():
     buf = plot_png(t)
     return send_file(buf, mimetype="image/png")
 
+@map_blueprint.route("/credit-map")
+def map_view():
+    ds = xr.open_mfdataset(NETCDF_FILE)
+    try:
+        ntime = int(ds.dims[TIME_NAME])
+    finally:
+        ds.close()
+
+    return render_template("map.html", ntime=ntime)
+
