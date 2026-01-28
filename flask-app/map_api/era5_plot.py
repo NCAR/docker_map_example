@@ -37,7 +37,7 @@ FILL_THRESHOLD = 1.0e20
 def plot_png(t: int, var_name: str = VAR_NAME):
     #ds = xr.open_dataset(NETCDF_FILE)
     print(f"plot time {t}, variable {var_name}")
-    ds = xr.open_mfdataset(NETCDF_FILE, engine="h5netcdf", autoclose=True)
+    ds = xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True)
     try:
         if var_name not in ds.data_vars:
             raise ValueError(f"Variable '{var_name}' not found in dataset")
