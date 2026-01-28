@@ -9,7 +9,8 @@ import os
 
 #NETCDF_FILE = os.environ.get("NETCDF_FILE", "/data/file.nc")
 #NETCDF_FILE = os.environ.get("NETCDF_FILE", "/output/*.nc")
-NETCDF_FILE = os.environ.get("NETCDF_FILE", "/app/flask-app/data/model_predict/2026-01-28T06Z/*.nc")
+#NETCDF_FILE = os.environ.get("NETCDF_FILE", "/app/flask-app/data/model_predict/2026-01-28T06Z/*.nc")
+NETCDF_FILE = os.environ.get("NETCDF_FILE", "/app/flask-app/data/model_predict/2026-01-28T06Z/pred_2026-01-28T06Z_003.nc")
 #VAR_NAME = "VAR_2T"
 VAR_NAME = "t2m"
 TIME_NAME = "time"
