@@ -14,7 +14,7 @@ map_blueprint = Blueprint(
 
 @map_blueprint.route("/map")
 def map_view():
-    return render_template("map.html")
+    return render_template("openStreetMap.html")
 
 @map_blueprint.route("/files")
 def list_files():
