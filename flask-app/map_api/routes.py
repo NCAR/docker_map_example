@@ -58,7 +58,7 @@ def list_model_predict():
     files.sort()
     #files=["foo", "bar", "baz", "boo"]
 
-    predictFiles = os.listdir("/app/flask-app/data/model_predict/2026-01-27T18Z")
+    predictFiles = os.listdir("/app/flask-app/data/model_predict/2026-01-28T06Z")
     files.append(predictFiles)
 
     html = """
