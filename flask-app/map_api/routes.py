@@ -12,10 +12,6 @@ map_blueprint = Blueprint(
     static_folder="../app/static"
 )
 
-@map_blueprint.route("/map")
-def map_view():
-    return render_template("openStreetMap.html")
-
 @map_blueprint.route("/files")
 def list_files():
     data_dir = os.environ.get("MAP_DATA_DIR", "/app/flask-app/data")
@@ -130,3 +126,7 @@ def map_view():
 
     return render_template("map.html", ntime=ntime)
 
+#@map_blueprint.route("/map")
+#def map_view():
+#    return render_template("openStreetMap.html")
+#
