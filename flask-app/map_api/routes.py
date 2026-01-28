@@ -123,10 +123,17 @@ def map_view():
     ds = xr.open_mfdataset(NETCDF_FILE)
     try:
         ntime = int(ds.dims[TIME_NAME])
+        variables = list(ds.data_vars)
+        default_var = variables[0] if variables else VAR_NAME
     finally:
         ds.close()
 
-    return render_template("map.html", ntime=ntime)
+    return render_template(
+        "map.html", 
+        ntime=ntime
+        variables=variables,
+        default_var=default_var
+    )
 
 #@map_blueprint.route("/map")
 #def map_view():

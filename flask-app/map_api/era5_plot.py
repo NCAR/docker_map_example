@@ -36,10 +36,12 @@ FILL_THRESHOLD = 1.0e20
 
 def plot_png(t: int):
     #ds = xr.open_dataset(NETCDF_FILE)
-    print("plot time" + str(t))
+    print(f"plot time {t}, variable {var_name}")
     ds = xr.open_mfdataset(NETCDF_FILE)
     try:
-        da = ds[VAR_NAME]
+        if var_name not in ds.data_vars:
+            raise ValueError(f"Variable '{var_name}' not found in dataset")
+        da = ds[var_name]
         t = int(np.clip(t, 0, da.sizes[TIME_NAME] - 1))
 
         slice2d = da.isel({TIME_NAME: t}).astype("float64")
@@ -77,11 +79,11 @@ def plot_png(t: int):
         #    vmin=vmin,
         #    vmax=vmax
         #)
-        long_name = getattr(da, "long_name", VAR_NAME)
+        long_name = getattr(da, "long_name", var_name)
         units = getattr(da, "units", "")
         time_val = da[TIME_NAME].isel({TIME_NAME: t}).values
         time_str = pd.Timestamp(time_val).strftime("%Y-%m-%d %H:%M UTC")
-        plt.title(f"{VAR_NAME} ({long_name}) - t={t} - {time_str}")
+        plt.title(f"{var_name} ({long_name}) - t={t} - {time_str}")
         plt.colorbar(im, ax=ax, orientation="horizontal", pad=0.05, label=f"{units}")
         fig.subplots_adjust(left=0.05, right=0.95, top=0.90, bottom=0.10)
         #plt.tight_layout()
