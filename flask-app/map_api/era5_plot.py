@@ -21,6 +21,7 @@ def newest_directory(parent: str) -> Path | None:
 #NETCDF_FILE = os.environ.get("NETCDF_FILE", "/app/flask-app/data/model_predict/2026-01-28T06Z/*.nc")
 #NETCDF_FILE = os.environ.get("NETCDF_FILE", "/app/flask-app/data/model_predict/2026-01-28T06Z/pred_2026-01-28T06Z_003.nc")
 #NETCDF_FILE = os.environ.get("NETCDF_FILE", "/app/flask-app/data/model_predict/2026-01-28T06Z/*.nc")
+print("NEWEST " + str(newest_directory("/app/flask-app/data/model_predict")))
 NETCDF_FILE = os.environ.get("NETCDF_FILE", newest_directory("/app/flask-app/data/model_predict") + "/*.nc")
 #VAR_NAME = "VAR_2T"
 VAR_NAME = "t2m"
