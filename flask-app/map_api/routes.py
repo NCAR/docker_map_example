@@ -136,7 +136,7 @@ def map_view():
 
     return render_template(
         "map.html", 
-        ntime=ntime
+        ntime=ntime,
         variables=spatial_vars,
         default_var="t2m"
     )
