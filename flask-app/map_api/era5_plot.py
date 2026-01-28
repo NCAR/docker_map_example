@@ -7,11 +7,21 @@ import cartopy.crs as ccrs
 import io
 import os
 
+def newest_directory(parent: str) -> Path | None:
+    parent_path = Path(parent)
+
+    dirs = [d for d in parent_path.iterdir() if d.is_dir()]
+    if not dirs:
+        return None
+
+    return max(dirs, key=lambda d: d.stat().st_mtime)
+
 #NETCDF_FILE = os.environ.get("NETCDF_FILE", "/data/file.nc")
 #NETCDF_FILE = os.environ.get("NETCDF_FILE", "/output/*.nc")
 #NETCDF_FILE = os.environ.get("NETCDF_FILE", "/app/flask-app/data/model_predict/2026-01-28T06Z/*.nc")
 #NETCDF_FILE = os.environ.get("NETCDF_FILE", "/app/flask-app/data/model_predict/2026-01-28T06Z/pred_2026-01-28T06Z_003.nc")
-NETCDF_FILE = os.environ.get("NETCDF_FILE", "/app/flask-app/data/model_predict/2026-01-28T06Z/*.nc")
+#NETCDF_FILE = os.environ.get("NETCDF_FILE", "/app/flask-app/data/model_predict/2026-01-28T06Z/*.nc")
+NETCDF_FILE = os.environ.get("NETCDF_FILE", newest_directory("/app/flask-app/data/model_predict") + "/*.nc")
 #VAR_NAME = "VAR_2T"
 VAR_NAME = "t2m"
 TIME_NAME = "time"
