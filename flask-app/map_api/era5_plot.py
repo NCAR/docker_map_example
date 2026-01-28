@@ -95,6 +95,6 @@ def plot_png(t: int, var_name: str = VAR_NAME):
         buf.seek(0)
 
         return buf
-    finally:
-        ds.close()
-
+#    finally:
+#        ds.close()
+#
