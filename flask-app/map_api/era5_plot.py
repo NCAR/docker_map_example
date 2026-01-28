@@ -77,10 +77,12 @@ def plot_png(t: int):
         #    vmin=vmin,
         #    vmax=vmax
         #)
+        long_name = getattr(da, "long_name", VAR_NAME)
+        units = getattr(da, "units", "")
         time_val = da[TIME_NAME].isel({TIME_NAME: t}).values
         time_str = pd.Timestamp(time_val).strftime("%Y-%m-%d %H:%M UTC")
-        plt.title(f"{VAR_NAME} (2 m temperature) - t={t} - {time_str}")
-        plt.colorbar(im, ax=ax, orientation="horizontal", pad=0.05, label="K")
+        plt.title(f"{VAR_NAME} ({long_name}) - t={t} - {time_str}")
+        plt.colorbar(im, ax=ax, orientation="horizontal", pad=0.05, label="{units}")
         fig.subplots_adjust(left=0.05, right=0.95, top=0.90, bottom=0.10)
         #plt.tight_layout()
 
