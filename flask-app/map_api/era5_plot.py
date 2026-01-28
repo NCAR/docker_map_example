@@ -66,7 +66,7 @@ def plot_png(t: int):
         except Exception:
             pass
 
-        vmin, vmax = da.min().item(), da.max().item()
+        vmin, vmax = da.min().values.item(), da.max().values.item()
         ax.imshow(arr_sorted, origin='lower', 
             extent=[lon_sorted.min(), lon_sorted.max(), lat.min(), lat.max()],
             transform=ccrs.PlateCarree(), 
