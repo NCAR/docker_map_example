@@ -35,7 +35,7 @@
 <body>
 
 <h1>Map Example</h1>
-<div id="map"></div>
+<div id="openStreetMap"></div>
 
 <!-- Leaflet JS -->
 <script
@@ -43,24 +43,24 @@
 ></script>
 
 <!-- Custom JS -->
-<script src="{{ url_for('static', filename='map/map.js') }}"></script>
+<script src="{{ url_for('static', filename='openStreetMap/openStreetMap.js') }}"></script>
 
 <script>
     // Initialize the map in case map.js is empty or fails
-    var map = L.map('map').setView([39.8283, -98.5795], 4); // USA center
+    var map = L.map('openStreetMap').setView([39.8283, -98.5795], 4); // USA center
 
     // Base tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
+    }).addTo(openStreetMap);
 
     // Optional: load GeoJSON data from Flask
     {% if geojson_url %}
     fetch("{{ geojson_url }}")
         .then(response => response.json())
         .then(data => {
-            L.geoJSON(data).addTo(map);
+            L.geoJSON(data).addTo(openStreetMap);
         })
         .catch(err => console.error("Failed to load GeoJSON:", err));
     {% endif %}
