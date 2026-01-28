@@ -34,7 +34,7 @@ LON_NAME = "longitude"
 FILL_THRESHOLD = 1.0e20
 
 
-def plot_png(t: int):
+def plot_png(t: int, var_name: str = VAR_NAME):
     #ds = xr.open_dataset(NETCDF_FILE)
     print(f"plot time {t}, variable {var_name}")
     ds = xr.open_mfdataset(NETCDF_FILE)
