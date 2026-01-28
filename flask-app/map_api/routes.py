@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, render_template, render_template_string, request, send_file
-#from .era5_plot import plot_png, NETCDF_FILE, VAR_NAME, TIME_NAME, LAT_NAME, LON_NAME
+from .era5_plot import plot_png, NETCDF_FILE, VAR_NAME, TIME_NAME, LAT_NAME, LON_NAME
 from pathlib import Path
 import xarray as xr
 import json
@@ -82,12 +82,12 @@ def list_model_predict():
 #    with open(data_file) as f:
 #        return jsonify(json.load(f))
 
-#@map_blueprint.route("/era5")
-#def era5_root():
-#    return jsonify(
-#        ok=True,
-#        message="GET /era5/plot?t=0 returns a PNG map of VAR_2T"
-#    )
+@map_blueprint.route("/era5")
+def era5_root():
+    return jsonify(
+        ok=True,
+        message="GET /era5/plot?t=0 returns a PNG map of VAR_2T"
+    )
 #
 #
 #@map_blueprint.route("/era5/info")
