@@ -12,3 +12,4 @@ geos
 cftime
 netcdf4
 pip
+dask
