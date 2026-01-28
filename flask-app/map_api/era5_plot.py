@@ -7,6 +7,8 @@ import cartopy.crs as ccrs
 import io
 import os
 
+from pathlib import Path
+
 def newest_directory(parent: str) -> Path | None:
     parent_path = Path(parent)
 
