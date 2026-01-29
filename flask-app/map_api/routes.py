@@ -172,7 +172,7 @@ def map_view():
     print(NTIME)
     return render_template(
         "map.html", 
-        ntime=NTIME,
+        ntime=int(NTIME),
         vars_2d=VARS_2D,
         vars_3d=VARS_3D,
         default_var="t2m"
