@@ -58,6 +58,7 @@ def plot_png(t: int, var_name: str = VAR_NAME):
                 elif (PRES_NAME in dims):
                     slice2d = slice2d.isel({PRES_NAME: 0}).astype("float64")
             print(slice2d.dims)
+            print(slice2d.sizes)
             arr = slice2d.values
             arr = np.where(arr > FILL_THRESHOLD, np.nan, arr)
 
