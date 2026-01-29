@@ -93,22 +93,22 @@
         });
         updatePlot();
       }
+
+      function updatePlot() {
+        const t = slider.value;
+        const varName = variableSelect.value;
+        timeValue.textContent = t;
+        // Force reload by adding timestamp to bypass browser caching
+        plotImage.src = `/era5/plot?t=${t}&var=${varName}&_=${new Date().getTime()}`;
+      }
+
+      slider.addEventListener("input", updatePlot);
+      variableSelect2.addEventListener("change", updatePlot);
+      variableSelect.addEventListener("change", updatePlot);
+      dimSelect.addEventListener("change", updatePlot);
+      populateVariables();
+      //updatePlot();
     });
-
-    function updatePlot() {
-      const t = slider.value;
-      const varName = variableSelect.value;
-      timeValue.textContent = t;
-      // Force reload by adding timestamp to bypass browser caching
-      plotImage.src = `/era5/plot?t=${t}&var=${varName}&_=${new Date().getTime()}`;
-    }
-
-    slider.addEventListener("input", updatePlot);
-    variableSelect2.addEventListener("change", updatePlot);
-    variableSelect.addEventListener("change", updatePlot);
-    dimSelect.addEventListener("change", updatePlot);
-    populateVariables();
-    //updatePlot();
   </script>
 
 </body>
