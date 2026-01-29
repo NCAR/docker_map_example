@@ -53,6 +53,20 @@
     <span id="timeValue">0</span>
   </div>
 
+  <!-- Slider with label to its left -->
+  <div class="slider-container" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+    <label for="levSlider">Time index:</label>
+    <input
+      type="range"
+      id="levSlider"
+      min="0"
+      max="{{ nlev -1 }}"
+      value="0"
+      step="1"
+    />
+    <span id="timeValue">0</span>
+  </div>
+
   <!-- Plot image -->
   <img id="plotImage" src="/era5/plot?t=0" />
 
@@ -61,9 +75,11 @@
     const vars3d = {{ vars_3d | tojson }};
 
     document.addEventListener("DOMContentLoaded", () => {
-      const slider = document.getElementById("timeSlider");
+      const timeSlider = document.getElementById("timeSlider");
+      const levSlider = document.getElementById("timeSlider");
       const plotImage = document.getElementById("plotImage");
       const timeValue = document.getElementById("timeValue");
+      const levValue = document.getElementById("levValue");
 
       const dimSelect = document.getElementById("dimSelect");
       const variableSelect = document.getElementById("variableSelect");
@@ -86,10 +102,11 @@
         const varName = variableSelect.value;
         timeValue.textContent = t;
         // Force reload by adding timestamp to bypass browser caching
-        plotImage.src = `/era5/plot?t=${t}&var=${varName}&_=${new Date().getTime()}`;
+        plotImage.src = `/era5/plot?t=${t}&var=${varName}&_=${new Date().getTime()}&lev=${lev}`;
       }
 
-      slider.addEventListener("input", updatePlot);
+      timeSlider.addEventListener("input", updatePlot);
+      levSlider.addEventListener("input", updatePlot);
       variableSelect.addEventListener("change", updatePlot);
       dimSelect.addEventListener("change", populateVariables);
       populateVariables();

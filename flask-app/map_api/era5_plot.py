@@ -39,7 +39,7 @@ PRES_NAME = "pressure"
 FILL_THRESHOLD = 1.0e20
 
 
-def plot_png(t: int, var_name: str = VAR_NAME):
+def plot_png(t: int, var_name: str = VAR_NAME, lev: int):
     #ds = xr.open_dataset(NETCDF_FILE)
     print(f"plot time {t}, variable {var_name}")
     #ds = xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True)
@@ -54,9 +54,9 @@ def plot_png(t: int, var_name: str = VAR_NAME):
             slice2d = da.isel({TIME_NAME: t}).astype("float64")
             if len(slice2d.dims) > 2:
                 if (LEV_NAME in slice2d.dims):
-                    slice2d = slice2d.isel({LEV_NAME: 0}).astype("float64")
+                    slice2d = slice2d.isel({LEV_NAME: lev}).astype("float64")
                 elif (PRES_NAME in slice2d.dims):
-                    slice2d = slice2d.isel({PRES_NAME: 0}).astype("float64")
+                    slice2d = slice2d.isel({PRES_NAME: lev}).astype("float64")
 
             arr = slice2d.values
             arr = np.where(arr > FILL_THRESHOLD, np.nan, arr)
