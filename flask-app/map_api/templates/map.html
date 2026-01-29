@@ -25,18 +25,19 @@
 
 <body>
 
-  <!-- Dimension selector -->
-  <div class="dimension-container">
-    <label for="dimSelect">Dimensions:</label>
-    <select id="dimSelect">
-      <option value="3d" selected>3D (time/level//lat/lon)</option>
-      <option value="2d">2D (time/lat/lon)</option>
-    </select>
-  </div>
+  <div class="variables-row">
+    <div class="dimension-container">
+      <label for="dimSelect">Dimensions:</label>
+      <select id="dimSelect">
+        <option value="3d" selected>3D (time/level//lat/lon)</option>
+        <option value="2d">2D (time/lat/lon)</option>
+      </select>
+    </div>
 
-  <div class="variable-container">
-    <label for="variableSelect">Variable:</label>
-    <select id="variableSelect"></select>
+    <div class="variable-container">
+      <label for="variableSelect">Variable:</label>
+      <select id="variableSelect"></select>
+    </div>
   </div>
 
   <!-- Slider with label to its left -->
@@ -53,22 +54,21 @@
     <span id="timeValue">0</span>
   </div>
 
-  <!-- Slider with label to its left -->
-  <div class="slider-container">
-    <label for="levSlider">Level:</label>
-    <input
-      type="range"
-      id="levSlider"
-      min="0"
-      max="{{ nlev -1 }}"
-      value="0"
-      step="1"
-    />
-    <span id="levValue">0</span>
-  </div>
-
-  <!-- Plot image -->
-  <img id="plotImage" src="/era5/plot?t=0" />
+  <div class="plot-container">
+    <img id="plotImage" src="/era5/plot?t=0" />
+    <div class="level-slider-container">
+      <label for="levSlider">Level:</label>
+      <input
+        type="range"
+        id="levSlider"
+        min="0"
+        max="{{ nlev -1 }}"
+        value="0"
+        step="1"
+      />
+      <span id="levValue">0</span>
+    </div>
+ </div>
 
   <script>
     const vars2d = {{ vars_2d | tojson }};

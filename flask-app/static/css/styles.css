@@ -1,13 +1,38 @@
-.controls-container {
+.variables-row {
   display: flex;
-  justify-content: center; /* center horizontally */
-  align-items: center;     /* center vertically */
-  gap: 40px;               /* space between selector and slider */
-  margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin: 15px 0;
+}
+
+.controls-row select {
+  padding: 5px;
+  font-size: 14px;
 }
 
 .slider-container {
   display: flex;
   align-items: center;
   gap: 10px; 
+}
+
+.plot-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.plot-container img {
+  width: 90%;
+  max-width: 850px;
+  border: 1px solid #ccc;
+}
+
+.level-slider-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
 }
