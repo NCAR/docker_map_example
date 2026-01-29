@@ -33,6 +33,7 @@ def openDataset():
             NTIME = int(ds.sizes.get(TIME_NAME, 1))
 
             for var_name, da in ds.data_vars.items():
+                print(var_name)
                 dims = da.dims
                 if len(dims) == 2 and LAT_NAME in dims and LON_NAME in dims:
                     VARS_2D.append(var_name)
