@@ -53,10 +53,10 @@ def plot_png(t: int, var_name: str = VAR_NAME):
 
             slice2d = da.isel({TIME_NAME: t}).astype("float64")
             if len(slice2d.dims) > 2:
-                if (LEV_NAME in dims):
+                if (LEV_NAME in slice2d.dims):
                     slice2d = slice2d.isel({LEV_NAME: 0}).astype("float64")
                     #slice2d = slice2d.isel(LEV_NAME=0).astype("float64")
-                elif (PRES_NAME in dims):
+                elif (PRES_NAME in slice2d.dims):
                     slice2d = slice2d.isel({PRES_NAME: 0}).astype("float64")
             print(slice2d.dims)
             print(slice2d.sizes)
