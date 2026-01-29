@@ -25,11 +25,25 @@
 
 <body>
 
-  <div class="controls-container">
-    <!-- Variable selector -->
-    <div class="variable-container">
-      <label for="variableSelect">Variable:</label>
-      <select id="variableSelect">
+  <!-- Dimension selector -->
+  <div class="dimension-container">
+    <label for="dimensionSelect">Dimensions:</label>
+    <select id="dimensionSelect">
+      <option value="2d">2D (time/lat/lon)</option>
+      <option value="3d" selected>3D (time/level//lat/lon)</option>
+    </select>
+  </div>
+
+  <div class="variable-container">
+    <label for="variableSelect">Variable:</label>
+    <select id="variableSelect"></select>
+  </div>
+
+  <!-- Variable selector -->
+  <div class="controls-container2">
+    <div class="variable-container2">
+      <label for="variableSelect2">Variable:</label>
+      <select id="variableSelect2">
         {% for var in variables %}
           <option value="{{ var }}" {% if var == default_var %}selected{% endif %}>{{ var }}</option>
         {% endfor %}
@@ -55,10 +69,37 @@
   <img id="plotImage" src="/era5/plot?t=0" />
 
   <script>
+    const vars2d = {{ vars_2d | tojson }};
+    const vars3d = {{ vars_3d | tojson }};
+
     const slider = document.getElementById("timeSlider");
     const plotImage = document.getElementById("plotImage");
     const timeValue = document.getElementById("timeValue");
+
+    const variableSelect2 = document.getElementById("variableSelect2");
+    const dimSelect = document.getElementById("dimSelect");
     const variableSelect = document.getElementById("variableSelect");
+  
+    function populateVariables() {
+      const dim = dimSelect.value;
+  
+      // Pick correct list
+      const vars = (dim === "2d") ? vars2d : vars3d;
+  
+      // Clear dropdown
+      variableSelect.innerHTML = "";
+  
+      // Add options
+      vars.forEach(v => {
+        const opt = document.createElement("option");
+        opt.value = v;
+        opt.textContent = v;
+        variableSelect.appendChild(opt);
+      });
+  
+      // Trigger plot refresh
+      updatePlot();
+    }
 
     function updatePlot() {
       const t = slider.value;
@@ -69,8 +110,11 @@
     }
 
     slider.addEventListener("input", updatePlot);
+    variableSelect2.addEventListener("change", updatePlot);
     variableSelect.addEventListener("change", updatePlot);
-    updatePlot();
+    dimSelect.addEventListener("change", updatePlot);
+    populateVariables();
+    //updatePlot();
   </script>
 
 </body>

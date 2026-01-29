@@ -6,9 +6,10 @@ import json
 import os
 
 NTIME = 0
-VARIABLES = []
+VARS_2D = []
+VARS_3D = []
 
-def openDataset():
+def openDataset1():
     with xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True) as ds:
         NTIME = int(ds.sizes[TIME_NAME])
         # Filter variables to only 2D spatial (lat/lon) variables
@@ -17,8 +18,46 @@ def openDataset():
             dims = da.dims
             # Remove time dimension if present
             spatial_dims = [d for d in dims if d != TIME_NAME]
-            if len(spatial_dims) == 2 and LAT_NAME in spatial_dims and LON_NAME in spatial_dims:
-                VARIABLES.append(var_name)
+            if len(spatial_dims) == dimension and LAT_NAME in spatial_dims and LON_NAME in spatial_dims:
+                    VARIABLES.append(var_name)
+
+    ds = xr.open_mfdataset(
+        NETCDF_FILE,
+        engine="netcdf4",
+        combine="by_coords"
+    )
+
+def openDataset():
+    with xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True) as ds:
+        try:
+            NTIME = int(ds.sizes.get(TIME_NAME, 1))
+
+            VARS_2D = []
+            VARS_3D = []
+
+            for var_name, da in ds.data_vars.items():
+                dims = da.dims
+
+                if len(dims) == 2 and LAT_NAME in dims and LON_NAME in dims:
+                    VARS_2D.append(var_name)
+                elif (
+                    len(dims) == 3
+                    and LEV_NAME in dims
+                    and LAT_NAME in dims
+                    and LON_NAME in dims
+                ):
+                    VARS_3D.append(var_name)
+            VARS_2D.sort()
+            VARS_3D.sort()
+            #return (
+            #    NTIME,
+            #    sorted(VARS_2D),
+            #    sorted(VARS_3D),
+            #)
+
+        finally:
+            ds.close()
+
 openDataset()
 
 map_blueprint = Blueprint(
