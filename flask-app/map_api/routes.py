@@ -56,9 +56,9 @@ def openDataset():
 
 openDataset()
 print("VARS2D")
-PRINT(VARS_2D)
+print(VARS_2D)
 print("VARS3D")
-PRINT(VARS_3D)
+print(VARS_3D)
 
 map_blueprint = Blueprint(
     "map",
