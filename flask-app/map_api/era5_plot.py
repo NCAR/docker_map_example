@@ -53,8 +53,13 @@ def plot_png(t: int, lev: int, var_name: str = VAR_NAME):
             arr = slice2d.values
             arr = np.where(arr > FILL_THRESHOLD, np.nan, arr)
 
-            lat = ds[LAT_NAME].values
             lon = ds[LON_NAME].values
+            lat = ds[LAT_NAME].values
+
+            # Invert latitudes if the values are descending
+            if lat[0] > lat[-1]:
+                lat = lat[::-1]
+                arr = arr[::-1, :]
 
             lon_wrapped = ((lon + 180.0) % 360.0) - 180.0
             sort_idx = np.argsort(lon_wrapped)
