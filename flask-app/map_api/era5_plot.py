@@ -11,7 +11,7 @@ import os
 
 from pathlib import Path
 
-PLOT_LOCK = threading.lock()
+PLOT_LOCK = threading.Lock()
 
 def newest_directory(parent: str) -> Path | None:
     parent_path = Path(parent)
