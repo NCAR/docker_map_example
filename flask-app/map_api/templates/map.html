@@ -39,30 +39,18 @@
     <select id="variableSelect"></select>
   </div>
 
-  <!-- Variable selector -->
-  <div class="controls-container2">
-    <div class="variable-container2">
-      <label for="variableSelect2">Variable:</label>
-      <select id="variableSelect2">
-        {% for var in variables %}
-          <option value="{{ var }}" {% if var == default_var %}selected{% endif %}>{{ var }}</option>
-        {% endfor %}
-      </select>
-    </div>
-  
-    <!-- Slider with label to its left -->
-    <div class="slider-container">
-      <label for="timeSlider">Time index:</label>
-      <input
-        type="range"
-        id="timeSlider"
-        min="0"
-        max="{{ ntime -1 }}"
-        value="0"
-        step="1"
-      />
-      <span id="timeValue">0</span>
-    </div>
+  <!-- Slider with label to its left -->
+  <div class="slider-container">
+    <label for="timeSlider">Time index:</label>
+    <input
+      type="range"
+      id="timeSlider"
+      min="0"
+      max="{{ ntime -1 }}"
+      value="0"
+      step="1"
+    />
+    <span id="timeValue">0</span>
   </div>
 
   <!-- Plot image -->
@@ -77,7 +65,6 @@
       const plotImage = document.getElementById("plotImage");
       const timeValue = document.getElementById("timeValue");
 
-      const variableSelect2 = document.getElementById("variableSelect2");
       const dimSelect = document.getElementById("dimSelect");
       const variableSelect = document.getElementById("variableSelect");
   
@@ -103,7 +90,6 @@
       }
 
       slider.addEventListener("input", updatePlot);
-      variableSelect2.addEventListener("change", updatePlot);
       variableSelect.addEventListener("change", updatePlot);
       dimSelect.addEventListener("change", updatePlot);
       populateVariables();
