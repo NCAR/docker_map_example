@@ -178,9 +178,16 @@ def map_view():
     return render_template(
         "map.html", 
         ntime=NTIME,
-        variables=VARIABLES,
+        vars_2d=VARS_2D,
+        vars_3d=VARS_3D,
         default_var="t2m"
     )
+    #return render_template(
+    #    "map.html", 
+    #    ntime=NTIME,
+    #    variables=VARIABLES,
+    #    default_var="t2m"
+    #)
 
 #@map_blueprint.route("/map")
 #def map_view():
