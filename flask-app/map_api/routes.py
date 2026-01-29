@@ -28,6 +28,7 @@ def openDataset1():
     )
 
 def openDataset():
+    global NTIME, VARS_2D, VARS_3D
     with xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True) as ds:
         try:
             #NTIME = int(ds.sizes.get(TIME_NAME, 1))
@@ -168,6 +169,7 @@ def era5_plot():
 
 @map_blueprint.route("/credit-map")
 def map_view():
+    print(NTIME)
     return render_template(
         "map.html", 
         ntime=NTIME,
