@@ -31,7 +31,7 @@ def openDataset():
     with xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True) as ds:
         try:
             NTIME = int(ds.sizes.get(TIME_NAME, 1))
-            print NTIME
+            print(NTIME)
             for var_name, da in ds.data_vars.items():
                 dims = da.dims
                 if TIME_NAME in dims and (LEV_NAME in dims or PRES_NAME in dims) and LAT_NAME in dims and LON_NAME in dims:
