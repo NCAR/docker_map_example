@@ -33,7 +33,6 @@ def openDataset():
             NTIME = int(ds.sizes.get(TIME_NAME, 1))
 
             for var_name, da in ds.data_vars.items():
-                print(var_name)
                 dims = da.dims
                 if TIME_NAME in dims and LEV_NAME in dims and LAT_NAME in dims and LON_NAME in dims:
                     VARS_3D.append(var_name)
@@ -51,10 +50,6 @@ def openDataset():
             ds.close()
 
 openDataset()
-print("VARS2D")
-print(VARS_2D)
-print("VARS3D")
-print(VARS_3D)
 
 map_blueprint = Blueprint(
     "map",
