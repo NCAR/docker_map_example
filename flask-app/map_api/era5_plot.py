@@ -35,6 +35,7 @@ TIME_NAME = "time"
 LAT_NAME = "latitude"
 LON_NAME = "longitude"
 LEV_NAME = "level"
+PRES_NAME = "pressure"
 FILL_THRESHOLD = 1.0e20
 
 
