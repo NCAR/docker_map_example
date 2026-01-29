@@ -10,31 +10,13 @@ NLEV = 0
 VARS_2D = []
 VARS_3D = []
 
-def openDataset1():
-    with xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True) as ds:
-        NTIME = int(ds.sizes[TIME_NAME])
-        NLEV = int(ds.sizes[LEV_NAME])
-        # Filter variables to only 2D spatial (lat/lon) variables
-        VARIABLES = []
-        for var_name, da in ds.data_vars.items():
-            dims = da.dims
-            # Remove time dimension if present
-            spatial_dims = [d for d in dims if d != TIME_NAME]
-            if len(spatial_dims) == dimension and LAT_NAME in spatial_dims and LON_NAME in spatial_dims:
-                    VARIABLES.append(var_name)
-
-    ds = xr.open_mfdataset(
-        NETCDF_FILE,
-        engine="netcdf4",
-        combine="by_coords"
-    )
-
 def openDataset():
-    global NTIME, VARS_2D, VARS_3D
+    global NTIME, NLEV, VARS_2D, VARS_3D
     with xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True) as ds:
         try:
             #NTIME = int(ds.sizes.get(TIME_NAME, 1))
             NTIME = int(ds.sizes.get(TIME_NAME))
+            NLEV = int(ds.sizes[LEV_NAME])
             print(NTIME)
             for var_name, da in ds.data_vars.items():
                 dims = da.dims
@@ -172,7 +154,6 @@ def era5_plot():
 
 @map_blueprint.route("/credit-map")
 def map_view():
-    print(NTIME)
     return render_template(
         "map.html", 
         ntime=int(NTIME),
