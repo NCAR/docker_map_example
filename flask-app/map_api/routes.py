@@ -30,7 +30,8 @@ def openDataset1():
 def openDataset():
     with xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True) as ds:
         try:
-            NTIME = int(ds.sizes.get(TIME_NAME, 1))
+            #NTIME = int(ds.sizes.get(TIME_NAME, 1))
+            NTIME = int(ds.sizes.get(TIME_NAME))
             print(NTIME)
             for var_name, da in ds.data_vars.items():
                 dims = da.dims
