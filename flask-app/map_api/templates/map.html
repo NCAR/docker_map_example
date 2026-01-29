@@ -91,7 +91,7 @@
 
       slider.addEventListener("input", updatePlot);
       variableSelect.addEventListener("change", updatePlot);
-      dimSelect.addEventListener("change", updatePlot);
+      dimSelect.addEventListener("change", populateVariables);
       populateVariables();
       //updatePlot();
     });
