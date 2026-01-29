@@ -64,7 +64,7 @@ def plot_png(t: int, var_name: str = VAR_NAME):
             lat = ds[LAT_NAME].values
             lon = ds[LON_NAME].values
 
-            print(lon)
+            print(lon.dims)
 
             lon_wrapped = ((lon + 180.0) % 360.0) - 180.0
             sort_idx = np.argsort(lon_wrapped)
