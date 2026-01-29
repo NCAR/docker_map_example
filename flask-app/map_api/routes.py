@@ -6,12 +6,14 @@ import json
 import os
 
 NTIME = 0
+NLEV = 0
 VARS_2D = []
 VARS_3D = []
 
 def openDataset1():
     with xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True) as ds:
         NTIME = int(ds.sizes[TIME_NAME])
+        NLEV = int(ds.sizes[LEV_NAME])
         # Filter variables to only 2D spatial (lat/lon) variables
         VARIABLES = []
         for var_name, da in ds.data_vars.items():
@@ -173,6 +175,7 @@ def map_view():
     return render_template(
         "map.html", 
         ntime=int(NTIME),
+        nlev=int(NLEV),
         vars_2d=VARS_2D,
         vars_3d=VARS_3D,
         default_var="t2m"
