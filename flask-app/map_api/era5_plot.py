@@ -55,24 +55,18 @@ def plot_png(t: int, var_name: str = VAR_NAME):
             if len(slice2d.dims) > 2:
                 if (LEV_NAME in slice2d.dims):
                     slice2d = slice2d.isel({LEV_NAME: 0}).astype("float64")
-                    #slice2d = slice2d.isel(LEV_NAME=0).astype("float64")
                 elif (PRES_NAME in slice2d.dims):
                     slice2d = slice2d.isel({PRES_NAME: 0}).astype("float64")
-            print(slice2d.dims)
-            print(slice2d.sizes)
+
             arr = slice2d.values
             arr = np.where(arr > FILL_THRESHOLD, np.nan, arr)
 
             lat = ds[LAT_NAME].values
             lon = ds[LON_NAME].values
 
-            print(lon.size)
-
             lon_wrapped = ((lon + 180.0) % 360.0) - 180.0
             sort_idx = np.argsort(lon_wrapped)
             lon_sorted = lon_wrapped[sort_idx]
-            print(lon_sorted.size)
-            print(lon_sorted)
             arr_sorted = arr[:, sort_idx]
 
             fig = plt.figure(figsize=(9, 4.5))
