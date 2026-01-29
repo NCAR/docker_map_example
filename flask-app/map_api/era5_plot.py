@@ -69,6 +69,8 @@ def plot_png(t: int, var_name: str = VAR_NAME):
             lon_wrapped = ((lon + 180.0) % 360.0) - 180.0
             sort_idx = np.argsort(lon_wrapped)
             lon_sorted = lon_wrapped[sort_idx]
+            print(lon_sorted.size)
+            print(lon_sorted)
             arr_sorted = arr[:, sort_idx]
 
             fig = plt.figure(figsize=(9, 4.5))
