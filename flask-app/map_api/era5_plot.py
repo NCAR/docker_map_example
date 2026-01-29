@@ -22,14 +22,8 @@ def newest_directory(parent: str) -> Path | None:
 
     return max(dirs, key=lambda d: d.stat().st_mtime)
 
-#NETCDF_FILE = os.environ.get("NETCDF_FILE", "/data/file.nc")
-#NETCDF_FILE = os.environ.get("NETCDF_FILE", "/output/*.nc")
-#NETCDF_FILE = os.environ.get("NETCDF_FILE", "/app/flask-app/data/model_predict/2026-01-28T06Z/*.nc")
-#NETCDF_FILE = os.environ.get("NETCDF_FILE", "/app/flask-app/data/model_predict/2026-01-28T06Z/pred_2026-01-28T06Z_003.nc")
-#NETCDF_FILE = os.environ.get("NETCDF_FILE", "/app/flask-app/data/model_predict/2026-01-28T06Z/*.nc")
 print("NEWEST " + str(newest_directory("/app/flask-app/data/model_predict")))
 NETCDF_FILE = os.environ.get("NETCDF_FILE", str(newest_directory("/app/flask-app/data/model_predict")) + "/*.nc")
-#VAR_NAME = "VAR_2T"
 VAR_NAME = "t2m"
 TIME_NAME = "time"
 LAT_NAME = "latitude"
@@ -41,10 +35,7 @@ FILL_THRESHOLD = 1.0e20
 
 def plot_png(t: int, lev: int, var_name: str = VAR_NAME):
     print("time " + str(t) + " lev " + str(lev) + " var " + var_name)
-    #ds = xr.open_dataset(NETCDF_FILE)
     print(f"plot time {t}, variable {var_name}")
-    #ds = xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True)
-    #try:
     with PLOT_LOCK:
         with xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True) as ds:
             if var_name not in ds.data_vars:
@@ -87,12 +78,7 @@ def plot_png(t: int, lev: int, var_name: str = VAR_NAME):
                 extent=[lon_sorted.min(), lon_sorted.max(), lat.min(), lat.max()],
                 transform=ccrs.PlateCarree(), 
                 vmin=vmin, vmax=vmax)
-            #mesh = ax.pcolormesh(
-            #    lon_sorted, lat, arr_sorted,
-            #    transform=ccrs.PlateCarree(),
-            #    vmin=vmin,
-            #    vmax=vmax
-            #)
+
             long_name = getattr(da, "long_name", var_name)
             units = getattr(da, "units", "")
             time_val = da[TIME_NAME].isel({TIME_NAME: t}).values
@@ -100,7 +86,6 @@ def plot_png(t: int, lev: int, var_name: str = VAR_NAME):
             plt.title(f"{var_name} ({long_name}) - t={t} - {time_str}")
             plt.colorbar(im, ax=ax, orientation="horizontal", pad=0.05, label=f"{units}")
             fig.subplots_adjust(left=0.05, right=0.95, top=0.90, bottom=0.10)
-            #plt.tight_layout()
 
             buf = io.BytesIO()
             fig.savefig(buf, format="png", bbox_inches="tight")
@@ -108,6 +93,3 @@ def plot_png(t: int, lev: int, var_name: str = VAR_NAME):
             buf.seek(0)
 
             return buf
-    #    finally:
-    #        ds.close()
-    #
