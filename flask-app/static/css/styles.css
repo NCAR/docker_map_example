@@ -7,7 +7,11 @@
   margin: 15px 0;
 }
 
-.variables-row .variable-container select {
+.variables-row .variable-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
   padding: 5px;
   font-size: 14px;
 }
