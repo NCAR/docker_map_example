@@ -32,9 +32,6 @@ def openDataset():
         try:
             NTIME = int(ds.sizes.get(TIME_NAME, 1))
 
-            VARS_2D = []
-            VARS_3D = []
-
             for var_name, da in ds.data_vars.items():
                 dims = da.dims
                 if len(dims) == 2 and LAT_NAME in dims and LON_NAME in dims:
@@ -58,6 +55,10 @@ def openDataset():
             ds.close()
 
 openDataset()
+print("VARS2D")
+PRINT(VARS_2D)
+print("VARS3D")
+PRINT(VARS_3D)
 
 map_blueprint = Blueprint(
     "map",

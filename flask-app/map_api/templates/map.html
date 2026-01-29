@@ -27,8 +27,8 @@
 
   <!-- Dimension selector -->
   <div class="dimension-container">
-    <label for="dimensionSelect">Dimensions:</label>
-    <select id="dimensionSelect">
+    <label for="dimSelect">Dimensions:</label>
+    <select id="dimSelect">
       <option value="2d">2D (time/lat/lon)</option>
       <option value="3d" selected>3D (time/level//lat/lon)</option>
     </select>
@@ -72,34 +72,28 @@
     const vars2d = {{ vars_2d | tojson }};
     const vars3d = {{ vars_3d | tojson }};
 
-    const slider = document.getElementById("timeSlider");
-    const plotImage = document.getElementById("plotImage");
-    const timeValue = document.getElementById("timeValue");
+    document.addEventListener("DOMContentLoaded", () => {
+      const slider = document.getElementById("timeSlider");
+      const plotImage = document.getElementById("plotImage");
+      const timeValue = document.getElementById("timeValue");
 
-    const variableSelect2 = document.getElementById("variableSelect2");
-    const dimSelect = document.getElementById("dimSelect");
-    const variableSelect = document.getElementById("variableSelect");
+      const variableSelect2 = document.getElementById("variableSelect2");
+      const dimSelect = document.getElementById("dimSelect");
+      const variableSelect = document.getElementById("variableSelect");
   
-    function populateVariables() {
-      const dim = dimSelect.value;
-  
-      // Pick correct list
-      const vars = (dim === "2d") ? vars2d : vars3d;
-  
-      // Clear dropdown
-      variableSelect.innerHTML = "";
-  
-      // Add options
-      vars.forEach(v => {
-        const opt = document.createElement("option");
-        opt.value = v;
-        opt.textContent = v;
-        variableSelect.appendChild(opt);
-      });
-  
-      // Trigger plot refresh
-      updatePlot();
-    }
+      function populateVariables() {
+        const dim = dimSelect.value;
+        const vars = (dim === "2d") ? vars2d : vars3d;
+        variableSelect.innerHTML = "";
+        vars.forEach(v => {
+          const opt = document.createElement("option");
+          opt.value = v;
+          opt.textContent = v;
+          variableSelect.appendChild(opt);
+        });
+        updatePlot();
+      }
+    });
 
     function updatePlot() {
       const t = slider.value;
