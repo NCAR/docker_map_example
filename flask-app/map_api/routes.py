@@ -37,7 +37,7 @@ def openDataset():
                 dims = da.dims
                 if TIME_NAME in dims and LEV_NAME in dims and LAT_NAME in dims and LON_NAME in dims:
                     VARS_3D.append(var_name)
-                if TIME_NAME in dimes and LAT_NAME in dims and LON_NAME in dims:
+                if TIME_NAME in dims and LAT_NAME in dims and LON_NAME in dims:
                     VARS_2D.append(var_name)
             VARS_2D.sort()
             VARS_3D.sort()
