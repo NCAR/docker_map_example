@@ -101,6 +101,7 @@
         const t = slider.value;
         const varName = variableSelect.value;
         timeValue.textContent = t;
+        levValue.textContent = lev;
         // Force reload by adding timestamp to bypass browser caching
         plotImage.src = `/era5/plot?t=${t}&var=${varName}&_=${new Date().getTime()}&lev=${lev}`;
       }
