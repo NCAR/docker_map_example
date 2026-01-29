@@ -35,15 +35,10 @@ def openDataset():
             for var_name, da in ds.data_vars.items():
                 print(var_name)
                 dims = da.dims
-                if len(dims) == 2 and LAT_NAME in dims and LON_NAME in dims:
-                    VARS_2D.append(var_name)
-                elif (
-                    len(dims) == 3
-                    and LEV_NAME in dims
-                    and LAT_NAME in dims
-                    and LON_NAME in dims
-                ):
+                if TIME_NAME in dims and LEV_NAME in dims and LAT_NAME in dims and LON_NAME in dims:
                     VARS_3D.append(var_name)
+                if TIME_NAME in dimes and LAT_NAME in dims and LON_NAME in dims:
+                    VARS_2D.append(var_name)
             VARS_2D.sort()
             VARS_3D.sort()
             #return (
