@@ -5,6 +5,20 @@ import xarray as xr
 import json
 import os
 
+NTIME = 0
+SPATIAL_VARS = []
+
+with xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True) as ds:
+    NTIME = int(ds.sizes[TIME_NAME])
+    # Filter variables to only 2D spatial (lat/lon) variables
+    SPATIAL_VARS = []
+    for var_name, da in ds.data_vars.items():
+        dims = da.dims
+        # Remove time dimension if present
+        spatial_dims = [d for d in dims if d != TIME_NAME]
+        if len(spatial_dims) == 2 and LAT_NAME in spatial_dims and LON_NAME in spatial_dims:
+            SPATIAL_VARS.append(var_name)
+
 map_blueprint = Blueprint(
     "map",
     __name__,
@@ -123,23 +137,23 @@ def era5_plot():
 def map_view():
     #ds = xr.open_mfdataset(NETCDF_FILE)
     #try:
-    with xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True) as ds:
-        ntime = int(ds.sizes[TIME_NAME])
-        # Filter variables to only 2D spatial (lat/lon) variables
-        spatial_vars = []
-        for var_name, da in ds.data_vars.items():
-            dims = da.dims
-            # Remove time dimension if present
-            spatial_dims = [d for d in dims if d != TIME_NAME]
-            if len(spatial_dims) == 2 and LAT_NAME in spatial_dims and LON_NAME in spatial_dims:
-                spatial_vars.append(var_name)
+    #with xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True) as ds:
+    #    ntime = int(ds.sizes[TIME_NAME])
+    #    # Filter variables to only 2D spatial (lat/lon) variables
+    #    spatial_vars = []
+    #    for var_name, da in ds.data_vars.items():
+    #        dims = da.dims
+    #        # Remove time dimension if present
+    #        spatial_dims = [d for d in dims if d != TIME_NAME]
+    #        if len(spatial_dims) == 2 and LAT_NAME in spatial_dims and LON_NAME in spatial_dims:
+    #            spatial_vars.append(var_name)
     #finally:
     #    ds.close()
 
     return render_template(
         "map.html", 
-        ntime=ntime,
-        variables=spatial_vars,
+        ntime=NTIME,
+        variables=SPATIAL_VARS,
         default_var="t2m"
     )
 
