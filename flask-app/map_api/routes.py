@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, render_template, render_template_string, request, send_file
-from .era5_plot import plot_png, NETCDF_FILE, VAR_NAME, TIME_NAME, LAT_NAME, LON_NAME
+from .era5_plot import plot_png, NETCDF_FILE, VAR_NAME, TIME_NAME, LEV_NAME, LAT_NAME, LON_NAME
 from pathlib import Path
 import xarray as xr
 import json
@@ -37,7 +37,6 @@ def openDataset():
 
             for var_name, da in ds.data_vars.items():
                 dims = da.dims
-
                 if len(dims) == 2 and LAT_NAME in dims and LON_NAME in dims:
                     VARS_2D.append(var_name)
                 elif (
