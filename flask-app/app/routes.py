@@ -54,6 +54,7 @@ def list_files():
         data_dir = os.environ.get("MAP_DATA_DIR", "/output")
     #data_dir = os.environ.get("/output")
 
+    print("DATA DIR" + data_dir)
     files = os.listdir(data_dir)
     files.sort()
     files.append(append)
