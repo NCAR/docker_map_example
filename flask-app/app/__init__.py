@@ -5,9 +5,9 @@ app = Flask(
     static_folder="static",
     template_folder="templates")
 
-print("ROOT:", app.root_path)
-print("STATIC:", app.static_folder)
-print("TEMPLATES:", app.template_folder)
+print("ROOT1:", app.root_path)
+print("STATIC1:", app.static_folder)
+print("TEMPLATES1:", app.template_folder)
 
 from app.main import views
 
