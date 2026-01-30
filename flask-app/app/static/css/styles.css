@@ -1,4 +1,4 @@
-.variables-row {
+.widget-row {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -7,7 +7,7 @@
   margin: 15px 0;
 }
 
-.variables-row .variable-container {
+.widget-row .variable-container {
   display: flex;
   flex-direction: row;
   align-items: center;

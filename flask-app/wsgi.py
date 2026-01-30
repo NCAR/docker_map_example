@@ -8,7 +8,6 @@ app = Flask(
     static_folder=os.path.join(os.path.dirname(__file__), "static"),
     template_folder=os.path.join(os.path.dirname(__file__), "templates")
 )
-print("sanity")
 print("ROOT:", app.root_path)
 print("STATIC:", app.static_folder)
 print("TEMPLATES:", app.template_folder)
@@ -30,27 +29,3 @@ app.register_blueprint(map_blueprint)
 # Run locally
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
-
-
-#from flask import Flask
-#from map_api.routes import map_blueprint
-#
-#def create_app():
-#    app = Flask(__name__)
-#
-#    # Example home route
-#    @app.route("/")
-#    def hello_world():
-#        return "Hello, World!"
-#
-#    # Register your blueprint
-#    app.register_blueprint(map_blueprint, url_prefix="/map")
-#
-#    return app
-#
-## Create app instance for WSGI servers
-#app = create_app()
-#
-## Run locally for development
-#if __name__ == "__main__":
-#    app.run(host="0.0.0.0", port=5000, debug=True)
