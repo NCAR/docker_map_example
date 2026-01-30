@@ -22,7 +22,7 @@
 
   <div class="variables-row">
     <div class="variable-container">
-      <label for="dimSelect">Dimensions:</label>
+      <label for="dimSelect">Dimension:</label>
       <select id="dimSelect">
         <option value="3d" selected>3D</option>
         <option value="2d">2D</option>
@@ -92,9 +92,10 @@
     </div>
   </div>
 
-  <div class="plot-container">
+  <!--<div class="plot-container">
     <img id="plotImage" src="/era5/plot?t=0" />
-  </div>
+  </div>-->
+    <img id="plotImage" src="/era5/plot?t=0" />
 
   <script>
     const vars2d = {{ vars_2d | tojson }};
