@@ -44,16 +44,16 @@
   justify-content: center;
 }
 
+/*
 #levSlider {
-  -webkit-appearance: none;  /* remove default style */
-  width: 300px;               /* slider length (height after rotation) */
-  height: 8px;                /* thickness */
-  transform: rotate(-90deg);  /* rotate counterclockwise */
+  -webkit-appearance: none;
+  width: 300px;           
+  height: 8px;           
+  transform: rotate(-90deg);
   transform-origin: center;
   margin-top: 10px
 }
 
-/* Styling for webkit browsers */
 #levSlider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
@@ -71,7 +71,6 @@
   border-radius: 4px;
 }
 
-/* Styling for Firefox */
 #levSlider::-moz-range-thumb {
   width: 16px;
   height: 16px;
@@ -85,4 +84,4 @@
   height: 8px;
   background: #ddd;
   border-radius: 4px;
-}
+}*/
