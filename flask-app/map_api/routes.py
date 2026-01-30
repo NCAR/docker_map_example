@@ -14,10 +14,10 @@ def openDataset():
     global NTIME, NLEV, VARS_2D, VARS_3D
     with xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True) as ds:
         try:
-            #NTIME = int(ds.sizes.get(TIME_NAME, 1))
             NTIME = int(ds.sizes.get(TIME_NAME))
             NLEV = int(ds.sizes[LEV_NAME])
             print(NTIME)
+            print(NLEV)
             for var_name, da in ds.data_vars.items():
                 dims = da.dims
                 if TIME_NAME in dims and (LEV_NAME in dims or PRES_NAME in dims) and LAT_NAME in dims and LON_NAME in dims:
@@ -26,12 +26,6 @@ def openDataset():
                     VARS_2D.append(var_name)
             VARS_2D.sort()
             VARS_3D.sort()
-            #return (
-            #    NTIME,
-            #    sorted(VARS_2D),
-            #    sorted(VARS_3D),
-            #)
-
         finally:
             ds.close()
 
@@ -40,8 +34,10 @@ openDataset()
 map_blueprint = Blueprint(
     "map",
     __name__,
-    template_folder=os.path.join(os.path.dirname(__file__), "templates"),
-    static_folder=os.path.join(os.path.dirname(__file__), "static")
+    template_folder=os.path.join(os.path.dirname(__file__), "map_api/templates"),
+    static_folder=os.path.join(os.path.dirname(__file__), "map_api/static")
+    #template_folder=os.path.join(os.path.dirname(__file__), "templates"),
+    #static_folder=os.path.join(os.path.dirname(__file__), "static")
     #template_folder="../templates",
     #static_folder="../static"
 )
