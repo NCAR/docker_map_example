@@ -34,8 +34,8 @@ openDataset()
 map_blueprint = Blueprint(
     "map",
     __name__,
-    template_folder=os.path.join(os.path.dirname(__file__), "map_api/templates"),
-    static_folder=os.path.join(os.path.dirname(__file__), "map_api/static")
+    template_folder=os.path.join(os.path.dirname(__file__), "templates"),
+    static_folder=os.path.join(os.path.dirname(__file__), "static")
     #template_folder=os.path.join(os.path.dirname(__file__), "templates"),
     #static_folder=os.path.join(os.path.dirname(__file__), "static")
     #template_folder="../templates",
@@ -78,13 +78,15 @@ def list_files():
 
 @map_blueprint.route("/model_predict")
 def list_model_predict():
-    data_dir = os.environ.get("fooMAP_DATA_DIR", "/app/flask-app/data/model_predict")
+    #data_dir = os.environ.get("fooMAP_DATA_DIR", "/app/flask-app/data/model_predict")
+    data_dir = os.environ.get("fooMAP_DATA_DIR", "/output/model_predict")
 
     files = os.listdir(data_dir)
     files.sort()
     #files=["foo", "bar", "baz", "boo"]
 
-    predictFiles = os.listdir("/app/flask-app/data/model_predict/2026-01-28T06Z")
+    #predictFiles = os.listdir("/app/flask-app/data/model_predict/2026-01-28T06Z")
+    predictFiles = os.listdir("/output/model_predict/2026-01-29T06Z")
     files.append(predictFiles)
 
     html = """
