@@ -67,7 +67,7 @@ def list_files():
     #files.append(outputFiles)
 
     html = """
-    <h1>PVC Contents</h1>
+    <h1>PVC Contents!</h1>
     <ul>
     {% for f in files %}
       <li>{{ f }}</li>
