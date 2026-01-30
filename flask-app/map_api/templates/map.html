@@ -35,6 +35,33 @@
   </div>
 
   <div class="sliders-row">
+      <div class="timeSlider">
+        <label for="timeSlider">Time:</label>
+        <input
+          type="range"
+          id="timeSlider"
+          min="0"
+          max="{{ ntime -1 }}"
+          value="0"
+          step="1"
+        />
+        <span id="timeValue">0</span>
+      </div>
+      <div class="levSlider">
+        <label for="levSlider">Level:</label>
+        <input
+          type="range"
+          id="levSlider"
+          min="0"
+          max="{{ nlev -1 }}"
+          value="0"
+          step="1"
+        />
+        <span id="levValue">0</span>
+      </div>
+  </div>
+
+  <div class="sliders-row">
     <div class="slider-container">
       <div class="timeSlider">
         <label for="timeSlider">Time:</label>
