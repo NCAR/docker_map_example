@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from map_api.routes import map_blueprint
+from app.routes import map_blueprint
 
 # Explicitly tell Flask where static and templates are
 app = Flask(

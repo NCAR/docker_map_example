@@ -101,16 +101,6 @@ def list_model_predict():
 
     return render_template_string(html, files=files)
 
-#@map_blueprint.route("/data")
-#def map_data():
-#    #data_dir = os.environ.get("MAP_DATA_DIR", "/app/flask-app/data")
-#    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-#    data_dir = os.environ.get("MAP_DATA_DIR", os.path.join(BASE_DIR, "data"))
-#    data_file = os.path.join(data_dir, "map.geojson")
-#
-#    with open(data_file) as f:
-#        return jsonify(json.load(f))
-
 @map_blueprint.route("/era5")
 def era5_root():
     return jsonify(
@@ -161,14 +151,3 @@ def map_view():
         vars_3d=VARS_3D,
         default_var="t2m"
     )
-    #return render_template(
-    #    "map.html", 
-    #    ntime=NTIME,
-    #    variables=VARIABLES,
-    #    default_var="t2m"
-    #)
-
-#@map_blueprint.route("/map")
-#def map_view():
-#    return render_template("openStreetMap.html")
-#
