@@ -12,6 +12,12 @@
   overflow-y: auto;
 }
 
+.dataset-item {
+  display: block;
+  margin: 6px 0;
+  font-size: 14px;
+}
+
 .main-content {
   flex: 1;
   padding: 20px;

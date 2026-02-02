@@ -38,19 +38,12 @@ map_blueprint = Blueprint(
     __name__,
     template_folder=os.path.join(os.path.dirname(__file__), "templates"),
     static_folder=os.path.join(os.path.dirname(__file__), "static")
-    #template_folder=os.path.join(os.path.dirname(__file__), "templates"),
-    #static_folder=os.path.join(os.path.dirname(__file__), "static")
-    #template_folder="../templates",
-    #static_folder="../static"
 )
 
 @map_blueprint.route("/")
 def index():
-    #datasets = [d.name for d in DATA_ROOT.iterdir() if d.is_dir()]
     data_dir = Path(os.environ.get("MAP_DATA_DIR", "/output/model_predict"))
     datasets = [d.name for d in data_dir.iterdir() if d.is_dir()]
-    print("datasets :")
-    print(datasets)
 
     return render_template(
         "map.html",
