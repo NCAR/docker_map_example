@@ -47,7 +47,8 @@ map_blueprint = Blueprint(
 @map_blueprint.route("/")
 def index():
     #datasets = [d.name for d in DATA_ROOT.iterdir() if d.is_dir()]
-    datasets = [d.name for d in os.environ.get("MAP_DATA_DIR", "/output/model_predict").iterdir() if d.is_dir()]
+    data_dir = Path(os.environ.get("MAP_DATA_DIR", "/output/model_predict"))
+    datasets = [d.name for d in data_dir).iterdir() if d.is_dir()]
     print("datasets :")
     print(datasets)
 
