@@ -123,9 +123,11 @@
         timeValue.textContent = t;
         levValue.textContent = lev;
         // Force reload by adding timestamp to bypass browser caching
-        plotImage.src = 
-          `/era5/plot?t=${t}&lev=${lev}&var=${varName}` +
-          `&dataset=${selectedDataset}` +
+        plotImage.src = `&/era5/plot?` +
+          `dataset=${selectedDataset}` +
+          `&var=${varName}` +
+          `&t=${t}` +
+          `&lev=${lev}` +
           &_=${new Date().getTime()}`;
       }
 
