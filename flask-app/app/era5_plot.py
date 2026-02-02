@@ -23,9 +23,11 @@ def newest_directory(parent: str) -> Path | None:
 #print("NEWEST " + str(newest_directory("/app/flask-app/data/model_predict")))
 #NETCDF_FILE = os.environ.get("NETCDF_FILE", str(newest_directory("/app/flask-app/data/model_predict")) + "/*.nc")
 #print("NEWEST " + str(newest_directory("/output/model_predict")))
-print("NEWEST " + str(newest_directory(os.environ.get("MAP_DATA_DIR", "/output"))))
+data_dir = os.environ.get("MAP_DATA_DIR", "/output")
+print("DATA_DIR" + data_dir)
+print("NEWEST " + str(newest_directory(data_dir)))
 #NETCDF_FILE = os.environ.get("NETCDF_FILE", str(newest_directory("/output/model_predict")) + "/*.nc")
-NETCDF_FILE = os.environ.get("NETCDF_FILE", str(newest_directory(os.environ.get("MAP_DATA_DIR", "/output"))) + "/*.nc")
+NETCDF_FILE = os.environ.get("NETCDF_FILE", str(newest_directory(data_dir)) + "/*.nc")
 VAR_NAME = "t2m"
 TIME_NAME = "time"
 LAT_NAME = "latitude"
