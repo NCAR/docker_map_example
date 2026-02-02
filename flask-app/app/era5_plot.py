@@ -15,11 +15,9 @@ PLOT_LOCK = threading.Lock()
 
 def newest_directory(parent: str) -> Path | None:
     parent_path = Path(parent)
-
     dirs = [d for d in parent_path.iterdir() if d.is_dir()]
     if not dirs:
         return None
-
     return max(dirs, key=lambda d: d.stat().st_mtime)
 
 print("NEWEST " + str(newest_directory("/app/flask-app/data/model_predict")))
