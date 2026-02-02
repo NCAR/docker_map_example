@@ -35,6 +35,7 @@
   <!-- Row 2: Sliders -->
   <div class="widget-row">
     <label for="timeSlider">Time:</label>
+    <span id="timeValue">0</span>
     <input 
       type="range"
       id="timeSlider" 
@@ -43,9 +44,9 @@
       value="0"
       step="1"
     />
-    <span id="timeValue">0</span>
   
     <label for="levSlider">Level:</label>
+    <span id="levValue">0</span>
     <input 
       <input
         type="range"
@@ -54,9 +55,7 @@
         max="{{ nlev -1 }}"
         value="0"
         step="1"
-      />
-      <span id="levValue">0</span>
-    <span id="levValue">0</span>
+    />
   </div>
 
   <!--<div class="plot-container">

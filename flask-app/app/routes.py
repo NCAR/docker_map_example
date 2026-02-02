@@ -46,18 +46,18 @@ map_blueprint = Blueprint(
 def list_files():
     #data_dir = os.environ.get("MAP_DATA_DIR", "/app/flask-app/data")
     data_dir = os.environ.get("MAP_DATA_DIR", "/output")
-    local_dir = "/Users/vapor/docker_map_example/flask-app/data"
-    if os.path.isdir(local_dir):
-        append="local"
-        data_dir = os.environ.get("MAP_DATA_DIR", local_dir)
-    else:
-        append="remote"
-        data_dir = os.environ.get("MAP_DATA_DIR", "/output")
+    #local_dir = "/Users/vapor/docker_map_example/flask-app/data"
+    #if os.path.isdir(local_dir):
+    #    append="local"
+    #    data_dir = os.environ.get("MAP_DATA_DIR", local_dir)
+    #else:
+    #    append="remote"
+    #    data_dir = os.environ.get("MAP_DATA_DIR", "/output")
 
     print("DATA DIR" + data_dir)
     files = os.listdir(data_dir)
     files.sort()
-    files.append(append)
+    #files.append(append)
     files.append(data_dir)
 
     outputFileDir = os.listdir(data_dir + "/model_predict")

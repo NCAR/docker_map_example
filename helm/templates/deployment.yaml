@@ -27,7 +27,8 @@ spec:
         - name: WELCOME_MESSAGE
           value: {{ .Values.webapp.welcomeMessage | quote }}
         - name: MAP_DATA_DIR
-          value: {{ .Values.webapp.dataDir | quote }}
+          value: {{ .Values.webapp.volume1.name | quote }}
+          #value: {{ .Values.webapp.dataDir | quote }}
         volumeMounts:
           - name: {{ .Values.webapp.volume1.name }}
             mountPath: {{ .Values.webapp.volume1.mountPath }}
