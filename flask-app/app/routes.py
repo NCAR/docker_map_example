@@ -44,7 +44,8 @@ map_blueprint = Blueprint(
 
 @map_blueprint.route("/files")
 def list_files():
-    data_dir = os.environ.get("MAP_DATA_DIR", "/app/flask-app/data")
+    #data_dir = os.environ.get("MAP_DATA_DIR", "/app/flask-app/data")
+    data_dir = os.environ.get("MAP_DATA_DIR", "/output")
     local_dir = "/Users/vapor/docker_map_example/flask-app/data"
     if os.path.isdir(local_dir):
         append="local"
@@ -52,14 +53,12 @@ def list_files():
     else:
         append="remote"
         data_dir = os.environ.get("MAP_DATA_DIR", "/output")
-    #data_dir = os.environ.get("/output")
 
     print("DATA DIR" + data_dir)
     files = os.listdir(data_dir)
     files.sort()
     files.append(append)
     files.append(data_dir)
-    #files=["foo", "bar", "baz", "boo"]
 
     outputFileDir = os.listdir(data_dir + "/model_predict")
     files.append(outputFileDir)
@@ -87,7 +86,8 @@ def list_model_predict():
     #files=["foo", "bar", "baz", "boo"]
 
     #predictFiles = os.listdir("/app/flask-app/data/model_predict/2026-01-28T06Z")
-    predictFiles = os.listdir("/output/model_predict/2026-01-29T06Z")
+    #predictFiles = os.listdir("/output/model_predict/2026-01-29T06Z")
+    predictFiles = os.listdir("/output/model_predict/2026-02-02T00Z")
     files.append(predictFiles)
 
     html = """
