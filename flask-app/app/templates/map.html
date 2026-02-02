@@ -123,7 +123,10 @@
         timeValue.textContent = t;
         levValue.textContent = lev;
         // Force reload by adding timestamp to bypass browser caching
-        plotImage.src = `/era5/plot?t=${t}&lev=${lev}&var=${varName}&_=${new Date().getTime()}`;
+        plotImage.src = 
+          `/era5/plot?t=${t}&lev=${lev}&var=${varName}` +
+          `&dataset=${selectedDataset}` +
+          &_=${new Date().getTime()}`;
       }
 
       timeSlider.addEventListener("change", updatePlot);
