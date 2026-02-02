@@ -41,7 +41,7 @@ def plot_png(t: int, lev: int, dataset: str, var_name: str = VAR_NAME):
     print("time " + str(t) + " lev " + str(lev) + " dataset " + dataset +  " var " + var_name)
     print(f"plot time {t}, variable {var_name}")
     if dataset == "": 
-        NETCDF_FILE = os.environ.get("NETCDF_FILE", data_dir + "/" + dataset + "/*.nc")
+        NETCDF_FILE = os.environ.get("NETCDF_FILE", str(newest_directory(data_dir)) + "/*.nc")
     with PLOT_LOCK:
         with xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True) as ds:
             if var_name not in ds.data_vars:
