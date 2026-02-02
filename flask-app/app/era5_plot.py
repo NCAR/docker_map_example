@@ -39,7 +39,7 @@ FILL_THRESHOLD = 1.0e20
 
 def plot_png(dataset: str, t: int, lev: int, var_name: str = VAR_NAME):
     print("time " + str(t) + " lev " + str(lev))
-    print("dataset " + dataset +  " var " + var_name)
+    print("dataset " + str(dataset) +  " var " + var_name)
     print(f"plot time {t}, variable {var_name}")
     if dataset == "": 
         NETCDF_FILE = os.environ.get("NETCDF_FILE", str(newest_directory(data_dir)) + "/*.nc")
