@@ -151,16 +151,17 @@ def era5_plot():
     lev = request.args.get("lev", default=0, type=int)
     var_name = request.args.get("var", default="t2m")
     dataset = request.args.get("dataset", default="")
+    print("PLOT REQUEST DATASET =", dataset)
     buf = plot_png(dataset, t, lev, var_name)
     return send_file(buf, mimetype="image/png")
 
-@map_blueprint.route("/credit-map")
-def map_view():
-    return render_template(
-        "map.html", 
-        ntime=int(NTIME),
-        nlev=int(NLEV),
-        vars_2d=VARS_2D,
-        vars_3d=VARS_3D,
-        default_var="t2m"
-    )
+#@map_blueprint.route("/credit-map")
+#def map_view():
+#    return render_template(
+#        "map.html", 
+#        ntime=int(NTIME),
+#        nlev=int(NLEV),
+#        vars_2d=VARS_2D,
+#        vars_3d=VARS_3D,
+#        default_var="t2m"
+#    )

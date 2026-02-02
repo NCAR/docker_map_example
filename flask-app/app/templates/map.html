@@ -85,14 +85,24 @@
           if (other !== cb) other.checked = false;
         });
 
+        console.log("Dataset selected:", selectedDataset);
+
+
         // set selected dataset
         selectedDataset = cb.checked ? cb.value : "";
 
         updatePlot();
       });
     });
+    const first = document.querySelector("input[name='dataset']");
+    if (first) {
+      first.checked = true;
+      selectedDataset = first.value;
+      updatePlot();
+    }
 
     document.addEventListener("DOMContentLoaded", () => {
+      let selectedDataset = "";
       const timeSlider = document.getElementById("timeSlider");
       const levSlider  = document.getElementById("levSlider");
       const plotImage  = document.getElementById("plotImage");
