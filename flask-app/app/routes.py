@@ -53,7 +53,7 @@ def index():
     print(datasets)
 
     return render_template(
-        "index.html",
+        "map.html",
         datasets=datasets,
         vars_2d=VARS_2D,
         vars_3d=VARS_3D,
