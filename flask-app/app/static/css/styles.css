@@ -1,3 +1,23 @@
+.page-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background: #f5f5f5;
+  padding: 15px;
+  border-right: 1px solid #ccc;
+  text-align: left;
+  overflow-y: auto;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  text-align: center;
+}
+
 .widget-row {
   display: flex;
   flex-direction: row;
