@@ -21,19 +21,6 @@ DATA_ROOT = os.environ.get("MAP_DATA_DIR", "/output")
 #def home():
 #    return "Hello, World!"
 
-#@app.route("/")
-#def index():
-#    datasets = [d.name for d in DATA_ROOT.iterdir() if d.is_dir()]
-#
-#    return render_template(
-#        "index.html",
-#        datasets=datasets,
-#        vars_2d=vars_2d,
-#        vars_3d=vars_3d,
-#        ntime=ntime,
-#        nlev=nlev
-#    )
-
 @app.route("/__routes")
 def routes():
     return "<br>".join(r.rule for r in app.url_map.iter_rules())

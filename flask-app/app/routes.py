@@ -46,7 +46,8 @@ map_blueprint = Blueprint(
 
 @map_blueprint.route("/")
 def index():
-    datasets = [d.name for d in DATA_ROOT.iterdir() if d.is_dir()]
+    #datasets = [d.name for d in DATA_ROOT.iterdir() if d.is_dir()]
+    datasets = [d.name for d in os.environ.get("MAP_DATA_DIR", "/output/model_predict").iterdir() if d.is_dir()]
 
     return render_template(
         "index.html",
