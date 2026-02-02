@@ -125,9 +125,9 @@
         // Force reload by adding timestamp to bypass browser caching
         plotImage.src = `&/era5/plot?` +
           `dataset=${selectedDataset}` +
-          `&var=${varName}` +
           `&t=${t}` +
           `&lev=${lev}` +
+          `&var=${varName}` +
           &_=${new Date().getTime()}`;
       }
 

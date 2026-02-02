@@ -37,7 +37,7 @@ PRES_NAME = "pressure"
 FILL_THRESHOLD = 1.0e20
 
 
-def plot_png(t: int, lev: int, dataset: str, var_name: str = VAR_NAME):
+def plot_png(dataset: str, t: int, lev: int, var_name: str = VAR_NAME):
     print("time " + str(t) + " lev " + str(lev) + " dataset " + dataset +  " var " + var_name)
     print(f"plot time {t}, variable {var_name}")
     if dataset == "": 
