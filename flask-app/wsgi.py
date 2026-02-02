@@ -5,8 +5,8 @@ from app.routes import map_blueprint
 # Explicitly tell Flask where static and templates are
 app = Flask(
     __name__,
-    static_folder=os.path.join(os.path.dirname(__file__), "static"),
-    template_folder=os.path.join(os.path.dirname(__file__), "templates")
+    static_folder=os.path.join(os.path.dirname(__file__), "app/static"),
+    template_folder=os.path.join(os.path.dirname(__file__), "app/templates")
 )
 print("ROOT:", app.root_path)
 print("STATIC:", app.static_folder)
