@@ -13,10 +13,26 @@ print("STATIC:", app.static_folder)
 print("TEMPLATES:", app.template_folder)
 print(app.url_map)
 
+#DATA_ROOT = Path("/output/model_predict")
+DATA_ROOT = os.environ.get("MAP_DATA_DIR", "/output")
+
 # Home route (optional)
-@app.route("/")
-def home():
-    return "Hello, World!"
+#@app.route("/")
+#def home():
+#    return "Hello, World!"
+
+#@app.route("/")
+#def index():
+#    datasets = [d.name for d in DATA_ROOT.iterdir() if d.is_dir()]
+#
+#    return render_template(
+#        "index.html",
+#        datasets=datasets,
+#        vars_2d=vars_2d,
+#        vars_3d=vars_3d,
+#        ntime=ntime,
+#        nlev=nlev
+#    )
 
 @app.route("/__routes")
 def routes():

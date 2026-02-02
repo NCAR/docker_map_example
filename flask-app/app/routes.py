@@ -5,6 +5,8 @@ import xarray as xr
 import json
 import os
 
+#from .era5_plot import VARS_2D, VARS_3D, NTIME, nlev
+
 NTIME = 0
 NLEV = 0
 VARS_2D = []
@@ -41,6 +43,19 @@ map_blueprint = Blueprint(
     #template_folder="../templates",
     #static_folder="../static"
 )
+
+@map_blueprint.route("/")
+def index():
+    datasets = [d.name for d in DATA_ROOT.iterdir() if d.is_dir()]
+
+    return render_template(
+        "index.html",
+        datasets=datasets,
+        vars_2d=VARS_2D,
+        vars_3d=VARS_3D,
+        ntime=NTIME,
+        nlev=NLEV
+    )
 
 @map_blueprint.route("/files")
 def list_files():

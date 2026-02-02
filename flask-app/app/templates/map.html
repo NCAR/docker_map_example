@@ -20,48 +20,59 @@
 
 <body>
 
-  <!-- Row 1: Dropdowns -->
-  <div class="widget-row">
-    <label for="dimSelect">Dimension:</label>
-    <select id="dimSelect">
-      <option value="3d">3D</option>
-      <option value="2d">2D</option>
-    </select>
-  
-    <label for="variableSelect">Variable:</label>
-    <select id="variableSelect"></select>
-  </div>
-  
-  <!-- Row 2: Sliders -->
-  <div class="widget-row">
-    <label for="timeSlider">Time:</label>
-    <span id="timeValue">0</span>
-    <input 
-      type="range"
-      id="timeSlider" 
-      min="0"
-      max="{{ ntime -1 }}"
-      value="0"
-      step="1"
-    />
-  
-    <label for="levSlider">Level:</label>
-    <span id="levValue">0</span>
-    <input 
-      <input
-        type="range"
-        id="levSlider"
-        min="0"
-        max="{{ nlev -1 }}"
-        value="0"
-        step="1"
-    />
+<div class="page-container">
+  <div class="sidebar">
+    <h3>Datasets</h3>
+
+    {% for d in datasets %}
+      <label class="dataset-item">
+        <input type="checkbox" name="dataset" value="{{ d }}">
+        {{ d }}
+      </label>
+    {% endfor %}
   </div>
 
-  <!--<div class="plot-container">
-    <img id="plotImage" src="/era5/plot?t=0" />
-  </div>-->
-    <img id="plotImage" src="/era5/plot?t=0" />
+  <div class="main-content">
+    <!-- Row 1: Dropdowns -->
+    <div class="widget-row">
+      <label for="dimSelect">Dimension:</label>
+      <select id="dimSelect">
+        <option value="3d">3D</option>
+        <option value="2d">2D</option>
+      </select>
+    
+      <label for="variableSelect">Variable:</label>
+      <select id="variableSelect"></select>
+    </div>
+    
+    <!-- Row 2: Sliders -->
+    <div class="widget-row">
+      <label for="timeSlider">Time:</label>
+      <span id="timeValue">0</span>
+      <input 
+        type="range"
+        id="timeSlider" 
+        min="0"
+        max="{{ ntime -1 }}"
+        value="0"
+        step="1"
+      />
+    
+      <label for="levSlider">Level:</label>
+      <span id="levValue">0</span>
+      <input 
+        <input
+          type="range"
+          id="levSlider"
+          min="0"
+          max="{{ nlev -1 }}"
+          value="0"
+          step="1"
+      />
+    </div>
+  </div>
+  <img id="plotImage" src="/era5/plot?t=0" />
+</div>
 
   <script>
     const vars2d = {{ vars_2d | tojson }};
