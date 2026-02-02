@@ -116,8 +116,8 @@
       }
 
       function updatePlot() {
-        const t = timeSlider.value;
-        const lev = levSlider.value;
+        const t = parseInt(timeSlider.value);
+        const lev = parseInt(levSlider.value);
         const varName = variableSelect.value;
         timeValue.textContent = t;
         levValue.textContent = lev;
