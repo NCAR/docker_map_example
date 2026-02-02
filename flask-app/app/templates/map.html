@@ -78,6 +78,21 @@
     const vars2d = {{ vars_2d | tojson }};
     const vars3d = {{ vars_3d | tojson }};
 
+    document.querySelectorAll("input[name='dataset']").forEach(cb => {
+      cb.addEventListener("change", () => {
+
+        // uncheck all others
+        document.querySelectorAll("input[name='dataset']").forEach(other => {
+          if (other !== cb) other.checked = false;
+        });
+
+        // set selected dataset
+        selectedDataset = cb.checked ? cb.value : "";
+
+        updatePlot();
+      });
+    });
+
     document.addEventListener("DOMContentLoaded", () => {
       const timeSlider = document.getElementById("timeSlider");
       const levSlider  = document.getElementById("levSlider");
