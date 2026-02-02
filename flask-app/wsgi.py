@@ -8,10 +8,10 @@ app = Flask(
     static_folder=os.path.join(os.path.dirname(__file__), "app/static"),
     template_folder=os.path.join(os.path.dirname(__file__), "app/templates")
 )
-print("ROOT:", app.root_path)
-print("STATIC:", app.static_folder)
-print("TEMPLATES:", app.template_folder)
-print(app.url_map)
+#print("ROOT:", app.root_path)
+#print("STATIC:", app.static_folder)
+#print("TEMPLATES:", app.template_folder)
+#print(app.url_map)
 
 #DATA_ROOT = Path("/output/model_predict")
 DATA_ROOT = os.environ.get("MAP_DATA_DIR", "/output")
