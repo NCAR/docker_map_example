@@ -20,8 +20,10 @@ def newest_directory(parent: str) -> Path | None:
         return None
     return max(dirs, key=lambda d: d.stat().st_mtime)
 
-print("NEWEST " + str(newest_directory("/app/flask-app/data/model_predict")))
-NETCDF_FILE = os.environ.get("NETCDF_FILE", str(newest_directory("/app/flask-app/data/model_predict")) + "/*.nc")
+#print("NEWEST " + str(newest_directory("/app/flask-app/data/model_predict")))
+#NETCDF_FILE = os.environ.get("NETCDF_FILE", str(newest_directory("/app/flask-app/data/model_predict")) + "/*.nc")
+print("NEWEST " + str(newest_directory("/output/model_predict")))
+NETCDF_FILE = os.environ.get("NETCDF_FILE", str(newest_directory("/output/model_predict")) + "/*.nc")
 VAR_NAME = "t2m"
 TIME_NAME = "time"
 LAT_NAME = "latitude"
