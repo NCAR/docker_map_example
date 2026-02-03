@@ -155,15 +155,28 @@
           return;
         }
       
+        //paramsDiv.innerHTML = `
+        //  <p><b>Name:</b> ${datasetName}</p>
+        //  <p><b>Start Time:</b> {{ stime }}</p>
+        //  <p><b>End Time:</b> {{ etime }}</p>
+        //  <p><b>Latitudes:</b> {{ nlat }}</p>
+        //  <p><b>Longitudes:</b> {{ nlon }}</p>
+        //  <p><b>Levels:</b> {{ nlev }}</p>
+        //  <p><b>Pressure Levels:</b> {{ nplev }}</p>
+        //  <p><b>Forecasts:</b> {{ ntime }}</p>
+        //`;
+
         paramsDiv.innerHTML = `
-          <p><b>Name:</b> ${datasetName}</p>
-          <p><b>Start Time:</b> {{ stime }}</p>
-          <p><b>End Time:</b> {{ etime }}</p>
-          <p><b>Latitudes:</b> {{ nlat }}</p>
-          <p><b>Longitudes:</b> {{ nlon }}</p>
-          <p><b>Levels:</b> {{ nlev }}</p>
-          <p><b>Pressure Levels:</b> {{ nplev }}</p>
-          <p><b>Forecasts:</b> {{ ntime }}</p>
+          <div class="param-grid">
+            <div class="label">Name:</div><div class="value">${datasetName}</div>
+            <div class="label">Start Time:</div><div class="value">{{ stime }}</div>
+            <div class="label">End Time:</div><div class="value">{{ etime }}</div>
+            <div class="label">Latitudes:</div><div class="value">{{ nlat }}</div>
+            <div class="label">Longitudes:</div><div class="value">{{ nlon }}</div>
+            <div class="label">Levels:</div><div class="value">{{ nlev }}</div>
+            <div class="label">Pressure Levels:</div><div class="value">{{ nplev }}</div>
+            <div class="label">Forecasts:</div><div class="value">{{ ntime }}</div>
+          </div>
         `;
 
         //const info = datasetInfo[datasetName];

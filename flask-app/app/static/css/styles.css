@@ -53,6 +53,23 @@
   padding: 6px;
 }
 
+.param-grid {
+  display: grid;
+  grid-template-columns: 1fr auto; /* label expands, value fits */
+  gap: 4px 12px;
+  font-size: 14px;
+}
+
+.param-grid .label {
+  text-align: left;
+  font-weight: bold;
+}
+
+.param-grid .value {
+  text-align: right;
+  font-family: monospace; /* optional, looks nice for numbers */
+}
+
 .main-content {
   flex: 1;
   padding: 20px;
