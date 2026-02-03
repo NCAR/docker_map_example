@@ -174,69 +174,50 @@
       document.querySelectorAll(".dataset-row").forEach(row => {
         const checkbox = row.querySelector(".dataset-check");
         const datasetName = row.dataset.dataset;
-      
-        // Clicking the row highlights it and selects the dataset
-        row.addEventListener("click", (e) => {
-          // Always highlight the row
-          document.querySelectorAll(".dataset-row").forEach(r =>
-            r.classList.remove("active")
-          );
+        
+        // 1️⃣ Row click highlights + shows parameters
+        row.addEventListener("click", () => {
+          document.querySelectorAll(".dataset-row").forEach(r => r.classList.remove("active"));
           row.classList.add("active");
-
+      
           selectedDataset = datasetName;
           updateParamsPanel(selectedDataset);
-
-          // If the row click is meant to also check the dataset:
-          checkbox.checked = true;
-          document.querySelectorAll(".dataset-check").forEach(other => {
-            if (other !== checkbox) other.checked = false;
-          });
-          activeDatasets.clear();
-          activeDatasets.add(datasetName);
-          updatePlot();
-
-          e.stopPropagation(); // optional
         });
       
-        // Checkbox logic (only one checked)
+        // 2️⃣ Checkbox controls only plotting (single selection)
         checkbox.addEventListener("change", () => {
           if (checkbox.checked) {
             document.querySelectorAll(".dataset-check").forEach(cb => {
               if (cb !== checkbox) cb.checked = false;
             });
-            selectedDataset = datasetName;
-      
-            // Highlight the row
-            document.querySelectorAll(".dataset-row").forEach(r => r.classList.remove("active"));
-            row.classList.add("active");
+            activeDatasets.clear();
+            activeDatasets.add(datasetName);
           } else {
-            selectedDataset = null;
-            row.classList.remove("active");
+            activeDatasets.delete(datasetName);
           }
-      
+          console.log("Dataset selected:", selectedDataset);
           updatePlot();
-          updateParamsPanel(selectedDataset);
         });
       });
 
       // Dataset checkboxes
-      document.querySelectorAll("input[name='dataset']").forEach(cb => {
-        cb.addEventListener("change", () => {
+      //document.querySelectorAll("input[name='dataset']").forEach(cb => {
+      //  cb.addEventListener("change", () => {
 
-          // uncheck all others
-          document.querySelectorAll("input[name='dataset']").forEach(other => {
-            if (other !== cb) other.checked = false;
-          });
+      //    // uncheck all others
+      //    document.querySelectorAll("input[name='dataset']").forEach(other => {
+      //      if (other !== cb) other.checked = false;
+      //    });
 
-          console.log("Dataset selected:", selectedDataset);
+      //    console.log("Dataset selected:", selectedDataset);
 
 
-          // set selected dataset
-          selectedDataset = cb.checked ? cb.value : "";
+      //    // set selected dataset
+      //    selectedDataset = cb.checked ? cb.value : "";
 
-          updatePlot();
-        });
-      });
+      //    updatePlot();
+      //  });
+      //});
 
       // Auto select first dataset
       const first = document.querySelector("input[name='dataset']");
