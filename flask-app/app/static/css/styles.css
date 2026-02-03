@@ -63,11 +63,13 @@
 .param-grid .label {
   text-align: left;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .param-grid .value {
   text-align: right;
   font-family: monospace; /* optional, looks nice for numbers */
+  white-space: nowrap;
 }
 
 .main-content {
