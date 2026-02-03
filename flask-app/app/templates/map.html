@@ -83,6 +83,7 @@
 
   <script>
 
+    console.log("test console");
     document.addEventListener("DOMContentLoaded", () => {
       const vars2d = {{ vars_2d | tojson }};
       const vars3d = {{ vars_3d | tojson }};
@@ -179,7 +180,7 @@
         const checkbox = row.querySelector(".dataset-check");
         const datasetName = row.dataset.dataset;
         
-        // 1️⃣ Row click highlights + shows parameters
+        // Row click highlights + shows parameters
         row.addEventListener("click", () => {
           console.log("dataset-row clicked:", datasetName);
           document.querySelectorAll(".dataset-row").forEach(r => r.classList.remove("active"));
@@ -191,7 +192,7 @@
           updateParamsPanel(activeDataset);
         });
       
-        // 2️⃣ Checkbox controls only plotting (single selection)
+        // Checkbox controls only plotting (single selection)
         checkbox.addEventListener("change", () => {
           console.log("checkbox clicked:", checkbox);
           if (checkbox.checked) {
