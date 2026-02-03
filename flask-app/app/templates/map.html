@@ -177,6 +177,7 @@
         
         // 1️⃣ Row click highlights + shows parameters
         row.addEventListener("click", () => {
+          console.log("dataset-row clicked:", datasetName);
           document.querySelectorAll(".dataset-row").forEach(r => r.classList.remove("active"));
           row.classList.add("active");
       
@@ -186,6 +187,7 @@
       
         // 2️⃣ Checkbox controls only plotting (single selection)
         checkbox.addEventListener("change", () => {
+          console.log("checkbox clicked:", checkbox);
           if (checkbox.checked) {
             document.querySelectorAll(".dataset-check").forEach(cb => {
               if (cb !== checkbox) cb.checked = false;
@@ -195,7 +197,6 @@
           } else {
             activeDatasets.delete(datasetName);
           }
-          console.log("Dataset selected:", selectedDataset);
           updatePlot();
         });
       });
