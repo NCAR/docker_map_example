@@ -25,6 +25,7 @@
   margin: 3px 0;
   border-radius: 6px;
   cursor: pointer;
+  pointer-events: auto;
 }
 
 .dataset-row:hover {
