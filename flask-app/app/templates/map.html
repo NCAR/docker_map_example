@@ -126,8 +126,9 @@
           `&dataset=${plottedDatasets.values().next().value}` +
           `&t=${t}` +
           `&lev=${lev}` +
-          `&var=${varName}` +
-          `&_=${new Date().getTime()}`;
+          `&var=${varName}`;
+          //`&var=${varName}` +
+          //`&_=${new Date().getTime()}`;
       }
 
       function updateDatasetHighlight() {
@@ -171,7 +172,7 @@
         "{{ d }}": {
           enabled: false,
           description: "Example dataset {{ d }}",
-          start_time: "{{ stime }}"
+          start_time: "{{ stime }}",
           resolution: "0.25°",
           forecast_hours: 48
         },
