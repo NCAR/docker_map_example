@@ -88,8 +88,8 @@
       const vars2d = {{ vars_2d | tojson }};
       const vars3d = {{ vars_3d | tojson }};
 
-      //let selectedDataset = null;
-      let activeDataset = new Set();
+      let paramsDataset = null;
+      let plottedDatasets = new Set();
       
       const timeSlider = document.getElementById("timeSlider");
       const levSlider  = document.getElementById("levSlider");
@@ -123,7 +123,7 @@
         //plotImage.src = `/era5/plot?` +
         //  `&dataset=${selectedDataset}` +
         plotImage.src = `/era5/plot?` +
-          `&dataset=${activeDataset}` +
+          `&dataset=${plottedDataset}` +
           `&t=${t}` +
           `&lev=${lev}` +
           `&var=${varName}` +
@@ -135,10 +135,10 @@
           row.classList.remove("active");
         });
         //if (selectedDataset) {
-        if (activeDataset) {
+        if (paramsDataset) {
           const activeRow = document.querySelector(
             //`.dataset-row[data-dataset="${selectedDataset}"]`
-            `.dataset-row[data-dataset="${activeDataset}"]`
+            `.dataset-row[data-dataset="${paramsDataset}"]`
           );
           if (activeRow) {
             activeRow.classList.add("active");
@@ -187,9 +187,9 @@
           row.classList.add("active");
       
           //selectedDataset = datasetName;
-          activeDataset = datasetName;
+          paramsDataset.add(datasetName);
           //updateParamsPanel(selectedDataset);
-          updateParamsPanel(activeDataset);
+          updateParamsPanel(paramsDataset);
         });
       
         // Checkbox controls only plotting (single selection)
@@ -199,40 +199,21 @@
             document.querySelectorAll(".dataset-check").forEach(cb => {
               if (cb !== checkbox) cb.checked = false;
             });
-            activeDataset.clear();
-            activeDataset.add(datasetName);
+            plottedDatasets.clear();
+            plottedDatasets.add(datasetName);
           } else {
-            activeDataset.delete(datasetName);
+            plottedDatasets.delete(datasetName);
           }
           updatePlot();
         });
       });
-
-      // Dataset checkboxes
-      //document.querySelectorAll("input[name='dataset']").forEach(cb => {
-      //  cb.addEventListener("change", () => {
-
-      //    // uncheck all others
-      //    document.querySelectorAll("input[name='dataset']").forEach(other => {
-      //      if (other !== cb) other.checked = false;
-      //    });
-
-      //    console.log("Dataset selected:", selectedDataset);
-
-
-      //    // set selected dataset
-      //    selectedDataset = cb.checked ? cb.value : "";
-
-      //    updatePlot();
-      //  });
-      //});
 
       // Auto select first dataset
       const first = document.querySelector("input[name='dataset']");
       if (first) {
         first.checked = true;
         //selectedDataset = first.value;
-        activeDataset = first.value;
+        plottedDatasets = first.value;
         updatePlot();
       }
 
