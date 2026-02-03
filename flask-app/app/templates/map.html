@@ -87,7 +87,7 @@
       const vars2d = {{ vars_2d | tojson }};
       const vars3d = {{ vars_3d | tojson }};
 
-      let selectedDataset = null;
+      //let selectedDataset = null;
       let activeDataset = new Set();
       
       const timeSlider = document.getElementById("timeSlider");
@@ -119,8 +119,10 @@
         timeValue.textContent = t;
         levValue.textContent = lev;
         // Force reload by adding timestamp to bypass browser caching
+        //plotImage.src = `/era5/plot?` +
+        //  `&dataset=${selectedDataset}` +
         plotImage.src = `/era5/plot?` +
-          `&dataset=${selectedDataset}` +
+          `&dataset=${activeDataset}` +
           `&t=${t}` +
           `&lev=${lev}` +
           `&var=${varName}` +
@@ -131,9 +133,11 @@
         document.querySelectorAll(".dataset-row").forEach(row => {
           row.classList.remove("active");
         });
-        if (selectedDataset) {
+        //if (selectedDataset) {
+        if (activeDataset) {
           const activeRow = document.querySelector(
-            `.dataset-row[data-dataset="${selectedDataset}"]`
+            //`.dataset-row[data-dataset="${selectedDataset}"]`
+            `.dataset-row[data-dataset="${activeDataset}"]`
           );
           if (activeRow) {
             activeRow.classList.add("active");
@@ -153,7 +157,7 @@
       
         paramsDiv.innerHTML = `
           <p><b>Name:</b> ${datasetName}</p>
-          <p><b>Description:</b> ${info.description}</p>
+          <p><b>Description:\n</b> ${info.description}</p>
           <p><b>Resolution:</b> ${info.resolution}</p>
           <p><b>Forecast Hours:</b> ${info.forecast_hours}</p>
         `;
@@ -181,8 +185,10 @@
           document.querySelectorAll(".dataset-row").forEach(r => r.classList.remove("active"));
           row.classList.add("active");
       
-          selectedDataset = datasetName;
-          updateParamsPanel(selectedDataset);
+          //selectedDataset = datasetName;
+          activeDataset = datasetName;
+          //updateParamsPanel(selectedDataset);
+          updateParamsPanel(activeDataset);
         });
       
         // 2️⃣ Checkbox controls only plotting (single selection)
@@ -224,7 +230,8 @@
       const first = document.querySelector("input[name='dataset']");
       if (first) {
         first.checked = true;
-        selectedDataset = first.value;
+        //selectedDataset = first.value;
+        activeDataset = first.value;
         updatePlot();
       }
 
