@@ -177,12 +177,25 @@
       
         // Clicking the row highlights it and selects the dataset
         row.addEventListener("click", (e) => {
+          // Always highlight the row
           document.querySelectorAll(".dataset-row").forEach(r =>
             r.classList.remove("active")
           );
           row.classList.add("active");
+
           selectedDataset = datasetName;
           updateParamsPanel(selectedDataset);
+
+          // If the row click is meant to also check the dataset:
+          checkbox.checked = true;
+          document.querySelectorAll(".dataset-check").forEach(other => {
+            if (other !== checkbox) other.checked = false;
+          });
+          activeDatasets.clear();
+          activeDatasets.add(datasetName);
+          updatePlot();
+
+          e.stopPropagation(); // optional
         });
       
         // Checkbox logic (only one checked)
