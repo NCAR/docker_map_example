@@ -33,7 +33,7 @@
     </div>
     <!-- Parameters subsection -->
     <div id="datasetParams">
-      <h4>Dataset Parameters</h4>
+      <h3>Dataset Parameters</h3>
       <div id="paramsContent">
         <p>No dataset selected.</p>
       </div>
@@ -177,18 +177,11 @@
       
         // Clicking the row highlights it and selects the dataset
         row.addEventListener("click", (e) => {
-          // Avoid double toggling if checkbox clicked directly
-          if (e.target !== checkbox) {
-            checkbox.checked = true;
-            selectedDataset = datasetName;
-            updatePlot();
-          }
-      
-          // Highlight only this row
-          document.querySelectorAll(".dataset-row").forEach(r => r.classList.remove("active"));
+          document.querySelectorAll(".dataset-row").forEach(r =>
+            r.classList.remove("active")
+          );
           row.classList.add("active");
-      
-          // Update params panel
+          selectedDataset = datasetName;
           updateParamsPanel(selectedDataset);
         });
       
