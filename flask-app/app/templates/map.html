@@ -159,10 +159,13 @@
       
         paramsDiv.innerHTML = `
           <p><b>Name:</b> ${datasetName}</p>
-          <p><b>Description:<br></b> ${info.description}</p>
-          <p><b>Start Time:</b> ${info.start_time}</p>
-          <p><b>Resolution:</b> ${info.resolution}</p>
-          <p><b>Forecast Hours:</b> ${info.forecast_hours}</p>
+          <p><b>Start Time:</b> ${info.stime}</p>
+          <p><b>End Time:</b> ${info.etime}</p>
+          <p><b>Latitudes:</b> ${info.nlat}</p>
+          <p><b>Longitudes:</b> ${info.nlon}</p>
+          <p><b>Levels:</b> ${info.nlev}</p>
+          <p><b>Pressure Levels:</b> ${info.nplev}</p>
+          <p><b>Forecasts:</b> ${info.ntime}</p>
         `;
       }
 
@@ -171,10 +174,13 @@
         {% for d in datasets %}
         "{{ d }}": {
           enabled: false,
-          description: "Example dataset {{ d }}",
-          start_time: "{{ stime }}",
-          resolution: "0.25°",
-          forecast_hours: 48
+          stime: "{{ stime }}",
+          etime: "{{ etime }}",
+          nlat: "{{ nlat }}",
+          nlon: "{{ nlon }}",
+          nlev: "{{ nlev }}",
+          nplev: "{{ nplev }}",
+          ntime: "{{ ntime }}"
         },
         {% endfor %}
       };
