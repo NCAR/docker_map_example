@@ -23,13 +23,21 @@
 <div class="page-container">
   <div class="sidebar">
     <h3>Datasets</h3>
-
-    {% for d in datasets %}
-      <label class="dataset-item">
-        <input type="checkbox" name="dataset" value="{{ d }}">
-        {{ d }}
-      </label>
-    {% endfor %}
+    <div id="datasetList">
+      {% for d in datasets %}
+        <label class="dataset-item">
+          <input type="checkbox" name="dataset" value="{{ d }}">
+          {{ d }}
+        </label>
+      {% endfor %}
+    </div>
+    <!-- Parameters subsection -->
+    <div id="datasetParams">
+      <h4>Dataset Parameters</h4>
+      <div id="paramsContent">
+        <p>No dataset selected.</p>
+      </div>
+    </div>
   </div>
 
   <div class="main-content">
@@ -79,8 +87,9 @@
       const vars2d = {{ vars_2d | tojson }};
       const vars3d = {{ vars_3d | tojson }};
 
-      let selectedDataset = "";
-
+      let selectedDataset = null;
+      let activeDataset = Set();
+      
       const timeSlider = document.getElementById("timeSlider");
       const levSlider  = document.getElementById("levSlider");
       const plotImage  = document.getElementById("plotImage");
@@ -117,6 +126,103 @@
           `&var=${varName}` +
           `&_=${new Date().getTime()}`;
       }
+
+      function updateDatasetHighlight() {
+        document.querySelectorAll(".dataset-row").forEach(row => {
+          row.classList.remove("active");
+        });
+        if (selectedDataset) {
+          const activeRow = document.querySelector(
+            `.dataset-row[data-dataset="${selectedDataset}"]`
+          );
+          if (activeRow) {
+            activeRow.classList.add("active");
+          }
+        }
+      }
+
+      function updateParamsPanel(datasetName) {
+        const paramsDiv = document.getElementById("paramsContent");
+      
+        if (!datasetName) {
+          paramsDiv.innerHTML = "<p>No dataset selected.</p>";
+          return;
+        }
+      
+        const info = datasetInfo[datasetName];
+      
+        paramsDiv.innerHTML = `
+          <p><b>Name:</b> ${datasetName}</p>
+          <p><b>Description:</b> ${info.description}</p>
+          <p><b>Resolution:</b> ${info.resolution}</p>
+          <p><b>Forecast Hours:</b> ${info.forecast_hours}</p>
+        `;
+      }
+
+      // Example parameters (later you will load real ones from Flask)
+      const datasetInfo = {
+        {% for d in datasets %}
+        "{{ d }}": {
+          enabled: false,
+          description: "Example dataset {{ d }}",
+          resolution: "0.25°",
+          forecast_hours: 48
+        },
+        {% endfor %}
+      };
+
+      document.querySelectorAll(".dataset-row").forEach(row => {
+          const checkbox = row.querySelector(".dataset-check");
+          const datasetName = row.dataset.name;
+          // Checkbox controls plotting
+          checkbox.addEventListener("change", (e) => {
+            // If this box was just checked...
+            if (checkbox.checked) {
+          
+              // Uncheck all other boxes
+              document.querySelectorAll(".dataset-check").forEach(other => {
+                if (other !== checkbox) {
+                  other.checked = false;
+                }
+              });
+          
+              // Clear active set and add only this dataset
+              activeDatasets.clear();
+              activeDatasets.add(datasetName);
+          
+            } else {
+              // If unchecked, remove dataset
+              activeDatasets.delete(datasetName);
+            }
+          
+            console.log("Active dataset:", Array.from(activeDatasets));
+          
+            updatePlot();
+          
+            // If this dataset is selected, update params panel too
+            if (datasetName === selectedDataset) {
+              updateParamsPanel(selectedDataset);
+            }
+          
+            e.stopPropagation();
+          });
+      
+          //  Row click controls highlighting + parameters
+          row.addEventListener("click", () => {
+            // remove highlight from all
+            document.querySelectorAll(".dataset-row").forEach(r =>
+              r.classList.remove("active")
+            );
+            // highlight this one
+            row.classList.add("active");
+            // set selected dataset (parameters only)
+            selectedDataset = datasetName;
+            console.log("Selected dataset:", selectedDataset);
+            // update parameter display only
+            updateParamsPanel(selectedDataset);
+          });
+        });
+      });
 
       // Dataset checkboxes
       document.querySelectorAll("input[name='dataset']").forEach(cb => {

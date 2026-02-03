@@ -18,6 +18,40 @@
   font-size: 14px;
 }
 
+.dataset-row {
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  margin: 3px 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.dataset-row:hover {
+  background: #eaeaea;
+}
+
+.dataset-row.active {
+  background: #cce5ff;
+  font-weight: bold;
+}
+
+.dataset-check {
+  margin-right: 8px;
+}
+
+#datasetParams {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+  font-size: 14px;
+}
+
+#paramsContent {
+  text-align: left;
+  padding: 6px;
+}
+
 .main-content {
   flex: 1;
   padding: 20px;
