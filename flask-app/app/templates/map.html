@@ -25,10 +25,10 @@
     <h3>Datasets</h3>
     <div id="datasetList">
       {% for d in datasets %}
-        <label class="dataset-item">
-          <input type="checkbox" name="dataset" value="{{ d }}">
-          {{ d }}
-        </label>
+        <div class="dataset-row" data-dataset="{{ d }}">
+          <input type="checkbox" name="dataset" class="dataset-check" value="{{ d }}">
+          <span class="dataset-label">{{ d }}</span>
+        </div>
       {% endfor %}
     </div>
     <!-- Parameters subsection -->
@@ -172,55 +172,44 @@
       };
 
       document.querySelectorAll(".dataset-row").forEach(row => {
-          const checkbox = row.querySelector(".dataset-check");
-          const datasetName = row.dataset.name;
-          // Checkbox controls plotting
-          checkbox.addEventListener("change", (e) => {
-            // If this box was just checked...
-            if (checkbox.checked) {
-          
-              // Uncheck all other boxes
-              document.querySelectorAll(".dataset-check").forEach(other => {
-                if (other !== checkbox) {
-                  other.checked = false;
-                }
-              });
-          
-              // Clear active set and add only this dataset
-              activeDatasets.clear();
-              activeDatasets.add(datasetName);
-          
-            } else {
-              // If unchecked, remove dataset
-              activeDatasets.delete(datasetName);
-            }
-          
-            console.log("Active dataset:", Array.from(activeDatasets));
-          
-            updatePlot();
-          
-            // If this dataset is selected, update params panel too
-            if (datasetName === selectedDataset) {
-              updateParamsPanel(selectedDataset);
-            }
-          
-            e.stopPropagation();
-          });
+        const checkbox = row.querySelector(".dataset-check");
+        const datasetName = row.dataset.dataset;
       
-          //  Row click controls highlighting + parameters
-          row.addEventListener("click", () => {
-            // remove highlight from all
-            document.querySelectorAll(".dataset-row").forEach(r =>
-              r.classList.remove("active")
-            );
-            // highlight this one
-            row.classList.add("active");
-            // set selected dataset (parameters only)
+        // Clicking the row highlights it and selects the dataset
+        row.addEventListener("click", (e) => {
+          // Avoid double toggling if checkbox clicked directly
+          if (e.target !== checkbox) {
+            checkbox.checked = true;
             selectedDataset = datasetName;
-            console.log("Selected dataset:", selectedDataset);
-            // update parameter display only
-            updateParamsPanel(selectedDataset);
-          });
+            updatePlot();
+          }
+      
+          // Highlight only this row
+          document.querySelectorAll(".dataset-row").forEach(r => r.classList.remove("active"));
+          row.classList.add("active");
+      
+          // Update params panel
+          updateParamsPanel(selectedDataset);
+        });
+      
+        // Checkbox logic (only one checked)
+        checkbox.addEventListener("change", () => {
+          if (checkbox.checked) {
+            document.querySelectorAll(".dataset-check").forEach(cb => {
+              if (cb !== checkbox) cb.checked = false;
+            });
+            selectedDataset = datasetName;
+      
+            // Highlight the row
+            document.querySelectorAll(".dataset-row").forEach(r => r.classList.remove("active"));
+            row.classList.add("active");
+          } else {
+            selectedDataset = null;
+            row.classList.remove("active");
+          }
+      
+          updatePlot();
+          updateParamsPanel(selectedDataset);
         });
       });
 
