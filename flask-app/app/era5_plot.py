@@ -45,7 +45,8 @@ def plot_png(dataset: str, t: int, lev: int, var_name: str = VAR_NAME):
         NETCDF_FILE = os.environ.get("NETCDF_FILE", str(newest_directory(data_dir)) + "/*.nc")
         print("dataset is empty " + NETCDF_FILE)
     else:
-        NETCDF_FILE = str(Path(data_dir + "/" + dataset) / "/*.nc")
+        #NETCDF_FILE = str(Path(data_dir + "/" + dataset) / "/*.nc")
+        NETCDF_FILE = f"{data_dir}/{dataset}/*.nc"
         print("dataset not empty " + data_dir + " " + dataset + " " + NETCDF_FILE)
     with PLOT_LOCK:
         with xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True) as ds:
