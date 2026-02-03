@@ -27,7 +27,7 @@ def openDataset():
             LATS = int(ds.sizes[LAT_NAME])
             LONS = int(ds.sizes[LON_NAME])
             STIME = str(ds.time.values[0].astype("datetime64[s]"))
-            ETIME = str(ds.time.values[-1].astype("datetime64[s]")))
+            ETIME = str(ds.time.values[-1].astype("datetime64[s]"))
             
             print(NTIME)
             print(NLEV)
