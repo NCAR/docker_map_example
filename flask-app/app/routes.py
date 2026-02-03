@@ -26,8 +26,8 @@ def openDataset():
             NPLEV = int(ds.sizes[PRES_NAME])
             LATS = int(ds.sizes[LAT_NAME])
             LONS = int(ds.sizes[LON_NAME])
-            STIME = str(ds.time.values[0])
-            ETIME = str(ds.time.values[-1])
+            STIME = str(ds.time.values[0].astype("datetime64[s]"))
+            ETIME = str(ds.time.values[-1].astype("datetime64[s]")))
             
             print(NTIME)
             print(NLEV)
@@ -64,8 +64,8 @@ def index():
         ntime=NTIME,
         nlev=NLEV,
         nplev=NPLEV,
-        lats=LATS,
-        lons=LONS,
+        nlat=LATS,
+        nlon=LONS,
         stime=STIME,
         etime=ETIME
     )
