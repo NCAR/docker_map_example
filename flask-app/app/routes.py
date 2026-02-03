@@ -90,28 +90,56 @@ def list_files():
 
 @map_blueprint.route("/model_predict")
 def list_model_predict():
-    #data_dir = os.environ.get("fooMAP_DATA_DIR", "/app/flask-app/data/model_predict")
     data_dir = os.environ.get("fooMAP_DATA_DIR", "/output/model_predict")
 
-    files = os.listdir(data_dir)
-    files.sort()
-    #files=["foo", "bar", "baz", "boo"]
+    # Dictionary mapping directory -> list of files
+    dir_files = {}
 
-    #predictFiles = os.listdir("/app/flask-app/data/model_predict/2026-01-28T06Z")
-    #predictFiles = os.listdir("/output/model_predict/2026-01-29T06Z")
-    predictFiles = os.listdir("/output/model_predict/2026-02-02T00Z")
-    files.append(predictFiles)
+    for subdir in sorted(os.listdir(data_dir)):
+        subdir_path = os.path.join(data_dir, subdir)
+        if os.path.isdir(subdir_path):
+            # List all files in this subdirectory
+            files = sorted(os.listdir(subdir_path))
+            dir_files[subdir] = files
 
     html = """
     <h1>model_predict Contents</h1>
     <ul>
-    {% for f in files %}
-      <li>{{ f }}</li>
+    {% for dir, files in dir_files.items() %}
+      <li>{{ dir }}
+        <ul>
+          {% for f in files %}
+            <li>{{ f }}</li>
+          {% endfor %}
+        </ul>
+      </li>
     {% endfor %}
     </ul>
     """
 
-    return render_template_string(html, files=files)
+    return render_template_string(html, dir_files=dir_files)
+    ##data_dir = os.environ.get("fooMAP_DATA_DIR", "/app/flask-app/data/model_predict")
+    #data_dir = os.environ.get("fooMAP_DATA_DIR", "/output/model_predict")
+
+    #files = os.listdir(data_dir)
+    #files.sort()
+    ##files=["foo", "bar", "baz", "boo"]
+
+    ##predictFiles = os.listdir("/app/flask-app/data/model_predict/2026-01-28T06Z")
+    ##predictFiles = os.listdir("/output/model_predict/2026-01-29T06Z")
+    #predictFiles = os.listdir("/output/model_predict/2026-02-02T00Z")
+    #files.append(predictFiles)
+
+    #html = """
+    #<h1>model_predict Contents</h1>
+    #<ul>
+    #{% for f in files %}
+    #  <li>{{ f }}</li>
+    #{% endfor %}
+    #</ul>
+    #"""
+
+    #return render_template_string(html, files=files)
 
 @map_blueprint.route("/era5")
 def era5_root():
