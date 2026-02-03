@@ -88,7 +88,7 @@
       const vars3d = {{ vars_3d | tojson }};
 
       let selectedDataset = null;
-      let activeDataset = Set();
+      let activeDataset = new Set();
       
       const timeSlider = document.getElementById("timeSlider");
       const levSlider  = document.getElementById("levSlider");
@@ -192,10 +192,10 @@
             document.querySelectorAll(".dataset-check").forEach(cb => {
               if (cb !== checkbox) cb.checked = false;
             });
-            activeDatasets.clear();
-            activeDatasets.add(datasetName);
+            activeDataset.clear();
+            activeDataset.add(datasetName);
           } else {
-            activeDatasets.delete(datasetName);
+            activeDataset.delete(datasetName);
           }
           updatePlot();
         });
