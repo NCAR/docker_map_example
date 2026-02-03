@@ -160,6 +160,7 @@
         paramsDiv.innerHTML = `
           <p><b>Name:</b> ${datasetName}</p>
           <p><b>Description:<br></b> ${info.description}</p>
+          <p><b>Start Time:</b> ${info.start_time}</p>
           <p><b>Resolution:</b> ${info.resolution}</p>
           <p><b>Forecast Hours:</b> ${info.forecast_hours}</p>
         `;
@@ -171,6 +172,7 @@
         "{{ d }}": {
           enabled: false,
           description: "Example dataset {{ d }}",
+          start_time: "{{ stime }}"
           resolution: "0.25°",
           forecast_hours: 48
         },

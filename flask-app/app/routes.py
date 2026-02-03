@@ -9,15 +9,26 @@ import os
 
 NTIME = 0
 NLEV = 0
+NPLEV = 0
+LATS = 0
+LONS = 0
+STIME = ""
+ETIME = ""
 VARS_2D = []
 VARS_3D = []
 
 def openDataset():
-    global NTIME, NLEV, VARS_2D, VARS_3D
+    global NTIME, NLEV, NPLEV, LATS, LONS, STIME, ETIME, VARS_2D, VARS_3D
     with xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True) as ds:
         try:
             NTIME = int(ds.sizes.get(TIME_NAME))
             NLEV = int(ds.sizes[LEV_NAME])
+            NPLEV = int(ds.sizes[PRES_NAME])
+            LATS = int(ds.sizes[LAT_NAME])
+            LONS = int(ds.sizes[LON_NAME])
+            STIME = str(ds.time.values[0])
+            ETIME = str(ds.time.values[-1])
+            
             print(NTIME)
             print(NLEV)
             for var_name, da in ds.data_vars.items():
@@ -51,7 +62,12 @@ def index():
         vars_2d=VARS_2D,
         vars_3d=VARS_3D,
         ntime=NTIME,
-        nlev=NLEV
+        nlev=NLEV,
+        nplev=NPLEV,
+        lats=LATS,
+        lons=LONS,
+        stime=STIME,
+        etime=ETIME
     )
 
 @map_blueprint.route("/files")
