@@ -155,18 +155,29 @@
           return;
         }
       
-        const info = datasetInfo[datasetName];
-      
         paramsDiv.innerHTML = `
           <p><b>Name:</b> ${datasetName}</p>
-          <p><b>Start Time:</b> ${info.stime}</p>
-          <p><b>End Time:</b> ${info.etime}</p>
-          <p><b>Latitudes:</b> ${info.nlat}</p>
-          <p><b>Longitudes:</b> ${info.nlon}</p>
-          <p><b>Levels:</b> ${info.nlev}</p>
-          <p><b>Pressure Levels:</b> ${info.nplev}</p>
-          <p><b>Forecasts:</b> ${info.ntime}</p>
+          <p><b>Start Time:</b> {{ stime }}</p>
+          <p><b>End Time:</b> {{ etime }}</p>
+          <p><b>Latitudes:</b> {{ nlat }}</p>
+          <p><b>Longitudes:</b> {{ nlon }}</p>
+          <p><b>Levels:</b> {{ nlev }}</p>
+          <p><b>Pressure Levels:</b> {{ nplev }}</p>
+          <p><b>Forecasts:</b> {{ ntime }}</p>
         `;
+
+        //const info = datasetInfo[datasetName];
+      
+        //paramsDiv.innerHTML = `
+        //  <p><b>Name:</b> ${datasetName}</p>
+        //  <p><b>Start Time:</b> ${info.stime}</p>
+        //  <p><b>End Time:</b> ${info.etime}</p>
+        //  <p><b>Latitudes:</b> ${info.nlat}</p>
+        //  <p><b>Longitudes:</b> ${info.nlon}</p>
+        //  <p><b>Levels:</b> ${info.nlev}</p>
+        //  <p><b>Pressure Levels:</b> ${info.nplev}</p>
+        //  <p><b>Forecasts:</b> ${info.ntime}</p>
+        //`;
       }
 
       // Example parameters (later you will load real ones from Flask)
