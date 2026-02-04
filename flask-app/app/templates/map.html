@@ -189,6 +189,8 @@
         const img = document.createElement("img");
     
         function updatePlot() {
+          timeLabel.textContent = `Time:${timeSlider.value}`;
+          levLabel.textContent = `Level:${levSlider.value}`;
           img.src =
             `/era5/plot?dataset=${datasetName}` +
             `&t=${timeSlider.value}` +
@@ -225,9 +227,9 @@
         const row2 = document.createElement("div");
         row2.className = "widget-row";
         const timeLabel = document.createElement("label");
-        timeLabel.textContent = `Time:${timeSlider.value}`;
+        //timeLabel.textContent = `Time:${timeSlider.value}`;
         const levLabel = document.createElement("label");
-        levLabel.textContent = `Level:${levSlider.value}`;
+        //levLabel.textContent = `Level:${levSlider.value}`;
         row2.appendChild(timeLabel);
         row2.appendChild(timeSlider);
         row2.appendChild(levLabel);
