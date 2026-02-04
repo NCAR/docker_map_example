@@ -128,7 +128,7 @@
         // Force reload by adding timestamp to bypass browser caching
         //plotImage.src = `/era5/plot?` +
         //  `&dataset=${selectedDataset}` +
-        datasetHeader.textContext = header;
+        datasetHeader.textContext = `${header}`;
         plotImage.src = `/era5/plot?` +
           `&dataset=${header}` +
           `&t=${t}` +
