@@ -240,12 +240,12 @@
     
         function updatePlot() {
           timeLabel.textContent = `Time: ${timeSlider.value}`;
-          levLabel.textContent = Slider.value}`;
+          levLabel.textContent = `Level: ${levSlider.value}`;
           img.src =
             `/era5/plot?dataset=$Name}` +
-            `&t=${timeSlider.valu
-            `&lev=${levSlider.val
-            `&var=${varSelect.val
+            `&t=${timeSlider.value}` +
+            `&lev=${levSlider.value}` +
+            `&var=${varSelect.value}`;
         }
     
         // Event listeners
