@@ -127,7 +127,21 @@
           updateGridLayout();
         });
       });
-    
+   
+      // Metadata display 
+      paramsDiv.innerHTML = `
+        <div class="param-grid">
+          <div class="label">Name:</div><div class="value">${datasetName}</div>
+          <div class="label">Ts Start:</div><div class="value">{{ stime }}</div>
+          <div class="label">Ts End:</div><div class="value">{{ etime }}</div>
+          <div class="label">Latitudes:</div><div class="value">{{ nlat }}</div>
+          <div class="label">Longitudes:</div><div class="value">{{ nlon }}</div>
+          <div class="label">Levels:</div><div class="value">{{ nlev }}</div>
+          <div class="label">P-Levels:</div><div class="value">{{ nplev }}</div>
+          <div class="label">Forecasts:</div><div class="value">{{ ntime }}</div>
+        </div>
+      `;
+
       // Compute grid columns
       function computeGridColumns(n) {
         if (n <= 1) return 1;
@@ -216,36 +230,36 @@
         const img = document.createElement("img");
     
         function updatePlot() {
-          timeLabel.textContent = `Time:${timeSlider.value}`;
-          levLabel.textContent = `Level:${levSlider.value}`;
+          timeLabel.textContent = `Time: ${timeSlider.value}`;
+          levLabel.textContent = Slider.value}`;
           img.src =
-            `/era5/plot?dataset=${datasetName}` +
-            `&t=${timeSlider.value}` +
-            `&lev=${levSlider.value}` +
-            `&var=${varSelect.value}`;
+            `/era5/plot?dataset=$Name}` +
+            `&t=${timeSlider.valu
+            `&lev=${levSlider.val
+            `&var=${varSelect.val
         }
     
         // Event listeners
-        dimSelect.addEventListener("change", () => {
+        dimSelect.addEventListenee", () => {
           populateVariables();
           updatePlot();
         });
-        varSelect.addEventListener("change", updatePlot);
-        timeSlider.addEventListener("input", updatePlot);
-        levSlider.addEventListener("input", updatePlot);
+        varSelect.addEventListenee", updatePlot);
+        timeSlider.addEventListent", updatePlot);
+        levSlider.addEventListene", updatePlot);
     
         populateVariables();
         updatePlot();
     
 
-        //controls.appendChild(document.createTextNode("Dimension:"));
-        //controls.appendChild(dimSelect);
-        //controls.appendChild(document.createTextNode("Variable:"));
-        //controls.appendChild(varSelect);
-        //controls.appendChild(document.createTextNode("Time:"));
-        //controls.appendChild(timeSlider);
-        //controls.appendChild(document.createTextNode("Level:"));
-        //controls.appendChild(levSlider);
+        //controls.appendChild(doreateTextNode("Dimension:"));
+        //controls.appendChild(di;
+        //controls.appendChild(doreateTextNode("Variable:"));
+        //controls.appendChild(va;
+        //controls.appendChild(doreateTextNode("Time:"));
+        //controls.appendChild(ti);
+        //controls.appendChild(doreateTextNode("Level:"));
+        //controls.appendChild(le;
     
         // Build panel
         panel.appendChild(title);
