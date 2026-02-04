@@ -85,7 +85,6 @@
 </div>
 
   <script>
-
     console.log("test console");
     document.addEventListener("DOMContentLoaded", () => {
       const vars2d = {{ vars_2d | tojson }};
@@ -172,6 +171,7 @@
             <div class="label">Forecasts:</div><div class="value">{{ ntime }}</div>
           </div>
         `;
+      }
 
       document.querySelectorAll(".dataset-row").forEach(row => {
         const checkbox = row.querySelector(".dataset-check");
@@ -223,7 +223,7 @@
       dimSelect.addEventListener("change", populateVariables);
 
       populateVariables();
-    //});
+    });
   </script>
 
 </body>
