@@ -95,7 +95,7 @@
       let paramsDataset = null;
       let plottedDatasets = new Set();
 
-      //const datasetHeader = document.getElementById("datasetHeader");      
+      const datasetHeader = document.getElementById("datasetHeader");      
       const timeSlider    = document.getElementById("timeSlider");
       const levSlider     = document.getElementById("levSlider");
       const plotImage     = document.getElementById("plotImage");
@@ -128,7 +128,7 @@
         // Force reload by adding timestamp to bypass browser caching
         //plotImage.src = `/era5/plot?` +
         //  `&dataset=${selectedDataset}` +
-        datasetHeader.textContext = `${header}`;
+        datasetHeader.textContent = header;
         plotImage.src = `/era5/plot?` +
           `&dataset=${header}` +
           `&t=${t}` +
