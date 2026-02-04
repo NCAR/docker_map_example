@@ -185,31 +185,6 @@
         levSlider.max = {{ nlev - 1 }};
         levSlider.value = 0;
     
-        // Plot image
-        const img = document.createElement("img");
-    
-        function updatePlot() {
-          timeLabel.textContent = `Time:${timeSlider.value}`;
-          levLabel.textContent = `Level:${levSlider.value}`;
-          img.src =
-            `/era5/plot?dataset=${datasetName}` +
-            `&t=${timeSlider.value}` +
-            `&lev=${levSlider.value}` +
-            `&var=${varSelect.value}`;
-        }
-    
-        // Event listeners
-        dimSelect.addEventListener("change", () => {
-          populateVariables();
-          updatePlot();
-        });
-        varSelect.addEventListener("change", updatePlot);
-        timeSlider.addEventListener("input", updatePlot);
-        levSlider.addEventListener("input", updatePlot);
-    
-        populateVariables();
-        updatePlot();
-    
         // Controls container
         const controls = document.createElement("div");
         controls.className = "plot-controls";
@@ -237,6 +212,31 @@
 
         controls.appendChild(row1);
         controls.appendChild(row2);
+        // Plot image
+        const img = document.createElement("img");
+    
+        function updatePlot() {
+          timeLabel.textContent = `Time:${timeSlider.value}`;
+          levLabel.textContent = `Level:${levSlider.value}`;
+          img.src =
+            `/era5/plot?dataset=${datasetName}` +
+            `&t=${timeSlider.value}` +
+            `&lev=${levSlider.value}` +
+            `&var=${varSelect.value}`;
+        }
+    
+        // Event listeners
+        dimSelect.addEventListener("change", () => {
+          populateVariables();
+          updatePlot();
+        });
+        varSelect.addEventListener("change", updatePlot);
+        timeSlider.addEventListener("input", updatePlot);
+        levSlider.addEventListener("input", updatePlot);
+    
+        populateVariables();
+        updatePlot();
+    
 
         //controls.appendChild(document.createTextNode("Dimension:"));
         //controls.appendChild(dimSelect);
