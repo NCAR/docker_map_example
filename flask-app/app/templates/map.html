@@ -106,6 +106,7 @@
         row.addEventListener("click", () => {
           document.querySelectorAll(".dataset-row").forEach(r => r.classList.remove("active"));
           row.classList.add("active");
+          updateParamsPanel(paramsDataset);
         });
     
         // Checkbox adds/removes panel
@@ -128,19 +129,27 @@
         });
       });
    
-      // Metadata display 
-      paramsDiv.innerHTML = `
-        <div class="param-grid">
-          <div class="label">Name:</div><div class="value">${datasetName}</div>
-          <div class="label">Ts Start:</div><div class="value">{{ stime }}</div>
-          <div class="label">Ts End:</div><div class="value">{{ etime }}</div>
-          <div class="label">Latitudes:</div><div class="value">{{ nlat }}</div>
-          <div class="label">Longitudes:</div><div class="value">{{ nlon }}</div>
-          <div class="label">Levels:</div><div class="value">{{ nlev }}</div>
-          <div class="label">P-Levels:</div><div class="value">{{ nplev }}</div>
-          <div class="label">Forecasts:</div><div class="value">{{ ntime }}</div>
-        </div>
-      `;
+      function updateParamsPanel(datasetName) {
+        const paramsDiv = document.getElementById("paramsContent");
+      
+        if (!datasetName) {
+          paramsDiv.innerHTML = "<p>No dataset selected.</p>";
+          return;
+        }
+        // Metadata display 
+        paramsDiv.innerHTML = `
+          <div class="param-grid">
+            <div class="label">Name:</div><div class="value">${datasetName}</div>
+            <div class="label">Ts Start:</div><div class="value">{{ stime }}</div>
+            <div class="label">Ts End:</div><div class="value">{{ etime }}</div>
+            <div class="label">Latitudes:</div><div class="value">{{ nlat }}</div>
+            <div class="label">Longitudes:</div><div class="value">{{ nlon }}</div>
+            <div class="label">Levels:</div><div class="value">{{ nlev }}</div>
+            <div class="label">P-Levels:</div><div class="value">{{ nplev }}</div>
+            <div class="label">Forecasts:</div><div class="value">{{ ntime }}</div>
+          </div>
+        `;
+      }
 
       // Compute grid columns
       function computeGridColumns(n) {
