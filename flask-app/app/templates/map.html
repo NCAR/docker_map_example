@@ -77,6 +77,9 @@
         step="1"
       />
     </div>
+    <h2 id="datasetHeader" class="dataset-header">
+      No dataset selected
+    </h2>
     <img id="plotImage" src="/era5/plot?t=0" />
   </div>
 </div>
@@ -90,12 +93,13 @@
 
       let paramsDataset = null;
       let plottedDatasets = new Set();
-      
-      const timeSlider = document.getElementById("timeSlider");
-      const levSlider  = document.getElementById("levSlider");
-      const plotImage  = document.getElementById("plotImage");
-      const timeValue  = document.getElementById("timeValue");
-      const levValue   = document.getElementById("levValue");
+
+      const datasetHeader = document.getElementById("datasetHeader");      
+      const timeSlider    = document.getElementById("timeSlider");
+      const levSlider     = document.getElementById("levSlider");
+      const plotImage     = document.getElementById("plotImage");
+      const timeValue     = document.getElementById("timeValue");
+      const levValue      = document.getElementById("levValue");
 
       const dimSelect = document.getElementById("dimSelect");
       const variableSelect = document.getElementById("variableSelect");
@@ -154,23 +158,13 @@
           paramsDiv.innerHTML = "<p>No dataset selected.</p>";
           return;
         }
-      
-        //paramsDiv.innerHTML = `
-        //  <p><b>Name:</b> ${datasetName}</p>
-        //  <p><b>Start Time:</b> {{ stime }}</p>
-        //  <p><b>End Time:</b> {{ etime }}</p>
-        //  <p><b>Latitudes:</b> {{ nlat }}</p>
-        //  <p><b>Longitudes:</b> {{ nlon }}</p>
-        //  <p><b>Levels:</b> {{ nlev }}</p>
-        //  <p><b>Pressure Levels:</b> {{ nplev }}</p>
-        //  <p><b>Forecasts:</b> {{ ntime }}</p>
-        //`;
-
+     
+        // Metadata display 
         paramsDiv.innerHTML = `
           <div class="param-grid">
             <div class="label">Name:</div><div class="value">${datasetName}</div>
-            <div class="label">Start Time:</div><div class="value">{{ stime }}</div>
-            <div class="label">End Time:</div><div class="value">{{ etime }}</div>
+            <div class="label">Ts Start:</div><div class="value">{{ stime }}</div>
+            <div class="label">Ts End:</div><div class="value">{{ etime }}</div>
             <div class="label">Latitudes:</div><div class="value">{{ nlat }}</div>
             <div class="label">Longitudes:</div><div class="value">{{ nlon }}</div>
             <div class="label">Levels:</div><div class="value">{{ nlev }}</div>
@@ -178,36 +172,6 @@
             <div class="label">Forecasts:</div><div class="value">{{ ntime }}</div>
           </div>
         `;
-
-        //const info = datasetInfo[datasetName];
-      
-        //paramsDiv.innerHTML = `
-        //  <p><b>Name:</b> ${datasetName}</p>
-        //  <p><b>Start Time:</b> ${info.stime}</p>
-        //  <p><b>End Time:</b> ${info.etime}</p>
-        //  <p><b>Latitudes:</b> ${info.nlat}</p>
-        //  <p><b>Longitudes:</b> ${info.nlon}</p>
-        //  <p><b>Levels:</b> ${info.nlev}</p>
-        //  <p><b>Pressure Levels:</b> ${info.nplev}</p>
-        //  <p><b>Forecasts:</b> ${info.ntime}</p>
-        //`;
-      }
-
-      // Example parameters (later you will load real ones from Flask)
-      const datasetInfo = {
-        {% for d in datasets %}
-        "{{ d }}": {
-          enabled: false,
-          stime: "{{ stime }}",
-          etime: "{{ etime }}",
-          nlat: "{{ nlat }}",
-          nlon: "{{ nlon }}",
-          nlev: "{{ nlev }}",
-          nplev: "{{ nplev }}",
-          ntime: "{{ ntime }}"
-        },
-        {% endfor %}
-      };
 
       document.querySelectorAll(".dataset-row").forEach(row => {
         const checkbox = row.querySelector(".dataset-check");

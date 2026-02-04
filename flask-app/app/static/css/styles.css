@@ -12,6 +12,13 @@
   overflow-y: auto;
 }
 
+.dataset-header {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
 .dataset-item {
   display: block;
   margin: 6px 0;
