@@ -42,44 +42,6 @@
 
   <div class="main-content">
     <div id="plotGrid" class="plot-grid"></div>
-      <!--<h2 id="datasetHeader" class="dataset-header">
-        No dataset selected
-      </h2>
-      <div class="widget-row">
-        <label for="dimSelect">Dimension:</label>
-        <select id="dimSelect">
-          <option value="2d">2D</option>
-          <option value="3d">3D</option>
-        </select>
-      
-        <label for="variableSelect">Variable:</label>
-        <select id="variableSelect"></select>
-      </div>
-      
-      <div class="widget-row">
-        <label for="timeSlider">Time:</label>
-        <span id="timeValue">0</span>
-        <input 
-          type="range"
-          id="timeSlider" 
-          min="0"
-          max="{{ ntime -1 }}"
-          value="0"
-          step="1"
-        />
-      
-        <label for="levSlider">Level:</label>
-        <span id="levValue">0</span>
-        <input 
-          type="range"
-          id="levSlider"
-          min="0"
-          max="{{ nlev -1 }}"
-          value="0"
-          step="1"
-        />
-      </div>
-      <img id="plotImage" src="/era5/plot?t=0" />-->
     </div>
   </div>
 </div>
@@ -242,7 +204,7 @@
           timeLabel.textContent = `Time: ${timeSlider.value}`;
           levLabel.textContent = `Level: ${levSlider.value}`;
           img.src =
-            `/era5/plot?dataset=$Name}` +
+            `/era5/plot?dataset={$datasetName}` +
             `&t=${timeSlider.value}` +
             `&lev=${levSlider.value}` +
             `&var=${varSelect.value}`;
@@ -259,16 +221,6 @@
     
         populateVariables();
         updatePlot();
-    
-
-        //controls.appendChild(doreateTextNode("Dimension:"));
-        //controls.appendChild(di;
-        //controls.appendChild(doreateTextNode("Variable:"));
-        //controls.appendChild(va;
-        //controls.appendChild(doreateTextNode("Time:"));
-        //controls.appendChild(ti);
-        //controls.appendChild(doreateTextNode("Level:"));
-        //controls.appendChild(le;
     
         // Build panel
         panel.appendChild(title);
