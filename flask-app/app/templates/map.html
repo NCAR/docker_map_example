@@ -41,46 +41,46 @@
   </div>
 
   <div class="main-content">
-    <!-- Row 1: Dropdowns -->
-    <div class="widget-row">
-      <label for="dimSelect">Dimension:</label>
-      <select id="dimSelect">
-        <option value="2d">2D</option>
-        <option value="3d">3D</option>
-      </select>
-    
-      <label for="variableSelect">Variable:</label>
-      <select id="variableSelect"></select>
+    <div id="plotGrid" class="plot-grid"></div>
+      <!--<h2 id="datasetHeader" class="dataset-header">
+        No dataset selected
+      </h2>
+      <div class="widget-row">
+        <label for="dimSelect">Dimension:</label>
+        <select id="dimSelect">
+          <option value="2d">2D</option>
+          <option value="3d">3D</option>
+        </select>
+      
+        <label for="variableSelect">Variable:</label>
+        <select id="variableSelect"></select>
+      </div>
+      
+      <div class="widget-row">
+        <label for="timeSlider">Time:</label>
+        <span id="timeValue">0</span>
+        <input 
+          type="range"
+          id="timeSlider" 
+          min="0"
+          max="{{ ntime -1 }}"
+          value="0"
+          step="1"
+        />
+      
+        <label for="levSlider">Level:</label>
+        <span id="levValue">0</span>
+        <input 
+          type="range"
+          id="levSlider"
+          min="0"
+          max="{{ nlev -1 }}"
+          value="0"
+          step="1"
+        />
+      </div>
+      <img id="plotImage" src="/era5/plot?t=0" />-->
     </div>
-    
-    <!-- Row 2: Sliders -->
-    <div class="widget-row">
-      <label for="timeSlider">Time:</label>
-      <span id="timeValue">0</span>
-      <input 
-        type="range"
-        id="timeSlider" 
-        min="0"
-        max="{{ ntime -1 }}"
-        value="0"
-        step="1"
-      />
-    
-      <label for="levSlider">Level:</label>
-      <span id="levValue">0</span>
-      <input 
-        type="range"
-        id="levSlider"
-        min="0"
-        max="{{ nlev -1 }}"
-        value="0"
-        step="1"
-      />
-    </div>
-    <h2 id="datasetHeader" class="dataset-header">
-      No dataset selected
-    </h2>
-    <img id="plotImage" src="/era5/plot?t=0" />
   </div>
 </div>
 
@@ -116,6 +116,106 @@
           variableSelect.appendChild(opt);
         });
         updatePlot();
+      }
+
+      function computeGridColumns(n) {
+        if (n <= 1) return 1;
+        if (n <= 2) return 2;
+        if (n <= 4) return 2;   // quadrants
+        if (n <= 9) return 3;   // 3×3
+        return 4;               // fallback
+      }
+
+      function createPlotPanel(datasetName) {
+      
+        const panel = document.createElement("div");
+        panel.className = "plot-panel";
+      
+        // ---- Title ----
+        const title = document.createElement("h3");
+        title.textContent = datasetName;
+      
+        // ---- Variable Selector ----
+        const varSelect = document.createElement("select");
+      
+        vars2d.forEach(v => {
+          const opt = document.createElement("option");
+          opt.value = v;
+          opt.textContent = v;
+          varSelect.appendChild(opt);
+        });
+      
+        // ---- Time Slider ----
+        const timeSlider = document.createElement("input");
+        timeSlider.type = "range";
+        timeSlider.min = 0;
+        timeSlider.max = window.MAP_CONFIG.ntime - 1;
+        timeSlider.value = 0;
+      
+        // ---- Level Slider ----
+        const levSlider = document.createElement("input");
+        levSlider.type = "range";
+        levSlider.min = 0;
+        levSlider.max = window.MAP_CONFIG.nlev - 1;
+        levSlider.value = 0;
+      
+        // ---- Plot Image ----
+        const img = document.createElement("img");
+      
+        // ---- Update Function (LOCAL to panel) ----
+        function updatePanelPlot() {
+          img.src =
+            `/era5/plot?dataset=${datasetName}` +
+            `&t=${timeSlider.value}` +
+            `&lev=${levSlider.value}` +
+            `&var=${varSelect.value}`;
+        }
+      
+        // Attach events (panel-local!)
+        varSelect.addEventListener("change", updatePanelPlot);
+        timeSlider.addEventListener("input", updatePanelPlot);
+        levSlider.addEventListener("input", updatePanelPlot);
+      
+        // Initial plot render
+        updatePanelPlot();
+      
+        // ---- Controls Container ----
+        const controls = document.createElement("div");
+        controls.className = "plot-controls";
+      
+        controls.appendChild(document.createTextNode("Variable:"));
+        controls.appendChild(varSelect);
+      
+        controls.appendChild(document.createTextNode("Time:"));
+        controls.appendChild(timeSlider);
+      
+        controls.appendChild(document.createTextNode("Level:"));
+        controls.appendChild(levSlider);
+      
+        // Build panel
+        panel.appendChild(title);
+        panel.appendChild(controls);
+        panel.appendChild(img);
+      
+        return panel;
+      }
+
+
+      function updatePlotGrid() {
+        const selected = Array.from(plottedDatasets);
+        const grid = document.getElementById("plotGrid");
+      
+        grid.innerHTML = "";
+      
+        if (selected.length === 0) return;
+      
+        const cols = computeGridColumns(selected.length);
+        grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+      
+        selected.forEach(datasetName => {
+          const panel = createPlotPanel(datasetName);
+          grid.appendChild(panel);
+        });
       }
 
       function updatePlot() {
@@ -197,15 +297,21 @@
         checkbox.addEventListener("change", () => {
           console.log("checkbox clicked:", checkbox);
           if (checkbox.checked) {
-            document.querySelectorAll(".dataset-check").forEach(cb => {
-              if (cb !== checkbox) cb.checked = false;
-            });
-            plottedDatasets.clear();
             plottedDatasets.add(datasetName);
           } else {
             plottedDatasets.delete(datasetName);
           }
-          updatePlot();
+          updatePlotGrid();
+          //if (checkbox.checked) {
+          //  document.querySelectorAll(".dataset-check").forEach(cb => {
+          //    if (cb !== checkbox) cb.checked = false;
+          //  });
+          //  plottedDatasets.clear();
+          //  plottedDatasets.add(datasetName);
+          //} else {
+          //  plottedDatasets.delete(datasetName);
+          //}
+          //updatePlot();
         });
       });
 
