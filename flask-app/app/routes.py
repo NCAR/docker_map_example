@@ -54,7 +54,11 @@ map_blueprint = Blueprint(
 @map_blueprint.route("/")
 def index():
     data_dir = Path(os.environ.get("MAP_DATA_DIR", "/output/model_predict"))
-    datasets = [d.name for d in data_dir.iterdir() if d.is_dir()]
+    dirs_with_mtime = [(d, d.stat().st_mtime) for d in data_dir.iterdir() if d.is_dir()]
+    dirs_with_mtime.sort(key=lambda x: x[1], reverse=True)
+    datasets = [d.name for d, _ in dirs_with_mtime]
+
+    #datasets = [d.name for d in data_dir.iterdir() if d.is_dir()]
 
     return render_template(
         "map.html",
