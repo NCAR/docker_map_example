@@ -23,6 +23,7 @@
   padding: 12px;
   border-radius: 10px;
   background: white;
+  text-align: center;
 }
 
 .plot-panel img {
@@ -35,6 +36,10 @@
   flex-direction: column;
   gap: 6px;
   margin-top: 8px;
+}
+
+.plot-controls label {
+  font-weight: bold;
 }
 
 .dataset-header {
