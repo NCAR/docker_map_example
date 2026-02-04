@@ -95,15 +95,15 @@
       let paramsDataset = null;
       let plottedDatasets = new Set();
 
-      const datasetHeader = document.getElementById("datasetHeader");      
-      const timeSlider    = document.getElementById("timeSlider");
-      const levSlider     = document.getElementById("levSlider");
-      const plotImage     = document.getElementById("plotImage");
-      const timeValue     = document.getElementById("timeValue");
-      const levValue      = document.getElementById("levValue");
+      //const datasetHeader = document.getElementById("datasetHeader");      
+      //const timeSlider    = document.getElementById("timeSlider");
+      //const levSlider     = document.getElementById("levSlider");
+      //const plotImage     = document.getElementById("plotImage");
+      //const timeValue     = document.getElementById("timeValue");
+      //const levValue      = document.getElementById("levValue");
 
-      const dimSelect = document.getElementById("dimSelect");
-      const variableSelect = document.getElementById("variableSelect");
+      //const dimSelect = document.getElementById("dimSelect");
+      //const variableSelect = document.getElementById("variableSelect");
   
       function populateVariables() {
         const dim = dimSelect.value;
@@ -316,21 +316,21 @@
       });
 
       // Auto select first dataset
-      const first = document.querySelector("input[name='dataset']");
-      if (first) {
-        first.checked = true;
-        //selectedDataset = first.value;
-        plottedDatasets.add(first.value);
-        updatePlot();
-      }
+      //const first = document.querySelector("input[name='dataset']");
+      //if (first) {
+      //  first.checked = true;
+      //  //selectedDataset = first.value;
+      //  plottedDatasets.add(first.value);
+      //  updatePlot();
+      //}
 
-      timeSlider.addEventListener("change", updatePlot);
-      timeSlider.addEventListener("input", () => {timeValue.textContent = timeSlider.value;});
-      levSlider.addEventListener("change", updatePlot);
-      levSlider.addEventListener("input", () => {levValue.textContent = levSlider.value;});
+      //timeSlider.addEventListener("change", updatePlot);
+      //timeSlider.addEventListener("input", () => {timeValue.textContent = timeSlider.value;});
+      //levSlider.addEventListener("change", updatePlot);
+      //levSlider.addEventListener("input", () => {levValue.textContent = levSlider.value;});
 
-      variableSelect.addEventListener("change", updatePlot);
-      dimSelect.addEventListener("change", populateVariables);
+      //variableSelect.addEventListener("change", updatePlot);
+      //dimSelect.addEventListener("change", populateVariables);
 
       populateVariables();
     });
