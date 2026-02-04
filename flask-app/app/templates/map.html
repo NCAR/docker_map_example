@@ -249,13 +249,13 @@
         }
     
         // Event listeners
-        dimSelect.addEventListenee", () => {
+        dimSelect.addEventListener("change", () => {
           populateVariables();
           updatePlot();
         });
-        varSelect.addEventListenee", updatePlot);
-        timeSlider.addEventListent", updatePlot);
-        levSlider.addEventListene", updatePlot);
+        varSelect.addEventListener("change", updatePlot);
+        timeSlider.addEventListener("change", updatePlot);
+        levSlider.addEventListener("change", updatePlot);
     
         populateVariables();
         updatePlot();
