@@ -84,6 +84,8 @@
   </div>
 </div>
 
+  <!--<script src="{{ url_for('static', filename='js/map/main.js') }}"></script>-->
+
   <script>
     console.log("test console");
     document.addEventListener("DOMContentLoaded", () => {
@@ -93,7 +95,7 @@
       let paramsDataset = null;
       let plottedDatasets = new Set();
 
-      const datasetHeader = document.getElementById("datasetHeader");      
+      //const datasetHeader = document.getElementById("datasetHeader");      
       const timeSlider    = document.getElementById("timeSlider");
       const levSlider     = document.getElementById("levSlider");
       const plotImage     = document.getElementById("plotImage");
@@ -117,6 +119,7 @@
       }
 
       function updatePlot() {
+        const header = ${plottedDatasets.values().next().value}
         const t = parseInt(timeSlider.value);
         const lev = parseInt(levSlider.value);
         const varName = variableSelect.value;
@@ -125,8 +128,9 @@
         // Force reload by adding timestamp to bypass browser caching
         //plotImage.src = `/era5/plot?` +
         //  `&dataset=${selectedDataset}` +
+        datasetHeader.textContext = header;
         plotImage.src = `/era5/plot?` +
-          `&dataset=${plottedDatasets.values().next().value}` +
+          `&dataset=${header}` +
           `&t=${t}` +
           `&lev=${lev}` +
           `&var=${varName}`;
