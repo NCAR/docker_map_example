@@ -17,6 +17,32 @@ ETIME = ""
 VARS_2D = []
 VARS_3D = []
 
+
+# Store metadata for each dataset
+DATASET_METADATA = {}
+
+def scan_datasets():
+    data_dir = Path(os.environ.get("MAP_DATA_DIR", "/output/model_predict"))
+    for d in data_dir.iterdir():
+        if d.is_dir():
+            nc_file = d / "*.nc" # Assuming standard naming
+            if nc_file.exists():
+                with xr.open_dataset(nc_file) as ds:
+                    DATASET_METADATA[d.name] = {
+                        "ntime": len(ds.time),
+                        "nlev": len(ds.get(LEV_NAME, [])),
+                        "nplev" = int(ds.sizes[PRES_NAME])
+                        "lats" = int(ds.sizes[LAT_NAME])
+                        "lons" = int(ds.sizes[LON_NAME])
+                        "stime" = str(ds.time.values[0].astype("datetime64[s]"))
+                        "etime" = str(ds.time.values[-1].astype("datetime64[s]"))
+                        "vars_2d": [v for v in ds.data_vars if len(ds[v].dims) <= 3],
+                        "vars_3d": [v for v in ds.data_vars if len(ds[v].dims) > 3]
+                    }
+
+scan_datasets()
+print(DATASET_METADATA)
+
 def openDataset():
     global NTIME, NLEV, NPLEV, LATS, LONS, STIME, ETIME, VARS_2D, VARS_3D
     with xr.open_mfdataset(NETCDF_FILE, engine="netcdf4", autoclose=True) as ds:
@@ -202,14 +228,3 @@ def era5_plot():
     print("PLOT REQUEST DATASET =", dataset)
     buf = plot_png(dataset, t, lev, var_name)
     return send_file(buf, mimetype="image/png")
-
-#@map_blueprint.route("/credit-map")
-#def map_view():
-#    return render_template(
-#        "map.html", 
-#        ntime=int(NTIME),
-#        nlev=int(NLEV),
-#        vars_2d=VARS_2D,
-#        vars_3d=VARS_3D,
-#        default_var="t2m"
-#    )
