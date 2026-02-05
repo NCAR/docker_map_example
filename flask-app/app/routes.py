@@ -27,7 +27,8 @@ def scan_datasets():
     for d in data_dir.iterdir():
         print(d)
         if d.is_dir():
-            nc_file = d / "*.nc" # Assuming standard naming
+            #nc_file = d / "*.nc" # Assuming standard naming
+            nc_file = f"{d}/*.nc"
             #if nc_file.exists():
             with xr.open_dataset(nc_file) as ds:
                 DATASET_METADATA[d.name] = {
