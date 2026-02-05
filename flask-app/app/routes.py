@@ -25,7 +25,7 @@ def scan_datasets():
     data_dir = Path(os.environ.get("MAP_DATA_DIR", "/output/model_predict"))
     print("data dir" + data_dir)
     for d in data_dir.iterdir():
-        print("     dir:" + str(d))
+        print(d)
         if d.is_dir():
             nc_file = d / "*.nc" # Assuming standard naming
             if nc_file.exists():
