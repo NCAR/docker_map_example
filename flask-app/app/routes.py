@@ -23,7 +23,7 @@ DATASET_METADATA = {}
 
 def scan_datasets():
     data_dir = Path(os.environ.get("MAP_DATA_DIR", "/output/model_predict"))
-    print("data dir" + data_dir)
+    print(data_dir)
     for d in data_dir.iterdir():
         print(d)
         if d.is_dir():
