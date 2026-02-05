@@ -28,19 +28,19 @@ def scan_datasets():
         print(d)
         if d.is_dir():
             nc_file = d / "*.nc" # Assuming standard naming
-            if nc_file.exists():
-                with xr.open_dataset(nc_file) as ds:
-                    DATASET_METADATA[d.name] = {
-                        "ntime": len(ds.time),
-                        "nlev": len(ds.get(LEV_NAME, [])),
-                        "nplev": int(ds.sizes[PRES_NAME]),
-                        "lats": int(ds.sizes[LAT_NAME]),
-                        "lons": int(ds.sizes[LON_NAME]),
-                        "stime": str(ds.time.values[0].astype("datetime64[s]")),
-                        "etime": str(ds.time.values[-1].astype("datetime64[s]")),
-                        "vars_2d": [v for v in ds.data_vars if len(ds[v].dims) <= 3],
-                        "vars_3d": [v for v in ds.data_vars if len(ds[v].dims) > 3]
-                    }
+            #if nc_file.exists():
+            with xr.open_dataset(nc_file) as ds:
+                DATASET_METADATA[d.name] = {
+                    "ntime": len(ds.time),
+                    "nlev": len(ds.get(LEV_NAME, [])),
+                    "nplev": int(ds.sizes[PRES_NAME]),
+                    "lats": int(ds.sizes[LAT_NAME]),
+                    "lons": int(ds.sizes[LON_NAME]),
+                    "stime": str(ds.time.values[0].astype("datetime64[s]")),
+                    "etime": str(ds.time.values[-1].astype("datetime64[s]")),
+                    "vars_2d": [v for v in ds.data_vars if len(ds[v].dims) <= 3],
+                    "vars_3d": [v for v in ds.data_vars if len(ds[v].dims) > 3]
+                }
 
 scan_datasets()
 print(DATASET_METADATA)
