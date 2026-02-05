@@ -30,7 +30,7 @@ def scan_datasets():
             #nc_file = d / "*.nc" # Assuming standard naming
             nc_file = f"{d}/*.nc"
             #if nc_file.exists():
-            with xr.open_dataset(nc_file) as ds:
+            with xr.open_mfdataset(nc_file, engine="netcdf4", autoclose=True) as ds:
                 DATASET_METADATA[d.name] = {
                     "ntime": len(ds.time),
                     "nlev": len(ds.get(LEV_NAME, [])),
