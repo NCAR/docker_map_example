@@ -171,38 +171,42 @@
         levSlider.max = {{ nlev - 1 }};
         levSlider.value = 0;
     
-        <script src="{{ url_for('static', filename='js/controlsContainer.js') }}"></script>
         // Controls container
-        //const controls = document.createElement("div");
-        //controls.className = "plot-controls";
-        //const row1 = document.createElement("div");
-        //row1.className = "widget-row";
-        //const dimLabel = document.createElement("label");
-        //dimLabel.textContent = "Dimension:";
-        //const varLabel = document.createElement("label");
-        //varLabel.textContent = "Variable:";
-        //row1.appendChild(dimLabel);
-        //row1.appendChild(dimSelect);
-        //row1.appendChild(varLabel);
-        //row1.appendChild(varSelect);
+        const controls = document.createElement("div");
+        controls.className = "plot-controls";
+        const row1 = document.createElement("div");
+        row1.className = "widget-row";
+        const dimLabel = document.createElement("label");
+        dimLabel.textContent = "Dimension:";
+        const varLabel = document.createElement("label");
+        varLabel.textContent = "Variable:";
+        row1.appendChild(dimLabel);
+        row1.appendChild(dimSelect);
+        row1.appendChild(varLabel);
+        row1.appendChild(varSelect);
 
-        //const row2 = document.createElement("div");
-        //row2.className = "widget-row";
-        //const timeLabel = document.createElement("label");
-        //const levLabel = document.createElement("label");
-        //row2.appendChild(timeLabel);
-        //row2.appendChild(timeSlider);
-        //row2.appendChild(levLabel);
-        //row2.appendChild(levSlider);
+        const row2 = document.createElement("div");
+        row2.className = "widget-row";
+        const timeLabel = document.createElement("label");
+        const levLabel = document.createElement("label");
+        row2.appendChild(timeLabel);
+        row2.appendChild(timeSlider);
+        row2.appendChild(levLabel);
+        row2.appendChild(levSlider);
 
-        //controls.appendChild(row1);
-        //controls.appendChild(row2);
+        controls.appendChild(row1);
+        controls.appendChild(row2);
         // Plot image
         const img = document.createElement("img");
     
         function updatePlot() {
+          const is3D = dimSelect.value == "3d";
+          levSlider.classList.toggle("hidden", !is3D);
+          levLabel.classList.toggle("hidden", !is3D);
+          if(is3D) levLabel.textContent = `Level: ${levSlider.value}`;
+
           timeLabel.textContent = `Time: ${timeSlider.value}`;
-          levLabel.textContent = `Level: ${levSlider.value}`;
+
           img.src =
             `/era5/plot?dataset=${datasetName}` +
             `&t=${timeSlider.value}` +
@@ -216,8 +220,8 @@
           updatePlot();
         });
         varSelect.addEventListener("change", updatePlot);
-        timeSlider.addEventListener("change", updatePlot);
-        levSlider.addEventListener("change", updatePlot);
+        timeSlider.addEventListener("input", updatePlot);
+        levSlider.addEventListener("input", updatePlot);
     
         populateVariables();
         updatePlot();
