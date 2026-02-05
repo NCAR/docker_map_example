@@ -92,6 +92,7 @@ def index():
     return render_template(
         "map.html",
         datasets=datasets,
+        metadata=DATASET_METADATA,
         vars_2d=VARS_2D,
         vars_3d=VARS_3D,
         ntime=NTIME,

@@ -51,6 +51,7 @@
   <script>
     console.log("test console");
     document.addEventListener("DOMContentLoaded", () => {
+      const metadata = {{ dataset_meta | tojson | safe }};
       const vars2d = {{ vars_2d | tojson }};
       const vars3d = {{ vars_3d | tojson }};
       const plottedDatasets = new Set();
@@ -100,18 +101,31 @@
           return;
         }
         // Metadata display 
+        const data = metadata[datasetName]
         paramsDiv.innerHTML = `
           <div class="param-grid">
             <div class="label">Name:</div><div class="value">${datasetName}</div>
-            <div class="label">Ts Start:</div><div class="value">{{ stime }}</div>
-            <div class="label">Ts End:</div><div class="value">{{ etime }}</div>
-            <div class="label">Latitudes:</div><div class="value">{{ nlat }}</div>
-            <div class="label">Longitudes:</div><div class="value">{{ nlon }}</div>
-            <div class="label">Levels:</div><div class="value">{{ nlev }}</div>
-            <div class="label">P-Levels:</div><div class="value">{{ nplev }}</div>
-            <div class="label">Forecasts:</div><div class="value">{{ ntime }}</div>
+            <div class="label">Ts Start:</div><div class="value">${data.stime}</div>
+            <div class="label">Ts End:</div><div class="value">${data.etime}}</div>
+            <div class="label">Latitudes:</div><div class="value">${data.nlat}}</div>
+            <div class="label">Longitudes:</div><div class="value">${data.nlon}}</div>
+            <div class="label">Levels:</div><div class="value">${data.nlev}</div>
+            <div class="label">P-Levels:</div><div class="value">${data.nplev}</div>
+            <div class="label">Forecasts:</div><div class="value">${data.ntime}</div>
           </div>
         `;
+        //paramsDiv.innerHTML = `
+        //  <div class="param-grid">
+        //    <div class="label">Name:</div><div class="value">${datasetName}</div>
+        //    <div class="label">Ts Start:</div><div class="value">{{ stime }}</div>
+        //    <div class="label">Ts End:</div><div class="value">{{ etime }}</div>
+        //    <div class="label">Latitudes:</div><div class="value">{{ nlat }}</div>
+        //    <div class="label">Longitudes:</div><div class="value">{{ nlon }}</div>
+        //    <div class="label">Levels:</div><div class="value">{{ nlev }}</div>
+        //    <div class="label">P-Levels:</div><div class="value">{{ nplev }}</div>
+        //    <div class="label">Forecasts:</div><div class="value">{{ ntime }}</div>
+        //  </div>
+        //`;
       }
 
       // Compute grid columns
