@@ -39,8 +39,8 @@ def scan_datasets():
                     "nlon": int(ds.sizes[LON_NAME]),
                     "stime": str(ds.time.values[0].astype("datetime64[s]")),
                     "etime": str(ds.time.values[-1].astype("datetime64[s]")),
-                    "vars_2d": [v for v in ds.data_vars if len(ds[v].dims) <= 3],
-                    "vars_3d": [v for v in ds.data_vars if len(ds[v].dims) > 3]
+                    "vars2d": [v for v in ds.data_vars if len(ds[v].dims) <= 3],
+                    "vars3d": [v for v in ds.data_vars if len(ds[v].dims) > 3]
                 }
 
 scan_datasets()
