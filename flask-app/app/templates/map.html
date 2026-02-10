@@ -52,8 +52,6 @@
     console.log("test console");
     document.addEventListener("DOMContentLoaded", () => {
       const metadata = {{ dataset_meta | tojson | safe }};
-      //const vars2d = {{ vars_2d | tojson }};
-      //const vars3d = {{ vars_3d | tojson }};
       const plottedDatasets = new Set();
       const panels = {}; // store panel DOM for each dataset
     
