@@ -216,13 +216,13 @@
         const timeSlider = document.createElement("input");
         timeSlider.type = "range";
         timeSlider.min = 0;
-        timeSlider.max = {{ data.ntime - 1 }};
+        timeSlider.max = data.ntime - 1;
         timeSlider.value = 0;
     
         const levSlider = document.createElement("input");
         levSlider.type = "range";
         levSlider.min = 0;
-        levSlider.max = {{ data.nlev - 1 }};
+        levSlider.max = data.nlev - 1;
         levSlider.value = 0;
  
         // Controls container
