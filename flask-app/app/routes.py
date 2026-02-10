@@ -35,8 +35,8 @@ def scan_datasets():
                     "ntime": len(ds.time),
                     "nlev": len(ds.get(LEV_NAME, [])),
                     "nplev": int(ds.sizes[PRES_NAME]),
-                    "lats": int(ds.sizes[LAT_NAME]),
-                    "lons": int(ds.sizes[LON_NAME]),
+                    "nlat": int(ds.sizes[LAT_NAME]),
+                    "nlon": int(ds.sizes[LON_NAME]),
                     "stime": str(ds.time.values[0].astype("datetime64[s]")),
                     "etime": str(ds.time.values[-1].astype("datetime64[s]")),
                     "vars_2d": [v for v in ds.data_vars if len(ds[v].dims) <= 3],
@@ -92,16 +92,16 @@ def index():
     return render_template(
         "map.html",
         datasets=datasets,
-        dataset_meta=DATASET_METADATA,
-        vars_2d=VARS_2D,
-        vars_3d=VARS_3D,
-        ntime=NTIME,
-        nlev=NLEV,
-        nplev=NPLEV,
-        nlat=LATS,
-        nlon=LONS,
-        stime=STIME,
-        etime=ETIME
+        dataset_meta=DATASET_METADATA
+        #vars_2d=VARS_2D,
+        #vars_3d=VARS_3D,
+        #ntime=NTIME,
+        #nlev=NLEV,
+        #nplev=NPLEV,
+        #nlat=LATS,
+        #nlon=LONS,
+        #stime=STIME,
+        #etime=ETIME
     )
 
 @map_blueprint.route("/files")

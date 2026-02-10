@@ -59,25 +59,31 @@
     
       // Grid container
       const grid = document.getElementById("plotGrid");
-    
-      // Checkbox setup
+   
       document.querySelectorAll(".dataset-row").forEach(row => {
         const checkbox = row.querySelector(".dataset-check");
         const datasetName = row.dataset.dataset;
-    
-        // Row highlight
+      
+        // Row click = selection + metadata
         row.addEventListener("click", () => {
-          document.querySelectorAll(".dataset-row").forEach(r => r.classList.remove("active"));
+          document
+            .querySelectorAll(".dataset-row")
+            .forEach(r => r.classList.remove("active"));
+      
           row.classList.add("active");
-          //updateParamsPanel(paramsDataset);
           updateParamsPanel(datasetName);
         });
-    
-        // Checkbox adds/removes panel
+      
+        // Prevent checkbox click from triggering row click
+        checkbox.addEventListener("click", e => {
+          e.stopPropagation();
+        });
+      
+        // Checkbox = plot panel visibility only
         checkbox.addEventListener("change", () => {
           if (checkbox.checked) {
             plottedDatasets.add(datasetName);
-            // create panel if doesn't exist
+      
             if (!panels[datasetName]) {
               panels[datasetName] = createPlotPanel(datasetName);
               grid.appendChild(panels[datasetName]);
@@ -86,12 +92,48 @@
             }
           } else {
             plottedDatasets.delete(datasetName);
-            if (panels[datasetName]) panels[datasetName].style.display = "none";
+            if (panels[datasetName]) {
+              panels[datasetName].style.display = "none";
+            }
           }
-    
+      
           updateGridLayout();
         });
       });
+
+ 
+      // Checkbox setup
+      //document.querySelectorAll(".dataset-row").forEach(row => {
+      //  const checkbox = row.querySelector(".dataset-check");
+      //  const datasetName = row.dataset.dataset;
+    
+      //  // Row highlight
+      //  row.addEventListener("click", () => {
+      //    document.querySelectorAll(".dataset-row").forEach(r => r.classList.remove("active"));
+      //    row.classList.add("active");
+      //    //updateParamsPanel(paramsDataset);
+      //    updateParamsPanel(datasetName);
+      //  });
+    
+      //  // Checkbox adds/removes panel
+      //  checkbox.addEventListener("change", () => {
+      //    if (checkbox.checked) {
+      //      plottedDatasets.add(datasetName);
+      //      // create panel if doesn't exist
+      //      if (!panels[datasetName]) {
+      //        panels[datasetName] = createPlotPanel(datasetName);
+      //        grid.appendChild(panels[datasetName]);
+      //      } else {
+      //        panels[datasetName].style.display = "block";
+      //      }
+      //    } else {
+      //      plottedDatasets.delete(datasetName);
+      //      if (panels[datasetName]) panels[datasetName].style.display = "none";
+      //    }
+    
+      //    updateGridLayout();
+      //  });
+      //});
    
       function updateParamsPanel(datasetName) {
         const paramsDiv = document.getElementById("paramsContent");
