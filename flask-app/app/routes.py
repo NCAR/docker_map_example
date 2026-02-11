@@ -30,18 +30,21 @@ def scan_datasets():
             #nc_file = d / "*.nc" # Assuming standard naming
             nc_file = f"{d}/*.nc"
             #if nc_file.exists():
-            with xr.open_mfdataset(nc_file, engine="netcdf4", autoclose=True) as ds:
-                DATASET_METADATA[d.name] = {
-                    "ntime": len(ds.time),
-                    "nlev": len(ds.get(LEV_NAME, [])),
-                    "nplev": int(ds.sizes[PRES_NAME]),
-                    "nlat": int(ds.sizes[LAT_NAME]),
-                    "nlon": int(ds.sizes[LON_NAME]),
-                    "stime": str(ds.time.values[0].astype("datetime64[s]")),
-                    "etime": str(ds.time.values[-1].astype("datetime64[s]")),
-                    "vars2d": [v for v in ds.data_vars if len(ds[v].dims) <= 3],
-                    "vars3d": [v for v in ds.data_vars if len(ds[v].dims) > 3]
-                }
+            try:
+                with xr.open_mfdataset(nc_file, engine="netcdf4", autoclose=True) as ds:
+                    DATASET_METADATA[d.name] = {
+                        "ntime": len(ds.time),
+                        "nlev": len(ds.get(LEV_NAME, [])),
+                        "nplev": int(ds.sizes[PRES_NAME]),
+                        "nlat": int(ds.sizes[LAT_NAME]),
+                        "nlon": int(ds.sizes[LON_NAME]),
+                        "stime": str(ds.time.values[0].astype("datetime64[s]")),
+                        "etime": str(ds.time.values[-1].astype("datetime64[s]")),
+                        "vars2d": [v for v in ds.data_vars if len(ds[v].dims) <= 3],
+                        "vars3d": [v for v in ds.data_vars if len(ds[v].dims) > 3]
+                    }
+            except:
+                print("Unable to open file " + nc_file)
 
 scan_datasets()
 print(DATASET_METADATA)
